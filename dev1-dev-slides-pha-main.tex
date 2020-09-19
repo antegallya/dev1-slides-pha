@@ -1,0 +1,1251 @@
+\uselanguage{French}
+\languagepath{French}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath,amsthm}
+\usepackage{textcomp}
+\usepackage{graphics}
+\usepackage[absolute,overlay]{textpos}
+\usepackage{fancyvrb}
+\usepackage{tikz}
+\usepackage{colortbl}
+\usepackage{array}
+\usepackage{xspace}
+\usepackage{bclogo}
+\usepackage{makecell}
+
+% cf. Syllabus MAT1.
+\newcommand{\xor}{ \raisebox{-0.05cm}{ %ole %do not use index or in tikzpicture
+\begin{tikzpicture}[scale=0.175]
+\draw (120:1) -- (0,0) -- (60:1);
+\draw (-0.6,-0.35) -- (0.6,-0.35);
+\end{tikzpicture}
+} }
+
+\usepackage{dev1/cours-developpement/syllabus/styles/esi-flowchart}
+\usepackage{dev1/cours-developpement/syllabus/styles/flow}
+\usepackage{dev1/cours-developpement/syllabus/styles/java}
+\usepackage{dev1/cours-developpement/syllabus/styles/langagenaturel}
+\usepackage{dev1/cours-developpement/syllabus/styles/pseudocode}
+
+\hypersetup{draft}
+
+\newenvironment<>{varblock}[2][\textwidth]{%
+   \setlength{\textwidth}{#1}
+   \begin{actionenv}#3%
+     \def\insertblocktitle{#2}%
+     \par%
+     \usebeamertemplate{block begin}}
+   {\par%
+     \usebeamertemplate{block end}%
+   \end{actionenv}}
+
+\renewcommand{\pc}{\texttt}
+
+\newcommand{\developmentsteps}{
+  {\sffamily
+  \begin{tikzpicture}
+          \matrix [row sep = 2em] {
+           \node[draw, rounded corners, thick] (P1) {Analyse}; \\
+           \node[draw, rounded corners, thick] (P2) {Algorithmes}; \\
+           \node[draw, rounded corners, thick] (P3) {Programmation}; \\
+           \node[draw, rounded corners, thick] (P4) {Tests}; \\
+           \node[draw, rounded corners, thick] (P5) {Livraison}; \\
+          };
+          \draw[->, thick] (P1) to (P2);
+          \draw[->, thick] (P2) to (P3);
+          \draw[->, thick] (P3) to (P4);
+          \draw[->, thick] (P4) to (P5);
+  \end{tikzpicture}
+}}
+
+% Customize the section page a bit.
+\setbeamertemplate{section page}{
+  \medskip
+  \colbox[dark,fuzzy]{\Huge\insertsectionnumber}~
+  \colbox[dark,fuzzy]{
+    \begin{minipage}[t]{0.5\textwidth}
+      \Large\insertsection
+    \end{minipage}
+  }
+  \hfill \raisebox{-4cm}{\developmentsteps}
+}
+
+% Document title
+\title{DEV1 - Développement I}
+\author[P. Hauweele (PHA)]{Pierre \textsc{Hauweele}}
+\date{2020-2021}
+
+\begin{document}
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+\part{Introduction}
+\frame{\partpage}
+\section{Résoudre des problèmes}
+\frame{\sectionpage}
+\section{Les algorithmes et les programmes}
+\frame{\sectionpage}
+\begin{frame}
+  \begin{definition}[Algorithme]
+    Procédure de résolution d’un problème 
+    contenant des opérations bien définies 
+    portant sur des informations, 
+    s’exprimant dans une séquence définie sans ambigüité, 
+    destinée à être traduite dans un langage de programmation.
+  \end{definition}
+  \begin{definition}[Programme]
+    Un \textbf{programme} n’est rien d’autre 
+    que la représentation d’un algorithme 
+    dans un langage plus technique compris par un ordinateur 
+    (par exemple~:~Assembleur, Cobol, Java, C++\dots). 
+    Ce type de langage est appelé 
+    \textbf{langage de programmation}.
+  \end{definition}
+\end{frame}
+
+\part{Bases de l'algorithmique et de la programmation}
+\frame{\partpage}
+
+\section{Spécifier le problème}
+\frame{\sectionpage}
+\begin{frame}{Données et résultat}
+  \begin{block}{}
+  \begin{center}
+    {\textbf{étant donné} [les données] 
+    \textbf{on demande} [résultat]}
+  \end{center}
+  \end{block}
+  \pause
+  \begin{example}
+    Soit l’énoncé suivant~:
+    \og
+      Calculer la surface d’un rectangle 
+      à partir de sa longueur et sa largeur
+    \fg.
+
+    Quelles sont les données~? \pause Il y en a deux~:
+    \begin{itemize}
+            \item la longueur du rectangle~;
+            \item sa largeur.
+    \end{itemize}
+
+    \pause
+    Quel est le résultat attendu~? \pause la surface du rectangle.
+  \end{example}
+\end{frame}
+
+\subsection{Les noms}
+\begin{frame}{Identifier les données}
+
+  \begin{example}
+  Quel nom choisir pour la longueur d’un rectangle~?
+
+  \pause
+  \begin{itemize}
+    \item
+      \pc{length} \pause: OK.
+    \pause
+    \item
+      \pc{longueur} \pause: on préfère en anglais
+    \pause
+    \item
+      \pc{rectangleLength} \pause: pour éviter toute ambigüité avec une
+      autre longueur.
+    \pause
+    \item
+      \pc{len} \pause: si le contexte permet de comprendre immédiatement
+      l’abréviation.
+    \pause
+    \item
+      \pc{l} \pause: pas assez explicite.
+    \pause
+    \item
+      \pc{theLengthOfMyRectangle} \pause: inutilement long.
+    \pause
+    \item
+      \pc{foo} (truc en anglais) ou \pc{tmp}\pause: aucun lien avec la donnée.
+  \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}{Variables}
+  Les noms donnés à chaque donnée seront directement associés à une 
+  \textbf{variable} lorsque l'algorithme sera traduit en un programme dans 
+  un langage de programmation.
+
+  \pause
+  \begin{definition}[Variable]
+    Emplacement
+    mémoire nommé pouvant contenir une valeur. Cette valeur peut être
+    remplacée par une autre --- elle est variable --- au fil de l'exécution du
+    programme.
+  \end{definition}
+\end{frame}
+
+\begin{frame}{Nom de l'algorithme}
+  Généralement~:
+  \begin{itemize}
+    \item soit un verbe/action indiquant ce que fait l’algorithme~;\\
+      \pause \qquad \pc{computeRectangleArea}
+    \pause
+    \item soit un nom indiquant le résultat fourni.\\
+      \pause \qquad \pc{rectangleArea}\\
+      \pause \qquad \pc{area}, si \og rectangle \fg est évident.
+  \end{itemize}
+
+  \pause \bcattention conventions d'écriture dans le langage de programmation.
+  \begin{itemize}
+    \item Java : \pc{rectangleArea} (camelCase)
+    \item C, C++ : \pc{rectangle\_area} (under\_score)
+  \end{itemize}
+\end{frame}
+
+\subsection{Les types}
+\begin{frame}{Types}
+  Données et résultats on un \textbf{type}.
+
+  Le \textbf{type} décrit la nature de son contenu, quelles valeurs elle
+  peut prendre.
+
+  Certains langages imposent et vérifient le type de chaque variable tandis
+  que d'autres non. En Java, chaque variable et chaque donnée ont un type.
+
+  Dans un premier temps :\\
+  \begin{tabular}[t]{>{\color{coldark}\bfseries}ll}
+    \pc{int} & nombres entiers\\
+    \pc{double} & nombres réels\\
+    \pc{String} & chaînes de caractères, textes\\
+    \pc{boolean} & valeur booléenne (vrai/faux)
+  \end{tabular}
+  \note{
+    \begin{itemize}
+    \item Pour la longueur, la largeur et la surface d’un rectangle, 
+            on prendra un réel (le type \pc{double}).
+    \item Pour le nom d’une personne, on choisira une chaine de caractère
+            (le type \pc{String}).
+    \item Pour l’âge d’une personne, un entier est indiqué (\pc{int}).
+    \item Pour décrire si un étudiant est doubleur ou pas, un booléen 
+            (\pc{boolean}) est adapté.
+    \item Pour représenter un mois, on préférera souvent un entier
+            donnant le numéro du mois (par ex: 3 pour le mois de mars)
+            plutôt qu’une chaine (par ex: "mars")
+            car les manipulations, les calculs seront plus simples.
+    \end{itemize}
+  }
+\end{frame}
+
+\begin{frame}{Unités}
+  Les types ne possèdent pas d'unité (longueur du rectangle en cm).
+
+  \pause
+  Si nécessaire, unitée précisée dans le nom de variable, ou en commentaire.\\
+  \pc{lengthCm}
+
+  \pause
+  Pas nécessaire dans l'exemple du rectangle. Si l'unité des entrées est \(x\),
+  l'unité de la sortie est \(x^2\).
+\end{frame}
+
+\begin{frame}{Précision sur les valeurs}
+  Pourquoi \pc{int} / \pc{double} et pas \pc{numeric}?
+
+  \pause
+  \begin{itemize}
+    \item Plus clair pour le lecteur.
+    \item Opérations propres aux entiers (division entière, modulo).
+    \item C'est comme ça en pratique.
+  \end{itemize}
+
+  \pause
+  Plus précis ?
+  \begin{itemize}
+    \item Un âge est un entier qui ne peut pas être négatif.
+    \item Un mois est un entier compris entre 1 et 12.
+  \end{itemize}
+
+  Ces précisions pourront être données en commentaire
+  pour aider à mieux comprendre le problème et sa solution.
+  \note{
+    Nous aurions pu introduire un seul type numérique
+    mais nous avons choisi de distinguer les entiers et les réels.
+
+    Pourquoi~?
+
+    Préciser qu’une donnée ne peut prendre que des valeurs entières
+    (par exemple dans le cas d’un numéro de mois)
+    aide le lecteur à mieux la comprendre.
+    Nous allons aussi pouvoir définir des opérations propres aux entiers
+    (le reste d’une division par exemple).
+    Enfin, pour des raisons techniques,
+    beaucoup de langages font cette distinction.
+
+    Même ainsi, le type choisi n’est pas toujours assez précis.
+    Souvent, la donnée ne pourra prendre que certaines valeurs.
+
+    Types spéciaux ?
+  }
+\end{frame}
+
+\begin{frame}{Types complexes/composés}
+    Quel type choisir 
+    pour la date de naissance d’une personne~?
+
+    \pause
+    Chaîne de caractères : \pc{"17/3/1985"} \\
+    \pause \(\longrightarrow\) traitement difficile
+    (déterminer le numéro du mois).
+
+    \pause
+    Décomposer en trois parties~: 
+    le jour, le mois et l’année, tous des entiers.
+
+    On définira de nouveaux types grâce à des \structure{structures} ou à des
+    \structure{classes} en Java.
+\end{frame}
+
+\begin{frame}{Exercices}
+  Quel(s) type(s) de données utiliseriez-vous pour représenter~:
+  \begin{itemize}
+          \item le prix d’un produit en grande surface~;
+          \item la taille de l’écran de votre ordinateur~;
+          \item votre nom~;
+          \item votre adresse~;
+          \item le pourcentage de remise proposé pour un produit~;
+          \item une date du calendrier~;
+          \item un moment dans la journée~?
+  \end{itemize}
+\end{frame}
+
+\subsection{Représentation}
+\begin{frame}{Résumés}
+    Pour le problème, de la surface du rectangle, 
+    on fera le schéma suivant~:
+
+    \center\flowalgodd{longueur (réel positif)}
+    {largeur (réel positif)}{surfaceRectangle}{réel}
+
+    \begin{tabular}[t]{|>{\columncolor{black!40}}r|l|}
+            \hline
+            \textbf{Données} & \makecell[tl]{
+                    longueur (un réel positif)\\
+                    largeur (un réel positif)
+            }\\
+            \hline
+            \textbf{Résultat} & la surface du rectangle\\
+            \hline
+    \end{tabular}
+\end{frame}
+
+\begin{frame}{Exemples numériques}
+  \begin{itemize}
+    \item En français~: 
+      si la longueur du rectangle vaut 3 et sa largeur vaut 2, 
+      alors sa surface vaut 6.
+    \item Via un schéma~:
+      \begin{center}
+        \flowalgodd{length (3)}{width (2)}{rectangleArea}{6}
+      \end{center}
+    \item En notation compacte~:
+      \pc{rectangleArea(3, 2)} donne/vaut $6$.
+  \end{itemize}
+\end{frame}
+
+\section{Premiers algorithmes}
+\frame{\sectionpage
+\note{
+  Dans le chapitre précédent, vous avez appris à analyser un problème et
+  à clairement le spécifier.  Il est temps d’écrire des solutions.  Pour cela,
+  nous allons devoir trouver comment passer des données au résultat et
+  l’exprimer dans un langage compris de tous.
+
+  En fonction de la difficulté du problème et de notre sensibilité, nous
+  pouvons représenter un algorithme de plusieurs manières; en langage naturel
+  (en français ou en 	anglais), en pseudocode ou avec un organigramme\ldots
+  Dans ce chapitre, nous présenterons les algorithmes en langage naturel, en
+  pseudocode, avec un organigramme et en langage Java. 
+
+  Dans la suite du cours, nous nous contenterons de les écrire en langage Java. 
+  }
+}
+
+\subsection{Exercice simple}
+\begin{frame}
+  \begin{block}{Problème}
+  Calculer la surface d’un rectangle 
+  à partir de sa longueur et sa largeur.
+  \end{block}
+  \pause
+  \begin{block}{Analyse}
+    \begin{center}
+      \flowalgodd{longueur (réel positif)}
+      {largeur (réel positif)}{surfaceRectangle}{réel}
+    \end{center}
+    ou encore :
+    \begin{center}
+    \begin{tabular}[t]{|>{\columncolor{black!40}}r|l|}
+    \hline
+    \textbf{Données} & \makecell[tl]{
+            longueur (un réel positif)\\
+            largeur (un réel positif)
+    }\\
+    \hline
+    \textbf{Résultat} & la surface du rectangle\\
+    \hline
+    \end{tabular}
+    \end{center}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Exemples}
+  La surface du rectangle 3, 2 vaut 6. La surface du rectangle 3.5,
+  1 vaut 3.5. 
+
+  \pause ou 
+
+  \begin{itemize}
+  \item \pc{rectangleArea(3,2)} donne \(6\)~;
+  \item \pc{rectangleArea(3.5,1)} donne \(3.5\).
+  \end{itemize}
+
+  \pause ou
+
+  \begin{center}
+    \begin{tabular}[t]{|l|c|c|}
+      \hline
+      \cellcolor{black!40}\textbf{Données}&&\\
+      \hline
+      length	&	3	& 3.5\\
+      width	&   2	& 1\\
+      \hline
+      \cellcolor{black!40}\textbf{Résultat}& 6 & 3.5\\
+      \hline
+    \end{tabular}
+  \end{center}
+
+  \pause
+  Les exemples sont essentiels. Ce sont eux qui vont nous permettre de
+  tester notre algorithme. Notre programme. 
+\end{frame}
+
+\begin{frame}{Comment résoudre ce problème~?}
+  La toute première étape est de comprendre
+  le lien entre les données et le résultat.
+
+  \pause
+  Ici, le lien est la formule du calcul d'une surface.
+
+  \[
+    \textrm{surface} = \textrm{longueur} * \textrm{largeur}
+  \]
+
+  La surface s’obtient donc en multipliant la longueur par la largeur.
+
+  \note{
+    Trouver la bonne formule n’est pas toujours facile.
+    Dans votre vie professionnelle, 
+    vous devrez parfois écrire un algorithme
+    pour un domaine que vous connaissez peu,
+    voire pas du tout.
+    Il vous faudra alors chercher de l’aide,
+    demander à des experts du domaine.
+    Dans ce cours,
+    nous nous concentrons sur des problèmes simples.
+  }
+\end{frame}
+
+\begin{frame}{Vérifier l'algorithme}
+  Vérifions notre solution 
+  pour le calcul de la surface du rectangle
+  en reprenant les exemples choisis.
+
+  \begin{center}
+    \begin{tabular}{|c|cccc|c|}
+    \hline
+    \rowcolor{black!40}
+    test \no & longueur & largeur & réponse attendue 
+            & réponse fournie & {} \\
+    \hline 
+    1 & 3   & 2 & 6   & 6   & {\color{green}$\checkmark$} \\\hline
+    2 & 3.5 & 1 & 3.5 & 3.5 & {\color{green}$\checkmark$} \\\hline
+    \end{tabular}
+  \end{center}
+\note{
+  Une étape importante, après l'écriture d'un algorithme est la
+  vérification de sa validité. Il est important d'exécuter
+  l’algorithme avec des exemples numériques et vérifier que chaque 
+  réponse fournie est correcte.
+
+  Pour tester un algorithme il faut --- même si ça parait étrange
+  --- \textbf{éteindre son cerveau}.  Il faut agir comme une machine et
+  exécuter \textbf{ce qui est écrit} pas ce que l'on voulait écrire ou
+  ce que l'on pensait avoir écrit ou encore ce qu’il est censé faire.
+  Cela demande un peu de pratique.
+}
+\end{frame}
+
+\begin{frame}{Écrire l'algorithme}
+  \framesubtitle{Langage naturel}
+
+  En \textbf{langage naturel}, une solution aurait simplement cette 
+  allure~:
+
+  \begin{langagenaturel}
+    La surface s'obtient grâce à la formule~:
+    \[
+      surface = longueur * largeur
+    \]
+  \end{langagenaturel}
+\end{frame}
+
+\begin{frame}{Écrire l'algorithme}
+  \framesubtitle{Organigramme}
+
+  Un \textbf{organigramme} d'une solution aura cette allure~:
+
+  \begin{center}
+    \footnotesize
+    \begin{tikzpicture}[node distance=1.5cm]
+      \node (start) [startstop] {Aire d'un rectangle};
+      \node (in1) [io, below of=start] {
+        \pc{length}\\
+        \pc{width}
+      }; 
+      \draw [arrow] (start) -- (in1);
+      \node (pro1) [process, below of=in1] {
+        \pc{rectangleArea = length * width}
+      };
+      \draw [arrow] (in1) -- (pro1);
+      \node (stop) [startstop, below of=pro1] {Fin};
+      \draw [arrow] (pro1) -- (stop);
+    \end{tikzpicture}
+  \end{center}
+  \note{Voir référence organigramme sur poési.}
+\end{frame}
+
+\begin{frame}{Écrire l'algorithme}
+  \framesubtitle{Pseudocode}
+
+  Un \textbf{pseudocode} d'une solution s’écrit :
+
+  \begin{pseudocode}
+    \Algo{rectangleArea}{\Par{length, width}{reals}}{real}
+            \Return length * width
+    \EndAlgo
+  \end{pseudocode}
+
+  L'instruction \pc{return} permet d'indiquer la valeur du résultat
+  (évaluation).
+
+  On \structure{exécute} (ou \structure{appelle}) un algorithme en indiqaunt
+  son nom et les valeurs concrètes à donner aux paramètres.
+  Ainsi,
+  \pc{rectangleArea(6,3)} fait appel à l’algorithme correspondant
+  pour calculer la surface d’un rectangle dont la longueur est $6$ et
+  la largeur est $3$.
+  \note{
+  Le mot \pc{\algorithmicalgo} et l'\textbf{indentation} ermettent
+  de délimiter l’algorithme.  La première ligne est appelée
+  \textbf{l’entête} de l’algorithme.  On y retrouve :
+      le nom de l’algorithme,
+      une déclaration des données, 
+      qu’on appellera ici les \textbf{paramètres}, 
+      le type du résultat.
+  La params recevront des valeurs concrètes au début de l'exécutino de l'algo.
+
+  Pour indiquer le calcul à faire, écrivez-le, naturellement comme
+  vous le feriez en mathématique.  
+  }
+\end{frame}
+
+\begin{frame}[fragile]{Écrire l'algorithme}
+  \framesubtitle{Java}
+
+  Une solution en Java s'écrit~:
+\begin{java}
+public class RectangleArea {
+  public static double rectangleArea(double length, double width) {
+    return length * width;
+  }
+}
+\end{java}
+\note{
+  Telle quelle la solution n'est pas fonctionnelle en ce sens que 
+  l'éxécution du programme ne montrera aucun résultat à l'écran. 
+}
+\end{frame}
+
+\begin{frame}[fragile]{Écrire l'algorithme}
+  \framesubtitle{Java}
+\begin{java}
+public class RectangleArea {
+  public static double rectangleArea(
+      double length, double width) {
+    return length * width;
+  }
+
+  public static void main(String[] args) {
+    System.out.println(rectangleArea(3, 2));
+  }
+}
+\end{java}
+\note{
+  Le \textbf{point d'entrée}\index{point d'entrée} d'un programme en
+  Java est la méthode \textbf{\texttt{main}}. Cette méthode est la
+  première qui sera exécutée. Elle est obligatoire si l'on veut pouvoir
+  exécuter le programme. 
+}
+\end{frame}
+
+\begin{frame}{Résoudre un exercice}
+  Écrire une solution complète d'un exercice c'est~:
+  \begin{itemize}
+    \item spécifier le problème~;
+    \item fournir des exemples, les tests~;
+    \item construire son algorithme~;
+    \item tester le programme et constater qu'il fournit bien les 
+      résultats attendus
+  \end{itemize}
+
+  \pause
+  \begin{block}{Exercice}
+    Essayez sur \og la somme de deux nombres donnés \fg.
+  \end{block}
+\end{frame}
+
+\subsection{Décomposer les calculs}
+\begin{frame}{Décomposition d'un calcul}
+  \begin{block}{Exemple}
+    Le calcul d'un prix TTC d'un ensemble de produits dont on connait la
+    quantité et le prix unitaire hors taxe, peut se décomposer en le calcul
+    du prix unitaire TTC et, ensuite, en le calcul du prix total.
+  \end{block}
+  \note{introduire deux nouvelles notions : les \emph{variables locales}
+    et \emph{l’assignation}.
+  }
+\end{frame}
+
+\begin{frame}
+  \begin{definition}[Variable]
+    Une \structure{variable} est une zone mémoire munie
+    d'un nom et qui contiendra une valeur d’un type donné.  Cette valeur
+    \emph{peut} évoluer au fil de l'avancement de l'algorithme ou du
+    programme.  Elle sert à retenir des étapes intermédiaires de
+    calculs.
+  \end{definition}
+\end{frame}
+
+\begin{frame}
+  Les variables peuvent être \structure{locales} ou \structure{globales}.
+
+  \begin{itemize}
+    \item Une \structure{variable locale} n'est
+      connue et utilisable qu'au sein de l'algorithme où elle est
+      déclarée.
+
+      En Java, une variable locale n'est connue que dans le
+      \structure{bloc} d'instructions dans lequel elle est déclarée.
+      C'est sa \structure{portée}, son \structure{scope}.
+      Un bloc d'instructions est un ensemble
+      d'instructions délimitées par une paire d'accolades.
+
+    \item Une \structure{variable globale} est
+      connue dans tous les algorithmes d'un même problème.
+
+      En Java, une variable globale est connue de toutes les
+      classes et les méthodes d'un même projet. Nous y reviendrons.
+  \end{itemize}
+
+  Pour l'instant, nous n'utiliserons que des variables locales.
+\end{frame}
+
+\begin{frame}
+  Pour être utilisable, une variable doit être \emph{déclarée} au
+  début de l’algorithme. La \structure{déclaration}
+  d’une variable est l’instruction qui définit son nom et son type.
+
+  On pourrait écrire~:
+
+  \begin{langagenaturel}
+    Longueur et largeur seront les noms de deux 
+    objets destinés à recevoir
+
+    Les longueur et largeur du rectangle, 
+    c’est-à-dire des nombres à valeurs réelles.
+
+  \end{langagenaturel}
+
+  Ou, abrégé:
+
+  \begin{langagenaturel}
+    reals length, width
+  \end{langagenaturel}
+\end{frame}
+
+\begin{frame}[fragile]
+  Déclaration obligatoire en Java (pas dans d'autres langages).
+
+\begin{java}
+double length, width;
+\end{java}
+
+Ou
+\begin{java}
+double length;
+double width;
+\end{java}
+\note{
+  Pour choisir le nom d’une variable, les règles sont les mêmes que
+  pour les données d’un problème.
+}
+\end{frame}
+
+\begin{frame}[fragile]{Assignation}
+  \begin{definition}[Assignation]
+    L’\structure{assignation}
+    (on dit aussi \emph{affectation interne})
+    est une instruction qui donne une valeur 
+    à une variable ou la modifie.
+  \end{definition}
+
+  \note{Cette instruction est probablement la plus importante
+    car c’est ce qui permet de retenir les résultats 
+    de calculs intermédiaires.}
+
+  Peut être noté
+  $\leftarrow$, ou $:=$, ou encore $=$.
+  Dans ces notes nous utiliserons le symbole d'égalité $=$.
+
+  \begin{langagenaturel}
+    variableName = expression
+  \end{langagenaturel}
+
+  \begin{java}
+    variableName = <une expression>
+  \end{java}
+\end{frame}
+
+\begin{frame}[fragile]
+  On assigne un \emph{membre de droite} (rhs, right-hand side) à un
+  \emph{membre de gauche} (lhs, left-hand side) :
+  \begin{java}
+    lhs = rhs
+  \end{java}
+
+  \pause
+  \bcattention le \(=\) de l'assignation \(\not\simeq\) égalité mathématique.
+  \note{Égalité math définit l'égalité dans l'absolu. L'assignation assigne une
+  valeur, le membre droite au membre de gauche au moment où l'instruction est
+  exécutée.
+ 
+  Toutes les variables d'une expression doivent avoir été déclarées
+  et affectées.
+
+  Compatibilité de type !}
+\end{frame}
+
+\begin{frame}[fragile]
+  \begin{definition}[Expression]
+    Une \structure{expression} est un calcul faisant
+    intervenir des variables, des valeurs explicites et des opérateurs
+    (comme +, -, <\dots).  Une expression a une \textbf{valeur} (quand elle est
+    évaluée).
+  \end{definition}
+
+  \pause
+  \begin{langagenaturel}
+     denRes = den1 * den2\\
+     count = count + 1\\
+     average = (number1 + number2) / 2\\
+     isALowerthanB = a < b 
+  \end{langagenaturel}
+
+\begin{java}
+denRes = den1 * den2;
+count = count + 1;
+average = (number1 + number2) / 2;
+isALowerthanB = a < b;
+\end{java}
+\note{Faire commentaire sur égalité mathématique différente avec
+\texttt{count = count + 1}, ce n'est pas vrai mathématiquement, c'est
+un incrément.}
+\end{frame}
+
+\begin{frame}{Exercice}
+  \begin{block}{Problème}
+    Calculer la vitesse moyenne (en km/h) d’un véhicule dont on donne la
+    distance parcourue (en mètres) et la durée du parcours (en secondes).
+  \end{block}
+
+  Trouvez un algorithme, en utilisant de la décomposition.
+\end{frame}
+
+\subsection{Tracer un algorithme}
+\begin{frame}[fragile]{Tracer un algorithme}
+  Vérifier qu'un algorithme est correct en le \structure{traçant}.
+
+  On peut le faire sur papier, ou bien grâce à un \structure{débogueur}
+  (debugger en anglais).
+  \begin{java}
+int a, b et c;
+a = 12;
+b = 5;
+c = a - b;
+a = a + c;
+b = a;
+  \end{java}
+  \note{À la main, et avec NetBeans.}
+\end{frame}
+
+\subsection{Calculs et opérations}
+\begin{frame}[fragile]{Vocabulaire}
+  \begin{block}{expression}
+        Une expression indique un calcul à effectuer
+        (par exemple~: (a + b) * c).
+        Une fois le calcul effectué
+        (on dit qu’on \emph{évalue} l’expression), 
+        on obtient une valeur, d’un certain type.
+        Une expression est composée d’opérandes et d’opérateurs,
+        elle a une valeur et un type.
+  \end{block}
+  \pause
+  \begin{block}{opérateur}
+        Un opérateur est ce qui désigne une opération.
+        Exemple~: \Verb_+_ désigne l’addition.
+  \end{block}
+  \pause
+  \begin{block}{opérande}
+        Un opérande est ce sur quoi porte l’opération.
+        Exemple~: dans l’expression \Verb_a+b_, 
+        \Verb_a_ et \Verb_b_ sont les opérandes.
+        Un opérande peut être une sous-expression.
+        Exemple~: dans l’expression \Verb_(a+b) * c_, 
+        \Verb_(a+b)_ est l’opérande 
+        de gauche de l’opérateur \Verb_*_ et \Verb_c_ l'opérande de 
+        droite.
+  \end{block}
+\end{frame}
+\begin{frame}[fragile]{Vocabulaire}
+  \begin{block}{unaire, binaire, ternaire}
+        Un opérateur qui agit sur deux opérandes (le plus fréquent)
+        est qualifié de binaire. 
+        On rencontre aussi des opérateurs unaires (ex: le \Verb_-_ 
+        dans l’expression \Verb_-a_).
+        En Java, vous rencontrerez aussi un opérateur ternaire (3 opérandes)
+        mais ils sont plus rares.
+  \end{block}
+  \pause
+  \begin{block}{littéral}
+        Un littéral est une valeur notée explicitement 
+        (comme \Verb_12_, \Verb_34.4_, \Verb_"bonjour"_)
+  \end{block}
+  \pause
+  \begin{block}{priorité}
+        Les opérateurs sont classés par priorité.  Cela permet de savoir
+        dans quel ordre les exécuter.  Par exemple, la multiplication
+        est prioritaire par rapport à l'addition.  C’est pourquoi
+        l'expression \Verb_a + b * c_ est équivalente à 
+        \Verb_a + (b * c)_ et pas à \Verb_(a + b) * c_.  
+        Les parenthèses permettent
+        de modifier ou de souligner la priorité.  
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Exemples}
+  \begin{itemize}[<+->]
+    \item \Verb_a+1_
+    \item \Verb_(a+b)*12-4*(-a-b)_
+    \item \Verb_a+(b*12)-4*-a_
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Opérateurs de comparaisons}
+  $3+1$ est un calcul dont le résultat est $4$, un entier. C'est sans
+  doute évident.
+
+  $1<3$ est aussi un calcul dont le résultat est un \emph{booléen},
+  vrai en l’occurrence.  Ce résultat peut être assigné à une variable
+  booléenne.
+
+  Pour tester l'égalité, nous utilisons le symbole \pc{==} afin de le
+  différencier du symbole \pc{=} qui est le symbole de l'assignation.
+
+  \begin{java}
+boolean positive, adult, successful, perfect;
+positive = nb > 0;
+adult = age >= 21;
+successful = code >= 10;
+perfect = errors == 0;
+\end{java}
+\end{frame}
+
+
+\begin{frame}{Opérateurs de comparaisons}
+  \framesubtitle{Exercices}
+  Pour chacune des phrases suivantes,
+  écrivez l’assignation qui lui correspond.
+  \begin{itemize}
+  \item 
+    La variable booléenne \pc{négatif}
+    doit indiquer si le nombre \pc{montant} est négatif.
+  \item
+    Un groupe est complet s’il contient exactement 20 personnes.
+  \item
+    Un algorithme est considéré comme long si le nombre de lignes
+    dépasse 20.
+  \item 
+    Un étudiant a \emph{la plus grande distinction} si sa cote est
+    de 18/20 ou plus.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Opérateurs logiques}
+  Les opérateurs logiques agissent sur des expressions booléennes 
+  (variables ou expressions à valeurs booléennes) 
+  pour donner un résultat du même type.
+
+  \begin{tabular}[t]{cccc}
+    \structure{Nom} & \structure{Math} & \structure{Pseudocode} &
+      \structure{Java} \\[1.5ex]
+    négation & \(\lnot p\) & NON p & \pc{!p} \\[1.5ex]
+    conjonction & \(p \land q\) & p AND q & \pc{p \&\& q} \\[1.5ex]
+    disjonction & \(p \lor q\) & p OR q & \pc{p || q} \\[1.5ex]
+    disjonction exclusive & \(p \xor q\) & p XOR q &
+      \pc{p \textasciicircum ~q}
+  \end{tabular}
+
+  Même priorité des opérateurs qu'en Maths.
+  \note{On accepte aussi les notations math / Java en Pseudocode}
+\end{frame}
+
+\begin{frame}[fragile]{Lazy evaluation}
+  L'\structure{évaluation paresseuse} (lazy evaluation), ou évaluation
+  court-circuitée est une évaluation qui s'arrêt dès que le résultat
+  est connu.
+  \note{Montrer l'exemple en codant, avec les erreurs.}
+  \pause
+  \begin{java}
+boolean ok;
+
+// Génère une erreur si b est nul
+ok = 1/b < 0.1;
+
+// Si b est nul, provoque une erreur et un arrêt
+ok = 1/b < 0.1 && b != 0;
+
+// YES ! C'est dans le bon ordre si b est nul,
+// la condition est fausse et ok reçoit false
+ok = b != 0 && 1/b < 0.1;
+  \end{java}
+\end{frame}
+
+\begin{frame}{Exercice de simplification}
+  Ces assignations peuvent être simplifiée~:
+  \begin{itemize}[<+->]
+    \item \pc{beautifulBoolean \Gets adulte == vrai}
+    \item \pc{beautifulBoolean \Gets adulte == faux}
+    \item \pc{beautifulBoolean \Gets etudiant == vrai
+      AND jeune == faux}
+    \item \pc{beautifulBoolean \Gets NON (adulte == vrai)
+      AND NON (adulte == faux)}
+    \item \pc{nbA3chiffres \Gets NON (nb$<$100 OR nb$\ge$1000)}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Exercice: expressions logiques}
+  Pour chacune des phrases suivantes,
+  écrivez l’assignation qui lui correspond.
+  \begin{itemize}[<+->]
+    \item J’irai au cinéma si le film me plait et que 
+      j’ai 20\texteuro{} en poche.
+    \item Je n’irai pas au cinéma si je n’ai pas 
+      20\texteuro{} en poche.
+    \item Je brosserai le premier cours de la journée 
+      s’il commence à 8h et aussi si je n’ai pas dormi mes 8h.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Division entière et reste}
+  La \structure{division entière} consiste à effectuer une division
+  en ne gardant que la partie entière du résultat.
+
+  Le \structure{reste} de la division entière de a par b
+  est ce qui n’a pas été repris dans la division\dots ce qu'il reste. 
+
+  \[ a = b * q + r\]
+  \[ a = b * (a ~\pc{DIV}~ b) + (a ~\pc{MOD}~ b)\]
+
+  \begin{itemize}
+    \item \(a\) est le \structure{dividende} et \(b\) le \structure{diviseur};
+    \item $a$ \pc{DIV} $b$ est le \structure{quotient} de la division ;
+    \item $a$ \pc{MOD} $b$ --- nous dirons \textit{a modulo b} ---
+      est le \structure{reste} de cette division.
+  \end{itemize}
+  \note{souplesse écriture pseudocode + minuscules ?}
+\end{frame}
+
+\begin{frame}[fragile]{Division entière et reste}
+  \framesubtitle{en Java}
+  \begin{java}
+    int q, r;
+    q = 26 / 3;  // q == 8
+    r = 26 % 3;  // r == 2
+  \end{java}
+  \note{Exemple avec classe de 26 étudiants et groupes de 3.}
+\end{frame}
+
+\begin{frame}[fragile]{Division entière et reste}
+\framesubtitle{tester la divisibilité}
+  \begin{java}
+boolean isEven, isOdd;
+isEven = nb % 2 == 0;
+isOdd = nb % 2 == 1;
+  \end{java}
+\end{frame}
+
+\begin{frame}[fragile]{Division entière et reste}
+\framesubtitle{extraire les chiffres d'un nombre}
+  \begin{center}
+  \begin{tabular}{|l|r|}\hline
+    \rowcolor{black!20}
+    calcul & résultat \\
+    \hline
+    65536 MOD 10 & 6 \\
+    65536 MOD 100 & 36 \\
+    65536 MOD 1000 & 536 \\
+    65536 MOD 10000 & 5536 \\
+    \hline 
+  \end{tabular}
+  \qquad
+  \begin{tabular}{|l|l|}\hline
+    \rowcolor{black!20}
+    calcul & résultat \\
+    \hline
+    65536 DIV 10 & 6553 \\
+    65536 DIV 100 & 655 \\
+    65536 DIV 1000 & 65 \\
+    65536 DIV 10000 & 6 \\
+    \hline
+  \end{tabular}
+  \end{center}
+
+  \begin{example}[Chiffre des centaines]
+    \pause
+    (65536 DIV 100) MOD 10 = 5
+  \end{example}
+
+  \pause
+  \begin{example}[Chiffre des milliers]
+    \pause
+    (65536 DIV 1000) MOD 100 = 5  \end{example}
+\end{frame}
+
+\begin{frame}{Hasard et nombres aléatoires}
+  Il existe de nombreuses applications qui font intervenir le hasard.
+
+  Par exemple dans les jeux où il est nécessaire de mélanger des
+  cartes, lancer des dés, faire apparaitre des ennemis de façon
+  aléatoire\dots
+  
+  Le vrai hasard \og n’existe pas \fg en informatique.
+
+  On peut concevoir des algorithmes et des programmes
+  qui \emph{simulent} le hasard (des \emph{générateurs de nombres
+  pseudo-aléatoires}).
+
+  À partir d’un nombre donné
+  \note{
+    Ce nombre peut être fixé ou généré à partir
+    de l’environnement 
+    (par exemple, l’horloge interne).
+  }
+  (appelé \emph{graine} ou \emph{seed} en anglais)
+  ils fournissent une suite de nombres qui \emph{ont l’air}
+  aléatoires.
+\end{frame}
+
+\begin{frame}[fragile]{Hasard et nombres aléatoires}
+  \subtitle{en Java}
+  En java,
+
+  \begin{java}
+double number = Math.random();
+  \end{java}
+
+  pour obtenir un nombre (pseudo-)aléatoire compris entre 0 et 1 
+  strictement. C'est-à-dire strictement plus petit que 1. 
+
+  \note{Nous verrons plus tard qu'il existe une autre manière 
+  de faire en utilisant la classe \pc{Random}}
+
+  Dans nos algorithmes, nous pouvons toujours supposer qu'il existe un
+  tel algorithme sans devoir l'écrire.
+
+  \begin{center}
+    \flowalgor{random}{réel (entre 0 inclus et 1 exclu)}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Hasard et nombres aléatoires}
+  \begin{itemize}[<+->]
+    \item un entier entre 0 inclus et n exclu
+      \pause
+      \begin{langagenaturel}
+        (la partie entière de) random() * n
+      \end{langagenaturel}
+
+    \item un entier entre min et max inclus
+      \pause
+      \begin{langagenaturel}
+        (la partie entière de) min + random() * (max-min+1)
+      \end{langagenaturel}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Hasard et nombres aléatoires}
+  \framesubtitle{Java Random}
+  \begin{java}
+Random R = new Random();
+
+// Une valeur entière comprise entre 0 et 13 strictement
+int value = R.nextInt(13);
+
+// Une valeur entière comprise entre 10 et 20 strictement
+int value2 = 10 + R.nextInt(10);
+
+// Une valeur pseudo-réelle entre 0 et 1 strictement
+double value3 = R.nextDouble();
+  \end{java}
+  \note{Il faut un import, mais on le mentionne pas sur le code.}
+\end{frame}
+
+\subsection{Qualité}
+\begin{frame}{Qualité}
+  Il existe plusieurs algorithmes qui résolvent le même problème.
+
+  Alors comment décider lequel est le bon ?
+
+  Qu'est-ce qui fait la qualité d'un algorithme ou d'un programme
+  informatique ?
+
+  La connaissance de l'algorithmique permet d'écrire des algorithmes de
+  qualité. La connaissance d'un langage --- qui est une autre compétence
+  --- permet d'écrire des programmes de qualité. Les qualités de l'un
+  n'étant pas nécessairement celles de l'autre.
+\end{frame}
+
+\begin{frame}{Efficacité}
+  L’\structure{efficacité}
+  désigne le fait que l’algorithme (le programme) résout bien le
+  problème donné.\\
+  C’est un minimum~!
+
+  À ne pas confondre avec \emph{l’efficience}
+  qui indique qu’il est économe en ressources.
+\end{frame}
+
+\begin{frame}{Lisibilité}
+  La \structure{lisibilité} indique si une personne qui lit l’algorithme
+  ou le programme peut facilement percevoir comment il fonctionne.
+  Un algorithme ou un programme est \textbf{souvent
+  lu} par de nombreuses personnes~:
+  \begin{itemize}
+    \item
+      celles qui doivent se convaincre de sa validité
+      avant de passer à la programmation~;
+    \item
+      celles qui doivent trouver les causes
+      d’une erreur lorsque celle-ci a été rencontrée
+    \item
+      celles qui doivent faire évoluer l’algorithme
+      ou le programme suite à une modification
+      du problème~;
+    \item
+      et, accessoirement, celles qui doivent le coter~;)
+  \end{itemize}
+
+  \note{
+C’est un critère \textbf{très important} qu’il ne faut surtout pas
+sous-évaluer.  Vous en ferez d’ailleurs l’amère expérience~: si vous
+négligez la lisibilité de votre algorithme ou de votre programme,
+vous-même ne le comprendrez plus quand vous le relirez quelque temps
+plus tard~!}
+
+\note{
+Comparer la lisibilité de deux algorithmes ou de deux programmes
+n’est pas une tâche évidente car c’est une notion subjective.  Il
+faut se demander quelle version va être le plus facilement comprise
+par la majorité des lecteurs.
+
+Attention aux conventions spécifiques aux langages.
+}
+\end{frame}
+
+\begin{frame}[fragile]{Lisiblité}
+  \framesubtitle{Codes moches}
+  \begin{java}
+public static double travelTime(double speedMS, double distanceKm) {
+double distanceM;
+distance M = 1000 * distanceKM;
+return distanceM / speedMS;
+}
+\end{java}
+
+  ni~:
+
+\begin{java}
+public static double travelTime(double speedMS, double distanceKm) {
+    double distanceM;
+      distance M = 1000 * distanceKM; return distanceM / speedMS; }
+  \end{java}
+\end{frame}
+
+\begin{frame}[fragile]{Lisiblité}
+  \framesubtitle{Code beau}
+\begin{java}
+public static double travelTime(double speedMS, double distanceKm) {
+    double distanceM;
+    distance M = 1000 * distanceKM;
+    return distanceM / speedMS;
+}
+\end{java}
+\end{frame}
+
+\begin{frame}{Rapidité}
+La \structure{rapidité} indique si l’algorithme ou le programme permet
+  d’arriver plus ou moins vite au résultat.
+
+  C’est un critère qui est souvent sur-évalué, 
+  essentiellement pour deux raisons.
+  \begin{itemize}
+    \item Il est trompeur. On peut croire qu'une décomposition en plusieurs
+      assignations serait moins efficace, alors que non.
+    \item Souvent, la recherche de rapidité mène à des algorithmes moins
+      lisibles. On préfère, dans une certaine mesure, la lisibilité à la
+      rapidité.
+  \end{itemize}
+
+  \pause
+  C'est un cas particulier de l'\structure{efficience}, qui traite de la
+  gestion économe des ressources.
+
+  Nous reparlerons de rapidité quand nous aborderons la notion de
+  \structure{complexité} algorithmique.
+
+\end{frame}
+
+\begin{frame}{Taille}
+  Un algorithme/programme plus court n'est pas forcément meilleur, ni moins
+  bon qu'un autre. En général, la lisibilité prime.
+\end{frame}
+
+\section{Premiers programmes}
+\frame{\sectionpage}
+
+\section{Une question de choix}
+\frame{\sectionpage}
+
+\end{document}
