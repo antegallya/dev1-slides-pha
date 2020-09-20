@@ -15,6 +15,14 @@
 \usepackage{xspace}
 \usepackage{bclogo}
 \usepackage{makecell}
+\usepackage{style-esi/licence}
+\usepackage{style-esi/links}
+% import commands and styles used in the syllabus.
+\usepackage{dev1/cours-developpement/syllabus/styles/esi-flowchart}
+\usepackage{dev1/cours-developpement/syllabus/styles/flow}
+\usepackage{dev1/cours-developpement/syllabus/styles/java}
+\usepackage{dev1/cours-developpement/syllabus/styles/langagenaturel}
+\usepackage{dev1/cours-developpement/syllabus/styles/pseudocode}
 
 % cf. Syllabus MAT1.
 \newcommand{\xor}{ \raisebox{-0.05cm}{ %ole %do not use index or in tikzpicture
@@ -23,14 +31,6 @@
 \draw (-0.6,-0.35) -- (0.6,-0.35);
 \end{tikzpicture}
 } }
-
-\usepackage{dev1/cours-developpement/syllabus/styles/esi-flowchart}
-\usepackage{dev1/cours-developpement/syllabus/styles/flow}
-\usepackage{dev1/cours-developpement/syllabus/styles/java}
-\usepackage{dev1/cours-developpement/syllabus/styles/langagenaturel}
-\usepackage{dev1/cours-developpement/syllabus/styles/pseudocode}
-
-\hypersetup{draft}
 
 \newenvironment<>{varblock}[2][\textwidth]{%
    \setlength{\textwidth}{#1}
@@ -47,17 +47,17 @@
 \newcommand{\developmentsteps}{
   {\sffamily
   \begin{tikzpicture}
-          \matrix [row sep = 2em] {
-           \node[draw, rounded corners, thick] (P1) {Analyse}; \\
-           \node[draw, rounded corners, thick] (P2) {Algorithmes}; \\
-           \node[draw, rounded corners, thick] (P3) {Programmation}; \\
-           \node[draw, rounded corners, thick] (P4) {Tests}; \\
-           \node[draw, rounded corners, thick] (P5) {Livraison}; \\
-          };
-          \draw[->, thick] (P1) to (P2);
-          \draw[->, thick] (P2) to (P3);
-          \draw[->, thick] (P3) to (P4);
-          \draw[->, thick] (P4) to (P5);
+    \matrix [row sep = 2em] {
+     \node[draw, rounded corners, thick] (P1) {Analyse}; \\
+     \node[draw, rounded corners, thick] (P2) {Algorithmes}; \\
+     \node[draw, rounded corners, thick] (P3) {Programmation}; \\
+     \node[draw, rounded corners, thick] (P4) {Tests}; \\
+     \node[draw, rounded corners, thick] (P5) {Livraison}; \\
+    };
+    \draw[->, thick] (P1) to (P2);
+    \draw[->, thick] (P2) to (P3);
+    \draw[->, thick] (P3) to (P4);
+    \draw[->, thick] (P4) to (P5);
   \end{tikzpicture}
 }}
 
@@ -73,14 +73,24 @@
   \hfill \raisebox{-4cm}{\developmentsteps}
 }
 
-% Document title
-\title{DEV1 - Développement I}
+\title[DEV1-dev]{DEV1}
+\subtitle{Développement}
 \author[P. Hauweele (PHA)]{Pierre \textsc{Hauweele}}
-\date{2020-2021}
+\date[2020--2021]{Année académique 2020--2021}
 
 \begin{document}
 \begin{frame}[plain]
   \titlepage
+\end{frame}
+
+\begin{frame}
+  Ces slides sont une quasi-copie du Syllabus de développement, disponible sur
+  la page du cours de DEV1 sur \href{https://poesi.esi-bru.be}{poési}.
+
+  Ils sont écrits au fur et à mesure des séances et sont incomplets. Le
+  syllabus est la référence.
+
+  \ccbysa{phauweele@he2b.be}
 \end{frame}
 
 \part{Introduction}

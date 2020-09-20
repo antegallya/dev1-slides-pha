@@ -1,4 +1,10 @@
 \documentclass{style-esi/slide}
+% Show notes on the right slide.
+% I use pdf-presenter-console to display the dual screen slide.
 \usepackage{pgfpages}
-\setbeameroption{show notes on second screen}
+\setbeameroption{show notes on second screen=right}
+% There's a bug when using show notes on second screen and hyperref. Disable
+% hyperref as I don't use it while presenting.
+\hypersetup{draft}
+% Load the main slides
 \input{dev1-dev-slides-pha-main}
