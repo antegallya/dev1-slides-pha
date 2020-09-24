@@ -15,6 +15,7 @@
 \usepackage{xspace}
 \usepackage{bclogo}
 \usepackage{makecell}
+\usepackage{multicol}
 \usepackage{style-esi/licence}
 \usepackage{style-esi/links}
 % import commands and styles used in the syllabus.
@@ -23,6 +24,18 @@
 \usepackage{dev1/cours-developpement/syllabus/styles/java}
 \usepackage{dev1/cours-developpement/syllabus/styles/langagenaturel}
 \usepackage{dev1/cours-developpement/syllabus/styles/pseudocode}
+\usepackage{comment}
+
+\newcommand*{\iconpath}[1]{dev1/cours-developpement/syllabus/icon/#1}
+
+\newenvironment{wrong}[1][<1>]{%
+  \begin{minipage}{\linewidth}}
+  {\end{minipage}
+  \pause
+  \hskip-5em
+  \raisebox{-1em}{
+    \includegraphics[width=4em]{dev1/cours-developpement/syllabus/icon/dont}}
+}
 
 % cf. Syllabus MAT1.
 \newcommand{\xor}{ \raisebox{-0.05cm}{ %ole %do not use index or in tikzpicture
@@ -31,6 +44,16 @@
 \draw (-0.6,-0.35) -- (0.6,-0.35);
 \end{tikzpicture}
 } }
+
+% The default decision block was too big.
+\tikzstyle{decision} = [
+  diamond,
+  minimum width=2cm,
+  minimum height=1cm,
+  text centered,
+  text width=2cm,
+  draw=black,
+  fill=green!30]
 
 \newenvironment<>{varblock}[2][\textwidth]{%
    \setlength{\textwidth}{#1}
@@ -73,6 +96,9 @@
   \hfill \raisebox{-4cm}{\developmentsteps}
 }
 
+% The colors defined in style-esi/links are invisible on the output beamer.
+\hypersetup{colorlinks=false}
+
 \title[DEV1-dev]{DEV1}
 \subtitle{Développement}
 \author[P. Hauweele (PHA)]{Pierre \textsc{Hauweele}}
@@ -92,6 +118,8 @@
 
   \ccbysa{phauweele@he2b.be}
 \end{frame}
+\begin{comment}
+\end{comment}
 
 \part{Introduction}
 \frame{\partpage}
@@ -320,13 +348,13 @@
 \begin{frame}{Exercices}
   Quel(s) type(s) de données utiliseriez-vous pour représenter~:
   \begin{itemize}
-          \item le prix d’un produit en grande surface~;
-          \item la taille de l’écran de votre ordinateur~;
-          \item votre nom~;
-          \item votre adresse~;
-          \item le pourcentage de remise proposé pour un produit~;
-          \item une date du calendrier~;
-          \item un moment dans la journée~?
+    \item le prix d’un produit en grande surface~;
+    \item la taille de l’écran de votre ordinateur~;
+    \item votre nom~;
+    \item votre adresse~;
+    \item le pourcentage de remise proposé pour un produit~;
+    \item une date du calendrier~;
+    \item un moment dans la journée~?
   \end{itemize}
 \end{frame}
 
@@ -374,7 +402,7 @@
 
   En fonction de la difficulté du problème et de notre sensibilité, nous
   pouvons représenter un algorithme de plusieurs manières; en langage naturel
-  (en français ou en 	anglais), en pseudocode ou avec un organigramme\ldots
+  (en français ou en   anglais), en pseudocode ou avec un organigramme\ldots
   Dans ce chapitre, nous présenterons les algorithmes en langage naturel, en
   pseudocode, avec un organigramme et en langage Java. 
 
@@ -428,8 +456,8 @@
       \hline
       \cellcolor{black!40}\textbf{Données}&&\\
       \hline
-      length	&	3	& 3.5\\
-      width	&   2	& 1\\
+      length  &  3  & 3.5\\
+      width  &   2  & 1\\
       \hline
       \cellcolor{black!40}\textbf{Résultat}& 6 & 3.5\\
       \hline
@@ -730,11 +758,11 @@ double width;
   Dans ces notes nous utiliserons le symbole d'égalité $=$.
 
   \begin{langagenaturel}
-    variableName = expression
+variableName = expression
   \end{langagenaturel}
 
   \begin{java}
-    variableName = <une expression>
+variableName = <une expression>
   \end{java}
 \end{frame}
 
@@ -742,7 +770,7 @@ double width;
   On assigne un \emph{membre de droite} (rhs, right-hand side) à un
   \emph{membre de gauche} (lhs, left-hand side) :
   \begin{java}
-    lhs = rhs
+lhs = rhs
   \end{java}
 
   \pause
@@ -773,15 +801,15 @@ double width;
      isALowerthanB = a < b 
   \end{langagenaturel}
 
-\begin{java}
+  \begin{java}
 denRes = den1 * den2;
 count = count + 1;
 average = (number1 + number2) / 2;
 isALowerthanB = a < b;
-\end{java}
-\note{Faire commentaire sur égalité mathématique différente avec
-\texttt{count = count + 1}, ce n'est pas vrai mathématiquement, c'est
-un incrément.}
+  \end{java}
+  \note{Faire commentaire sur égalité mathématique différente avec
+  \texttt{count = count + 1}, ce n'est pas vrai mathématiquement, c'est
+  un incrément.}
 \end{frame}
 
 \begin{frame}{Exercice}
@@ -1000,9 +1028,9 @@ ok = b != 0 && 1/b < 0.1;
 \begin{frame}[fragile]{Division entière et reste}
   \framesubtitle{en Java}
   \begin{java}
-    int q, r;
-    q = 26 / 3;  // q == 8
-    r = 26 % 3;  // r == 2
+int q, r;
+q = 26 / 3;  // q == 8
+r = 26 % 3;  // r == 2
   \end{java}
   \note{Exemple avec classe de 26 étudiants et groupes de 3.}
 \end{frame}
@@ -1059,7 +1087,7 @@ isOdd = nb % 2 == 1;
   Par exemple dans les jeux où il est nécessaire de mélanger des
   cartes, lancer des dés, faire apparaitre des ennemis de façon
   aléatoire\dots
-  
+
   Le vrai hasard \og n’existe pas \fg en informatique.
 
   On peut concevoir des algorithmes et des programmes
@@ -1118,16 +1146,16 @@ double number = Math.random();
 \begin{frame}[fragile]{Hasard et nombres aléatoires}
   \framesubtitle{Java Random}
   \begin{java}
-Random R = new Random();
+Random rnd = new Random();
 
 // Une valeur entière comprise entre 0 et 13 strictement
-int value = R.nextInt(13);
+int value = rnd.nextInt(13);
 
 // Une valeur entière comprise entre 10 et 20 strictement
-int value2 = 10 + R.nextInt(10);
+int value2 = 10 + rnd.nextInt(10);
 
 // Une valeur pseudo-réelle entre 0 et 1 strictement
-double value3 = R.nextDouble();
+double value3 = rnd.nextDouble();
   \end{java}
   \note{Il faut un import, mais on le mentionne pas sur le code.}
 \end{frame}
@@ -1168,13 +1196,13 @@ double value3 = R.nextDouble();
       avant de passer à la programmation~;
     \item
       celles qui doivent trouver les causes
-      d’une erreur lorsque celle-ci a été rencontrée
+      d’une erreur lorsque celle-ci a été rencontrée~;
     \item
       celles qui doivent faire évoluer l’algorithme
       ou le programme suite à une modification
       du problème~;
     \item
-      et, accessoirement, celles qui doivent le coter~;)
+      et, accessoirement, celles qui doivent le coter.
   \end{itemize}
 
   \note{
@@ -1204,33 +1232,101 @@ return distanceM / speedMS;
 }
 \end{java}
 
-  ni~:
-
 \begin{java}
 public static double travelTime(double speedMS, double distanceKm) {
-    double distanceM;
-      distance M = 1000 * distanceKM; return distanceM / speedMS; }
+  double distanceM;
+    distance M = 1000 * distanceKM; return distanceM / speedMS; }
   \end{java}
 \end{frame}
 
 \begin{frame}[fragile]{Lisiblité}
-  \framesubtitle{Code beau}
-\begin{java}
-public static double travelTime(double speedMS, double distanceKm) {
-    double distanceM;
-    distance M = 1000 * distanceKM;
-    return distanceM / speedMS;
+  \framesubtitle{code ok}
+  \begin{java}
+public static double travelTime(
+    double speedMS, double distanceKm) {
+
+  double distanceM;
+  distance M = 1000 * distanceKM;
+  return distanceM / speedMS;
 }
-\end{java}
+  \end{java}
+\end{frame}
+\begin{frame}[fragile]{Lisiblité}
+  \framesubtitle{code ok}
+  \begin{java}
+public static boolean iDoNothing(
+    double beautifulDouble, int firstInteger,
+    boolean isItReallyTrue) {
+
+  double notSoBeautiful = beautifulDouble * firstInteger;
+  return notSoBeautiful > 100 && notSoBeautiful < 10000
+      || isItReallyTrue;
+}
+  \end{java}
+  \note{
+    \begin{itemize}
+      \item 1 instruction par ligne
+      \item indentation
+      \item 80 cols
+      \item split long lines: avant opérateur, après virgule, continuation
+        indent *2.
+    \end{itemize}
+  }
+\end{frame}
+
+\begin{frame}[fragile]{Lisibilité}
+  \framesubtitle{commentaires}
+  \begin{java}
+/* 
+ * Calcule la surface d'un rectangle dont on donne la
+ * largeur et la longueur.
+ * 
+ * Les données ne sont pas négatives.
+ */
+public static double rectangleArea(
+    double length, double width) {
+
+  // C'est explicite (commentaire superflu) :
+  return length * width;
+}
+  \end{java}
+  \note{
+    \begin{itemize}
+      \item Documentation, au dessus, explique ce que ça fait et les
+        conditions/contraintes/paramètres.
+      \item Dans l'algo : comment il fonctionne.
+    \end{itemize}
+    Attention, trop de commentaires tue le commentaire.
+  }
+\end{frame}
+
+\begin{frame}[fragile]{Lisibilité}
+  \framesubtitle{constantes}
+  Une \structure{constante} est une information pour laquelle nom, type et
+  valeur sont figés.
+  \vfill
+  \begin{java}
+public static final int PASS_LEVEL = 10;
+public static final String ESI =
+    "École supérieure d'Informatique";
+  \end{java}
+  \note{
+    \begin{itemize}
+      \item Ne pas recopier partout la valeur
+      \item facilité de modification de la valeur
+      \item Augmente la lisibilité
+    \end{itemize}
+  }
 \end{frame}
 
 \begin{frame}{Rapidité}
-La \structure{rapidité} indique si l’algorithme ou le programme permet
+  La \structure{rapidité} indique si l’algorithme ou le programme permet
   d’arriver plus ou moins vite au résultat.
 
+  \pause
   C’est un critère qui est souvent sur-évalué, 
   essentiellement pour deux raisons.
-  \begin{itemize}
+  \begin{itemize}[<+->]
     \item Il est trompeur. On peut croire qu'une décomposition en plusieurs
       assignations serait moins efficace, alors que non.
     \item Souvent, la recherche de rapidité mène à des algorithmes moins
@@ -1249,13 +1345,1191 @@ La \structure{rapidité} indique si l’algorithme ou le programme permet
 
 \begin{frame}{Taille}
   Un algorithme/programme plus court n'est pas forcément meilleur, ni moins
-  bon qu'un autre. En général, la lisibilité prime.
+  bon qu'un autre.
+
+  En général, \alert{la lisibilité prime}.
+\end{frame}
+
+%Déjà dit un peu ailleurs
+%\subsection{Appel d'algorithme, appel de méthode}
+
+\subsection{Interagir avec l'utilisateur}
+\begin{frame}[fragile]{Afficher un résultat}
+  \begin{langagenaturel}
+print 2\\
+print rectangleArea(122, 3.78)\\
+
+afficher 3
+  \end{langagenaturel}
+
+  \pause
+  \begin{center}
+    \begin{tikzpicture}[node distance=2cm]
+    \node (io) [io, text width=6cm] 
+      {Afficher rectangleArea(122, 3.78)};
+    \end{tikzpicture}
+  \end{center}
+
+  \pause
+  \begin{java}
+System.out.println(rectangleArea(122, 3.78);
+  \end{java}
+  \note{Expliquer le ln de println}
+\end{frame}
+
+\begin{frame}[fragile]{Demander des valeurs}
+  \begin{langagenaturel}
+    read length \\
+    read width\\
+    print rectangleArea(length, width)\\
+
+    demander la valeur de length
+  \end{langagenaturel}
+
+  \pause
+  \begin{java}
+import java.util.Scanner;
+// ...
+Scanner keyboard = new Scanner(System.in);
+// ...
+double length = keyboard.nextDouble();
+  \end{java}
+\end{frame}
+
+\begin{frame}[fragile]{Paramètres ou demander les valeurs ?}
+  On préfère des algorithmes qui prennent les valeurs en paramètres plutôt que
+  de les demander à l'utilisateur.
+
+  Cela permet d'avoir un \alert{algorithme qui en appelle un autre}.
+
+  \vfill
+
+  \pause
+  \begin{java}
+    // Voir AreaTest.java
+  \end{java}
+\end{frame}
+
+\begin{frame}[fragile]{Des programmes comme des algorithmes}
+  Les programmes ont également :
+  \begin{itemize}
+    \item des paramètres (\structure{arguments de ligne de commandes});
+    \item un résultat (\structure{exit status} ou \structure{exit code}).
+  \end{itemize}
+
+  \vfill
+
+  \pause
+  \begin{java}
+    // Voir AreaTestCmd.java
+  \end{java}
 \end{frame}
 
 \section{Premiers programmes}
 \frame{\sectionpage}
+\begin{frame}[fragile]{Niveaux de langages}
+  \begin{description}
+    \item[langage machine]
+      de plus bas niveau. Exécutable par la machine et incompréhensible
+      par l'humain sans effort;
+
+    \item[langage assembleur]
+      première couche d'abstraction~: les instructions
+      sont des mots~: \pc{MOV}, \pc{JMP};
+      {\footnotesize
+      \begin{verbatim}
+str:
+ .ascii "Bonjour\n"
+ .global _start
+
+_start:
+movl $4, %eax
+movl $1, %ebx
+movl $str, %ecx
+movl $8, %edx
+int $0x80
+movl $1, %eax
+movl $0, %ebx
+int $0x80
+\end{verbatim}
+}
+  \end{description}
+\end{frame}
+\begin{frame}[fragile]{Niveaux de langages}
+  \begin{description}
+    \item[langage de haut niveau]
+      destinés aux développeurs. Ils proposent des instructions, des variables,
+      des structures de contrôle\dots Traduit pour être compris par la machine.
+
+      Par exemple, \textit{Fortran, COBOL, Pascal, C, \dots} (ce sont des
+      langages \structure{impératifs}).
+
+    \item[langage orienté objets]
+      principalement basés sur le concept \structure{d'objets}. S'intéressent
+      d'abord aux données.
+
+      Quelles sont les données que nous avons et que devons nous fournir~?
+
+      Par exemple, {\it C++, Java, C\#, Python, Go, Ruby, VB.NET, Vala,}
+      \textit{Objective C, Eiffel, Ada, PHP, Smalltalk, Scala, \dots}
+  \end{description}
+\end{frame}
+\begin{frame}[fragile]{Niveaux de langages}
+  \begin{description}
+    \item[langage fonctionnel]
+      principalement basés sur le concept de \structure{fonctions} (au sens
+      mathématique).
+
+      Par exemple, \textit{Lisp, Common Lisp, Haskell, Scala\dots}
+
+    \item[langage \dots]
+
+    \item[langage multi-paradigmes]
+      Par exemple, \textit{OCaml, Rust, \dots}
+  \end{description}
+\end{frame}
+
+\begin{frame}
+  \begin{definition}
+    Un langage est \textbf{compilé} si le code source est traduit d'une
+    traite. Un nouveau fichier contenant le code exécutable est créé.
+  \end{definition}
+
+  Ces langages nécessitent un \textbf{compilateur}. 
+
+  \begin{figure}[h]
+  \begin{center}
+  \includegraphics[width=6cm]{dev1/cours-developpement/syllabus/images/java-jvm-compil}
+  \caption{Langage compilé}
+  \label{compilé}
+  \end{center}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \begin{definition}
+    Un langage est \textbf{interprété} si le code source est traduit
+    instruction par instruction. Aucun nouveau fichier n'est créé et les
+    instructions sont traduites à chaque exécution du programme.
+  \end{definition}
+
+  Ces langages nécessitent un \textbf{interpréteur}.
+
+  \begin{figure}[h]
+  \begin{center}
+  \includegraphics[width=6cm]{dev1/cours-developpement/syllabus/images/java-jvm-interp}
+  \caption{Langage interprété}
+  \label{interprété}
+  \end{center}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  Java = approche mixte : compilé vers du \structure{bytecode}, puis
+  interprété par une machine virtuelle, la
+  \textit{jvm} \index{jvm} (\textit{Java Virtual Machine}).
+
+  \bigskip
+  \begin{figure}[h]
+  \begin{center}
+  \includegraphics[width=10cm]{dev1/cours-developpement/syllabus/images/java-jvm-jvm2}
+
+  \caption{Java est compilé et ensuite interprété}
+  \label{jvm}
+  \end{center}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Environnement}
+  L'environnement de développement représente l'ensemble des outils
+  nécessaires au développement, à l'écriture des programmes.
+
+  \begin{itemize}
+    \item le système d'exploitation\note{manipuler fichier, terminal};
+    \item l'éditeur de txte, ou IDE (Integrated Development Environment)\\
+      \textit{Netbeans, Eclipse, IntelliJ, \dots};
+    \item compilateur :
+      \begin{itemize}
+        \item 
+          \href{http://www.oracle.com/technetwork/java/javase/downloads}
+          {JDK Oracle} \og officiel \fg, JavaSE, JavaEE;
+        \item \href{http://openjdk.java.net/}{OpenJDK}, alternative libre
+          (supporté par Oracle);
+      \end{itemize}
+    \item runtime : le JRE (Java Runtime Environment).
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Grammaire}
+  Exemple simplifié :
+\begin{grammaire}
+\grammarrule{NumericType:}
+    \grammarrule{IntegralType}
+    \grammarrule{FloatingPointType}
+
+\grammarrule{IntegralType:}
+    int
+
+\grammarrule{FloatingPointType:}
+    double
+\end{grammaire}
+
+  Grammaire complète : \href{https://docs.oracle.com/javase/specs/jls/se10/jls10.pdf}{JLS10} p. 42.
+\end{frame}
 
 \section{Une question de choix}
 \frame{\sectionpage}
+
+\begin{frame}{Alternatives}
+  Les \structure{alternatives} permettent de n’exécuter des
+  instructions que si une certaine \alert{condition} est vérifiée.
+
+  Par exemple, si le filtre à café est vide, le remplir.
+  
+  Dans la vie, nous testons notre environnement, dans nos algorithmes et
+  dans nos programmes, nous allons tester les données.
+  
+  \note{
+  Les algorithmes et les programmes vus jusqu’à présent ne proposent qu’un
+  seul \og{}chemin\fg{}, une seule \og{}histoire\fg{}.  À chaque exécution de
+  l’algorithme, les mêmes instructions s’exécutent dans le même ordres.  Les
+  alternatives permettent de créer des histoires différentes, d’adapter les
+  instructions aux valeurs concrètes des données.}
+\end{frame}
+
+\subsection{\pc{\K{if-then}}}
+\begin{frame}[fragile]{Le si --- \pc{if-then}}
+  \begin{langagenaturel}
+    si une certaine condition est vraie alors\\
+    \tab exécuter une ou plusieurs actions\\
+    fin si\\
+    continuer l'algorithme
+  \end{langagenaturel}
+
+\end{frame}
+
+\begin{frame}[fragile]{exemple pseudocode}
+
+  \begin{langagenaturel}
+    si nb < 0 alors\\
+      \tab nb = -nb\\
+    fin si
+  \end{langagenaturel}
+
+
+  \begin{langagenaturel}
+    if (nb < 0)\\
+      \tab nb = -nb\\
+  \end{langagenaturel}
+\end{frame}
+
+\begin{frame}{exemple organigramme}
+  \begin{center}
+    \begin{tikzpicture}[node distance = 2cm, auto,
+      ]
+      \node (start) [startstop] {Start};
+      \node (dec1) [decision, below of=start, yshift=-1cm] {nb < 0};
+      \draw [arrow] (start) -- (dec1);
+      \node (proc1) [process, right of=dec1, xshift=4cm] {nb = -nb};
+      \node (stop) [startstop, below of=proc1] {End};
+      \draw [arrow] (dec1) -- node[anchor=south, xshift=-5mm] {true} (proc1);
+      \draw [arrow] (dec1) .. controls (3,-4) 
+        .. node[anchor=north east] {false} (stop);
+      \draw [arrow] (proc1) -- (stop);
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Grammaire Java}
+\begin{grammaire}
+\grammarrule{IfThenStatement:}
+    if ( \grammarrule{Expression} )
+        \grammarrule{Statement}
+\end{grammaire}
+
+  \begin{enumerate}
+    \item \grammarrule{Expression} représente une expression booléenne. 
+      c'est-à-dire ayant comme valeur \pc{true} ou \pc{false}.
+    \item \grammarrule{Statement} représente une instruction ou un 
+      \textbf{bloc} d'instructions. En langage Java, un bloc 
+      \index{bloc} d'instructions est toujours délimités par une paire 
+      d'accolades. 
+  \end{enumerate}
+  \note{Parler de syntaxes différentes et variées dans d'autres langages}
+\end{frame}
+
+\begin{frame}[fragile]{Exemple Java}
+
+  \begin{java}
+if (nb < 0)
+  nb = -nb;
+  \end{java}
+
+  ou
+  \begin{java}
+if (nb < 0) {
+  nb = -nb;
+}
+  \end{java}
+
+\end{frame}
+
+\begin{frame}[fragile]{Exercice de compréhension}
+  \begin{java}
+public static int exercice(int a, int b) {
+  int c;
+  c = 2 * a;
+  if (c > b) {
+      c = c-b;
+  }
+  return c;
+}
+  \end{java}
+
+  \begin{multicols}{2}
+    \begin{itemize}[<+->]
+      \item \pc{exercice(2, 5)} = \_\_\_
+      \item \pc{exercice(4, 1)} = \_\_\_
+    \end{itemize}
+  \end{multicols}
+\end{frame}
+
+\subsection{\pc{\K{if-then-else}}}
+\begin{frame}{Le si-sinon --- \pc{if-then-else}}
+  \begin{langagenaturel}
+    si une certaine condition est vraie alors\\
+      \tab exécuter une ou plusieurs actions\\
+    sinon (la condition est alors fausse)\\
+      \tab exécuter d'autres actions\\
+    fin si\\
+    continuer l'algorithme
+  \end{langagenaturel}
+\end{frame}
+
+\begin{frame}{Exemple pseudocode}
+  \begin{langagenaturel}
+    if (nb1 > nb2)\\
+      \tab max = nb1\\
+    else\\
+      \tab max = nb2
+  \end{langagenaturel}
+\end{frame}
+
+\begin{frame}{Exemple organigramme}
+  \begin{center}
+    \begin{tikzpicture}[node distance = 1.5cm, auto]
+      \node (start) [startstop] {Start};
+      \node (dec1) [decision, below of=start, yshift=-1cm] {nb1 > nb2};
+      \draw [arrow] (start) -- (dec1);
+      \node (proc1) [process, below of=dec1, xshift=-4cm]
+        {max = nb1};
+      \node (proc2) [process, below of=dec1, xshift=4cm]
+        {max = nb2};
+      \node (stop) [startstop, below of=dec1, yshift=-2cm] {End};
+      \draw [arrow] (dec1) -- node[anchor=south east] {true} (proc1);
+      \draw [arrow] (dec1) -- node[anchor=south west] {false} (proc2);
+      \draw [arrow] (proc1) -- (stop);
+      \draw [arrow] (proc2) -- (stop);
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Java}
+\begin{grammaire}
+\grammarrule{IfThenElseStatement:}
+  if ( \grammarrule{Expression} )
+      \grammarrule{Statement}
+  else
+      \grammarrule{Statement}
+\end{grammaire}
+  \pause
+
+  \begin{java}
+if (nb1 > nb2){
+    max = nb1;
+} else {
+    max = nb2;
+}
+  \end{java}
+\end{frame}
+
+\begin{frame}[fragile]{Exercice de compréhension}
+  \begin{java}
+public static int exercice(int a, int b) {
+    int c;
+    if (a > b) {
+        c = a / b;
+    } else {
+        c = b % a;
+    }
+}
+  \end{java}
+
+  \begin{multicols}{2}
+    \begin{itemize}[<+->]
+      \item \pc{exercice(2, 3)} = \_\_\_
+      \item \pc{exercice(4, 1)} = \_\_\_
+    \end{itemize}
+  \end{multicols}
+\end{frame}
+
+\begin{frame}[fragile]{Exercice de compréhension --- bis}
+  \begin{java}
+public static int exercice(int x1, int x2) {
+    boolean ok;
+    ok = x1 > x2;
+    if (ok) {
+        ok = ok && x1 == 4;
+    } else {
+        ok = ok || x2 == 3;
+    }
+    return x1 + x2;
+}
+    \end{java}
+
+    \medskip
+    \begin{multicols}{2}
+    \begin{itemize}
+    \item \pc{exercice(2, 3)} = \_\_\_
+    \item \pc{exercice(4, 1)} = \_\_\_
+    \end{itemize}
+    \end{multicols}
+\end{frame}
+
+\subsection{\pc{\K{if-then-else-if}}}
+\begin{frame}{Le si-sinon-si --- \pc{if-then-else-if}}
+  \begin{langagenaturel}
+    si une certaine condition est vraie alors\\
+      \tab exécuter une ou plusieurs actions\\
+    sinon si une autre condition est vraie alors\\
+      \tab exécuter d'autres actions\\
+    sinon \\
+      \tab exécuter encore d'autres actions\\
+    fin si\\
+    continuer l'algorithme
+  \end{langagenaturel}
+\end{frame}
+
+\begin{frame}{Exemple pseudocode}
+  \begin{langagenaturel}
+    if (nb > 0)\\
+      \tab signe = "positif"\\
+    else if (nb ==  0)\\
+      \tab signe = "nul"\\
+    else\\
+      \tab signe = "négatif"
+  \end{langagenaturel}
+\end{frame}
+
+\begin{frame}{Exemple organigramme}
+  \begin{center}
+    \begin{tikzpicture}[node distance = 1.5cm, auto]
+      \node (start) [startstop] {Start};
+      \node (dec1) [decision, below of=start, yshift=-.5cm, 
+        text width=.5cm] {};
+      \draw [arrow] (start) -- (dec1);
+      \node (proc1) [process, below of=dec1, yshift=-1cm, xshift=-4cm] 
+        {s = "positif"};
+      \node (proc2) [process, below of=dec1, yshift=-1cm] 
+        {s = "nul"};
+      \node (proc3) [process, below of=dec1, yshift=-1cm, xshift=4cm] 
+        {s = "négatif"};
+      \node (stop) [startstop, below of=dec1, yshift=-3cm] {End};
+      \draw [arrow] (dec1) -- 
+        node[anchor=south east] {nb > 0} (proc1);
+      \draw [arrow] (dec1) -- 
+        node[anchor=east] {nb == 0} (proc2);
+      \draw [arrow] (dec1) -- 
+        node[anchor=south west] {nb < 0} (proc3);
+      \draw [arrow] (proc1) -- (stop);
+      \draw [arrow] (proc2) -- (stop);
+      \draw [arrow] (proc3) -- (stop);
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Pas d'instruction spéciale en Java}
+  \begin{multicols}{2}
+\begin{grammaire}
+if ( \grammarrule{Expression} )
+    \grammarrule{Statement}
+else
+    if ( \grammarrule{Expression} )
+        \grammarrule{Statement}
+    else
+        \grammarrule{Statement}
+\end{grammaire}
+\pause
+\begin{grammaire}
+if ( \grammarrule{Expression} )
+    \grammarrule{Statement}
+else if ( \grammarrule{Expression} )
+    \grammarrule{Statement}
+else
+    \grammarrule{Statement}
+\end{grammaire}
+  \end{multicols}
+\end{frame}
+
+\begin{frame}[fragile]{Exemple Java}
+  \begin{java}
+if (nb > 0){
+    s = "positif";
+} else if (nb == 0) {
+    s = "nul";
+} else {
+    s = "négatif";
+}
+  \end{java}
+\end{frame}
+
+\subsection{Expression booléenne}
+\begin{frame}
+  \note{Nous avons parlé d'expressions booléennes avant \dots}
+
+  \begin{definition}
+    Une expression booléenne est une expression dont le résultat de
+    l'évaluation est une valeur booléenne~: \pc{true} ou \pc{false}.
+  \end{definition}
+\end{frame}
+\begin{frame}[fragile]
+\begin{itemize}
+  \item Opérateurs relationnels (\textit{relational operator} ou 
+    \textit{comparators});
+    \vspace{-1em}
+\begin{grammaire}
+\grammarrule{RelationalOperator:}
+    \grammarrule{(one of)}
+    < > <= >=
+\end{grammaire}
+  \vspace{-1em}
+    \note{\par Un opérateur relationnel est un opérateur dont la valeur
+    est booléenne et les opérandes numériques.}
+
+  \item Opérateurs d'égalité (\textit{equality operators});
+    \vspace{-1em}
+\begin{grammaire}
+\grammarrule{EqualityOperator:}
+    \grammarrule{(one of)}
+    == != 
+\end{grammaire}
+    \vspace{-1em}
+    \note{\par Un opérateur d'égalité est un opérateur dont la valeur
+    est booléenne et les opérandes de même type (à conversion près).}
+
+  \item Complément logique (\textit{logical complement operator}) et 
+    opérateurs conditionnels
+    (\textit{conditionals operators});
+
+    \note{\par Le complément logique et les opérateurs conditionnels sont des
+    opérateurs dont la valeur est booléenne et le ou les opérandes également
+    booléens.
+
+    Le \pc{\&\&} est prioritaire sur le \pc{||}.}
+
+  \vspace{-1em}
+\begin{grammaire}
+\grammarrule{LogicalComplementOperator:}
+    !
+\grammarrule{ConditionalOperator:}
+    \grammarrule{(one of)}
+    || &&
+\end{grammaire}
+    \vspace{-1em}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Opérateur ternaire}
+\begin{grammaire}
+\grammarrule{ConditionalExpression:}
+    \grammarrule{Condition} ? \grammarrule{Expression} : \grammarrule{Expression}
+\end{grammaire}
+\vfill
+\pause
+\begin{java}
+suffix = heure < 18 ? "jour" : "soir";
+System.out.println("Bon" + suffix);
+\end{java}
+\end{frame}
+
+\subsection{\pc{\K{switch}}}
+\begin{frame}[fragile]{Motivational case}
+\begin{java}
+if (dateFormat.equals("BE"))
+    System.out.println("Goeiedag Bonjour !");
+if (dateFormat.equals("EU") || dateFormat.equals("FR")
+        || dateFormat.equals("DE")
+        || dateFormat.equals("BE")) {
+    date = day + "-" + month + "-" + year;
+} else if (dateFormat.equals("US")) {
+    date = month + "/" + day + "/" + year;
+} else if (dateFormat.equals("ISO")) {
+    date = year + "-" + month + "-" + day;
+} else {
+    System.err.println("I don't know this format: "
+            + dateFormat);
+    System.exit(1);
+}
+\end{java}
+\end{frame}
+
+\begin{frame}{selon-que --- \pc{switch}}
+  Écriture plus lisible de \emph{certains} \pc{\K{si-sinon-si}}, quand le
+  choix d’une branche dépend d'une valeur.
+
+  \begin{langagenaturel}
+    selon que la variable vale~:\\
+      \tab — une valeur~:\\
+        \tab\tab exécuter une ou plusieurs actions\\
+      \tab — une autre valeur~:\\
+        \tab\tab exécuter d'autres actions\\
+      \tab — encore une autre valeur~:\\
+        \tab\tab exécuter d'autres actions\\
+      \tab — et une dernière valeur~:\\
+        \tab\tab exécuter d'autres actions\\
+    fin selon que
+  \end{langagenaturel}
+\end{frame}
+
+\begin{frame}[fragile]{Grammaire}
+\begin{grammaire}
+\grammarrule{SwitchStatement:}
+    switch ( \grammarrule{Expression} ) \grammarrule{SwitchBlock}
+
+\grammarrule{SwitchBlock:}
+    \grammarrule{SwitchLabels Statement}
+
+\grammarrule{SwitchLabel:}
+    case \grammarrule{ConstantExpression}:
+    default:
+\end{grammaire}
+
+  \begin{itemize}
+    \item l'expression ne peut pas être de n'importe quel type (\pc{byte,
+      short, char, int, String, Enum type} et wrapper classes). 
+    \item \textit{switch} en java \(\approx\) \og \textit{saut}
+      au bon label \fg. Dès que l'on a sauté au bon
+      \textit{case}, l'éxécution continue. Utiliser explicitement un
+      \pc{\K{break}}.
+  \end{itemize}
+  \note{
+    \textit{Statement} peut être une instuction ou plusieurs~;
+
+    \textit{SwitchLabels} (avec un \textit{s}) ce sont plusieurs 
+      \og \texttt{case} \fg;
+  }
+\end{frame}
+
+\begin{frame}[fragile]
+  \begin{java}
+switch (dateFormat) {
+    case "BE":
+        System.out.println("Goeiedag Bonjour !");
+    case "EU": case "FR": case "DE":
+        date = day + "-" + month + "-" + year;
+        break;
+    case "US":
+        date = month + "/" + day + "/" + year;
+        break;
+    case "ISO":
+        date = year + "-" + month + "-" + day;
+        break;
+    default:
+        System.err.println("I don't know this format: "
+                + dateFormat);
+        System.exit(1);
+}
+  \end{java}
+\end{frame}
+
+\begin{frame}[fragile]{Bonnes pratiques}
+
+  \begin{wrong}
+  \begin{java}
+if (isAdult == true) {
+    // ...
+}
+  \end{java}
+  \end{wrong}
+
+  \pause
+  \begin{java}
+if (isAdult) {
+    // ...
+}
+  \end{java}
+\end{frame}
+
+\begin{frame}[fragile]{Bonnes pratiques conditionnelles}
+  \begin{wrong}
+  \begin{java}
+if (isAdult == false) {
+    // ...
+}
+  \end{java}
+  \end{wrong}
+  \pause
+  \begin{wrong}
+  \begin{java}
+if (isAdult) {}
+else {
+    // ...
+}
+  \end{java}
+  \end{wrong}
+  \pause
+  \begin{java}
+if (!isAdult) {
+    // ...
+}
+  \end{java}
+\end{frame}
+
+\begin{frame}[fragile]{Bonnes pratiques conditionnelles}
+  
+  \begin{wrong}
+  \begin{java}
+if (nb == 0){
+    isNul = true;
+} else {
+    isNul = false;
+}
+  \end{java}
+  \end{wrong}
+  \pause
+  \begin{java}
+isNul = nb == 0;
+  \end{java}
+\end{frame}
+
+\begin{frame}[fragile]{Bonnes pratiques conditionnelles}
+  \begin{java}
+if (isDiscount) {
+    price = 8;
+} else {
+    price = 12;
+}
+  \end{java}
+  \begin{wrong}
+  \begin{java}
+price = 12;
+if (isDiscount) {
+    price = 8;
+}
+  \end{java}
+  \end{wrong}
+  \pause
+  \begin{java}
+price = isDiscount ? 8 : 12;
+  \end{java}
+\end{frame}
+
+\section{Un travail répétitif}
+\frame{\sectionpage}
+\begin{frame}
+  Pour effectuer un travail répétitif, il faut indiquer deux choses~:
+  \begin{itemize}
+    \item le travail à répéter~;
+    \item quand s’arrêter ou quand continuer ou encore,  combien de fois faire 
+      le travail.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Exemple 1}
+  Pour traiter des dossiers, nous pouvons dire\\
+  \og tant qu’il reste un dossier à traiter, le traiter \fg \\
+  \pause
+  ou encore\\
+  \og traiter un dossier puis passer au suivant jusqu’à ce qu’il n’en 
+  reste plus à traiter \fg.
+  \pause
+  \begin{itemize}
+    \item La tâche à répéter est~: \pause \og traiter un dossier \fg.
+    \item Quand continuer~: \pause \og s’il reste encore un dossier à traiter \fg.
+  \end{itemize}
+  \pause
+  Nous aurions pu dire de manière semblable~:
+  \begin{itemize}
+    \item La tâche à répéter est~:\pause \og traiter un dossier \fg.
+    \item Quand s'arrêter~:\pause \og dès qu'il n'y a plus de dossier à traiter \fg.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Exemple 2}
+  Pour calculer la cote finale de tous les étudiants et toutes les étudiantes,
+  nous dirions quelque chose du genre 
+  \og Pour tout étudiant, calculer sa cote \fg.
+  \begin{itemize}
+  \item 
+    La tâche à répéter est~: \og calculer la cote d’un·e étudiant·e \fg.
+  \item
+    Combien de fois faire le travail~: \og autant qu'il y a d'étudiant·es \fg.
+
+    \pause
+    Il faut le faire pour tous les étudiants et les étudiantes. Nous
+    pourrions être plus précis et dire qu'il faut commencer au premier,
+    passer à chaque fois au suivant et s'arrêter lorsque c'est terminé avec
+    le dernier.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exemple 3}
+  Pour afficher tous les nombres de 1 à 100, nous dirions~:
+  «~Pour tous les nombres de 1 à 100, afficher le nombre~».
+  \begin{itemize}
+  \item
+    La tâche à répéter est~: «~afficher un nombre~».
+  \item 
+    Nous indiquons qu'il faut le faire pour tous les nombres de 1 à 100. Il
+    faut commencer à 1, passer au suivant et s'arrêter après avoir afficher
+    100.
+\end{itemize}
+\end{frame}
+
+\subsection{Une même instruction, des effets différents}
+\begin{frame}{Une même instruction, des effets différents}
+  \begin{quote}
+    \bfseries
+    De façon générale,
+    pour obtenir un travail répétitif,
+    il faut trouver une formulation de la tâche
+    qui va produire un effet différent à chaque fois.
+  \end{quote}
+
+  \begin{wrong}
+  \begin{langagenaturel}
+    print 1\\
+    print 2\\
+    print 3\\
+    print 4\\
+    print 5
+  \end{langagenaturel}
+  \end{wrong}
+  \note{instructions proches, mais différentes}
+\end{frame}
+
+\begin{frame}
+  \begin{minipage}{5cm}
+    \begin{langagenaturel}
+      nb = 1\\
+      print nb\\
+      nb = 2\\
+      print nb\\
+      nb = 3\\
+      print nb\\
+      nb = 4\\
+      print nb\\
+      nb = 5\\
+      print nb\\
+    \end{langagenaturel}
+  \end{minipage}
+  \pause
+  \hfill ou \hfill
+  \begin{minipage}{5cm}
+    \begin{langagenaturel}
+      nb = 1\\
+      print nb\\
+      nb = nb + 1\\
+      print nb\\
+      nb = nb + 1\\
+      print nb\\
+      nb = nb + 1\\
+      print nb\\
+      nb = nb + 1\\
+      print nb\\
+    \end{langagenaturel}
+  \end{minipage}
+
+  \pause
+  \begin{block}{Répéter 5 fois}
+  \begin{langagenaturel}
+    print nb\\
+    nb = nb + 1
+  \end{langagenaturel}
+  \end{block}
+\end{frame}
+
+\subsection{Boucle \pc{\K{while}}}
+\begin{frame}{Le \og tant que \fg --- \pc{\K{while}}}
+  \begin{langagenaturel}
+    tant que une certaine condition est vraie, répeter\\
+      \tab une ou plusieurs actions\\
+    fin tant que\\
+    continuer l'algorithme 
+  \end{langagenaturel}
+\end{frame}
+
+\begin{frame}{Organigramme}
+    \begin{tikzpicture}[node distance = 1.5cm, auto]
+    \node[startstop] (start) {Start};
+    \node[decision, below of=start, yshift=-1.3cm, text width=2cm]%
+      (if1) {Condition true ?};
+    \draw[arrow] (start) -- (if1);
+    \node[process, below of=if1, yshift=-1.3cm] (pro1) {Instructions};
+    \draw[arrow] (if1) -- node[anchor=south, left] {yes} (pro1);
+    \draw[arrow] (pro1.west) 
+      .. controls(-3,-3) 
+      .. (if1);
+    \node[startstop, right of=if1, xshift=4cm] (stop) {End};
+    \draw[arrow] (if1.east) 
+      -- node[anchor=south] {no} (stop);
+  \end{tikzpicture}
+
+  \pause
+  Si la condition n'est jamais vraie (ou pas modifiée) \(\rightarrow\)
+  \structure{boucle infinie}.
+\end{frame}
+
+\begin{frame}[fragile]{Grammaire}
+  \begin{grammaire}
+    while ( \grammarrule{Expression} )
+        \grammarrule{Statement}
+  \end{grammaire}
+
+  \begin{itemize}
+    \item \textit{Expression} est une expression booléenne
+    \item \textit{Statement} peut être une seule instruction ou un bloc
+      d'instructions délimitées par des accolades.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Exemple Java}
+  \begin{java}
+public static void count5() {
+    int nb = 1;
+    while (nb <= 5) {
+        System.out.println(nb);
+        nb = nb + 1;
+    }
+    System.out.println("nb vaut: " + nb);
+}
+  \end{java}
+\end{frame}
+
+\begin{frame}[fragile]
+  Généraliser l'algorithme pour qu'il reçoive le nombre
+  d'itérations en paramètres :
+  \pause
+  \begin{java}
+public static void count(int n) {
+    int i = 1;
+    while (i <= n) {
+        System.out.println(i);
+        i = i + 1;
+    }
+    System.out.println("i vaut: " + i);
+}
+  \end{java}
+\end{frame}
+
+\subsection{Boucle \pc{\K{for}}}
+\begin{frame}{Le \og pour \fg --- \pc{\K{for}}}
+  \begin{langagenaturel}
+    pour une variable allant d'une valeur de départ à une valeur finale\\
+    \tab exécuter une ou plusieurs actions\\
+    fin pour \\
+    continuer l'algorithme 
+  \end{langagenaturel}
+
+  \pause
+  La variable est une \structure{Variable de contrôle}
+
+  \pause
+  \begin{langagenaturel}
+    pour variable = \pc{début} jusqu'à \pc{fin} par \pc{pas}\\
+    \tab exécuter une ou plusieurs actions\\
+    fin pour \\
+    continuer l'algorithme
+  \end{langagenaturel}
+
+  \pc{début}, \pc{fin} et \pc{pas} peuvent être n'importe quelle expression.
+\end{frame}
+
+\begin{frame}
+  \begin{center}
+  \begin{tikzpicture}[node distance = 1.5cm, auto]
+    \node[startstop] (start) {Start};
+    \node[process, below of=start] (pro0) {variable = début};
+    \node[decision, below of=pro0, yshift=-1.3cm, text width=2cm]%
+      (if1) {variable $\le$ fin ?};
+    \draw[arrow] (start) -- (pro0);
+    \draw[arrow] (pro0) -- (if1);
+    \node[process, below of=if1, yshift=-1.3cm,xshift=4cm] (pro1) {Instructions};
+    \draw[arrow] (if1) -- node[anchor=north east] {yes} (pro1);
+    \node[process, left of=pro1, xshift=-4cm] (pro2) {variable = variable + pas};
+    \draw[arrow] (pro2.west) 
+      .. controls(-5,-5) 
+      .. (if1);
+    \draw[arrow] (pro1) -- (pro2);
+    \node[startstop, right of=if1, xshift=4cm] (stop) {End};
+    \draw[arrow] (if1.east) 
+      -- node[anchor=south] {no} (stop);
+  \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Grammaire}
+  \begin{grammaire}
+    \grammarrule{ForStatement:}
+        for ( \grammarrule{ForInit}; \grammarrule{Expression}; \grammarrule{ForUpdate} )
+            \grammarrule{Statement}
+  \end{grammaire}
+
+  \begin{description}
+    \item[ForInit] initialise la variable;
+
+      Par exemple \pc{variable = début}.\\
+      Il sera nécessaire de la déclarer.
+
+    \item[Expression] est la condition de boucle;
+
+    \item[ForUpdate] est l'incrément, le passage à l'itération suivante;
+
+      Par exemple \pc{variable = variable + pas} ou \pc{variable++}.
+  \end{description}
+\end{frame}
+
+\begin{frame}[fragile]{Exemples Java}
+  \begin{java}
+for (int i = début; i < fin; i = i + pas){
+    // statement
+}
+  \end{java}
+  \pause
+
+  \begin{java}
+public static void countTo5() {
+    for (int nb = 1; nb <= 5; nb = nb + 1) {
+        System.out.println(i);
+    }
+    System.out.println("nb n'existe plus");
+}
+  \end{java}
+\end{frame}
+
+\begin{frame}[fragile]
+  \begin{minipage}{75mm}
+    \begin{java}
+public static void countTo5() {
+  for (int nb = 1; nb <= 5;
+       nb = nb + 1) {
+    System.out.println(nb);
+  }
+  System.out.println(
+      "nb n'existe plus");
+}
+    \end{java}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{40mm}
+    \footnotesize
+    \begin{tabular}{|>{\centering\arraybackslash}m{0.3ex}
+          |>{\centering\arraybackslash}m{1ex}
+          >{\centering\arraybackslash}m{3ex}
+          >{\centering\arraybackslash}m{8ex}|}
+      \hline
+        \verb_#_  & nb & cond. & affichage \\
+      \hline
+        2 & 1                    & vrai     & {} \\
+        4 & {\color{gray}$\mid$} &          & 1  \\
+        2 & 2                    & vrai     & {} \\
+        4 & {\color{gray}$\mid$} &          & 2  \\
+        2 & 3                    & vrai     & {} \\
+        4 & {\color{gray}$\mid$} &          & 3  \\
+        2 & 4                    & vrai     & {} \\
+        4 & {\color{gray}$\mid$} &          & 4  \\
+        2 & 5                    & vrai     & {} \\
+        4 & {\color{gray}$\mid$} &          & 5  \\
+        2 & 6                    & faux     & {} \\
+        6 & \verb_#_             & \verb_#_  & {nb n’existe plus} \\
+      \hline
+    \end{tabular}
+  \end{minipage}
+\end{frame}
+
+\begin{frame}[fragile]
+    \begin{java}
+public static void countToN(int n) {
+    for (int i = 1; i <= n; i = i + 1) {
+        System.out.println(i);
+    }
+}
+    \end{java}
+  \note{on utilise souvent i pour variable de boucle.\\Indice
+  commence à 0 en général.}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{java}
+public static void countTo1(int n) {
+    for (int i = n; i > 0; i--) {
+        System.out.print(i);
+    }
+    System.out.println("Go !");
+}
+\end{java}
+\note{si début > fin, pas d'exec}
+\end{frame}
+
+\begin{frame}[fragile]{Exercice}
+  \framesubtitle{Afficher uniquement les nombres pair}
+  Entre 1 et 10.
+
+  \pause
+  \begin{java}
+public static void printEven(int n) {
+    for (int i = 2; i <= n; i = i + 2) {
+        System.out.println(i);
+    }
+}
+  \end{java}
+\end{frame}
+
+\subsection{Boucle \pc{\K{do-while}}}
+\begin{frame}{\og Faire tant-que \og --- \pc{\K{do-while}}}
+
+  «~faire~-~jusqu'à~ce~que~» ou ;
+  \begin{langagenaturel}
+    faire\\
+      \tab une ou plusieurs actions\\
+    jusqu'à ce qu'une certaine condition soit vraie\\
+    continuer l'algorithme 
+  \end{langagenaturel}
+
+  «~faire~-~tant~que~».
+  \begin{langagenaturel}
+    faire\\
+      \tab une ou plusieurs actions\\
+    tant que une certaine condition est vraie\\
+    continuer l'algorithme 
+  \end{langagenaturel}
+\end{frame}
+
+\begin{frame}[fragile]{Grammaire}
+  \begin{grammaire}
+      \grammarrule{DoStatement:}
+      do 
+          \grammarrule{Statement}
+      while ( \grammarrule{Expression} );
+  \end{grammaire}
+\end{frame}
+
+\begin{frame}{Organigramme}
+  \begin{center}
+    \begin{tikzpicture}[node distance = 1.5cm, auto]
+      \node[startstop] (start) {Start};
+      \node[process, below of=start] (pro0) {instructions};
+      \node[decision, below of=pro0, yshift=-1.3cm, text width=2cm]%
+        (if1) {condition vraie ?};
+      \draw[arrow] (start) -- (pro0);
+      \draw[arrow] (pro0) -- (if1);
+      \draw[arrow] (if1.east) 
+        .. controls(5,-4)
+        .. node[anchor=east] {yes} (pro0.east);
+      \node[startstop, below of=if1, xshift=4cm] (stop) {End};
+      \draw[arrow] (if1) -- node[anchor=north, yshift=-0cm] {no} (stop);
+    \end{tikzpicture}  
+  \end{center}
+\end{frame}
 
 \end{document}
