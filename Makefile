@@ -25,8 +25,8 @@ clean:
 	rm -rf $(BUILD) _minted-*
 	rm -f $(TARGETS)
 
-preview: $(BUILD)
-	$(LATEX) -pvc -interaction=nonstopmode $(PRESENTATION)
+preview: $(BUILD) doit
+	$(LATEX) -pvc -interaction=nonstopmode $(MAIN)-edit.tex
 
 present: $(patsubst %.tex, %.pdf, $(PRESENTATION))
 	pdf-presenter-console --notes=right $<
