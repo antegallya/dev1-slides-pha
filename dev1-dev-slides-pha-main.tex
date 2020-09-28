@@ -26,7 +26,7 @@
 \usepackage{dev1/cours-developpement/syllabus/styles/pseudocode}
 \usepackage{comment}
 
-\newcommand*{\iconpath}[1]{dev1/cours-developpement/syllabus/icon/#1}
+\newcommand*{\sybprffx}{dev1/cours-developpement/syllabus}
 
 \newenvironment{wrong}[1][<1>]{%
   \begin{minipage}{\linewidth}}
@@ -34,7 +34,7 @@
   \pause
   \hskip-5em
   \raisebox{-1em}{
-    \includegraphics[width=4em]{dev1/cours-developpement/syllabus/icon/dont}}
+    \includegraphics[width=4em]{\sybprffx/icon/dont}}
 }
 
 % cf. Syllabus MAT1.
@@ -55,15 +55,60 @@
   draw=black,
   fill=green!30]
 
+\tikzset{
+  connector/.style={
+   -latex,
+   font=\scriptsize
+  },
+  rectangle connector/.style={
+    connector,
+    to path={(\tikztostart) -- ++(#1,0pt) \tikztonodes |- (\tikztotarget) },
+    pos=0.5
+  },
+  rectangle connector/.default=-2cm,
+  straight connector/.style={
+    connector,
+    to path=--(\tikztotarget) \tikztonodes
+  }
+}
+
 \newenvironment<>{varblock}[2][\textwidth]{%
-   \setlength{\textwidth}{#1}
-   \begin{actionenv}#3%
-     \def\insertblocktitle{#2}%
-     \par%
-     \usebeamertemplate{block begin}}
-   {\par%
-     \usebeamertemplate{block end}%
-   \end{actionenv}}
+  \setlength{\textwidth}{#1}%
+  \begin{actionenv}#3%
+  \def\insertblocktitle{#2}%
+  \par%
+  \usebeamertemplate{block begin}%
+}{%
+  \par%
+  \usebeamertemplate{block end}%
+  \end{actionenv}%
+}
+
+% https://tex.stackexchange.com/a/474748
+\makeatletter
+\newcommand*\tableonly%>>>
+  {%
+    \omit\@ifnextchar<\table@only\table@@only
+  }%<<<
+\protected\long\def\table@only<#1>#2%>>>
+  {%
+    \gdef\beamer@doifnotinframe{\cr}%
+    \def\beamer@doifinframe{\cr#2}%
+    \beamer@masterdecode{#1}%
+    \beamer@donow
+  }%<<<
+\protected\long\def\table@@only#1%>>>
+  {%
+    \beamer@ifnextcharospec{\table@@@only{#1}}{\cr#1}%
+  }%<<<
+\long\def\table@@@only#1<#2>%>>>
+  {%
+    \gdef\beamer@doifnotinframe{\cr}%
+    \def\beamer@doifinframe{\cr#1}%
+    \beamer@masterdecode{#2}%
+    \beamer@donow
+  }%<<<
+\makeatother
 
 \renewcommand{\pc}{\texttt}
 
@@ -108,6 +153,11 @@
 \begin{frame}[plain]
   \titlepage
 \end{frame}
+
+%\begin{frame}[plain]
+%  \colbox[center,dark,lifted][center]{\LARGE Plan du cours}
+%  \tableofcontents
+%\end{frame}
 
 \begin{hideedit}
 \begin{frame}
@@ -2041,6 +2091,7 @@ switch (dateFormat) {
   \end{java}
 \end{frame}
 
+
 \begin{frame}[fragile]{Bonnes pratiques}
 
   \begin{wrong}
@@ -2281,6 +2332,7 @@ price = isDiscount ? 8 : 12;
 
 \begin{frame}[fragile]{Grammaire}
   \begin{grammaire}
+\grammarrule{WhileStatement:}
     while ( \grammarrule{Expression} )
         \grammarrule{Statement}
   \end{grammaire}
@@ -2369,9 +2421,9 @@ public static void count(int n) {
 
 \begin{frame}[fragile]{Grammaire}
   \begin{grammaire}
-    \grammarrule{ForStatement:}
-        for ( \grammarrule{ForInit}; \grammarrule{Expression}; \grammarrule{ForUpdate} )
-            \grammarrule{Statement}
+\grammarrule{ForStatement:}
+    for ( \grammarrule{ForInit}; \grammarrule{Expression}; \grammarrule{ForUpdate} )
+        \grammarrule{Statement}
   \end{grammaire}
 
   \begin{description}
@@ -2484,8 +2536,6 @@ public static void printEven(int n) {
   \end{java}
 \end{frame}
 
-\end{hideedit}
-
 \subsection{Boucle \pc{\K{do-while}}}
 \begin{frame}{\og Faire tant-que \og --- \pc{\K{do-while}}}
 
@@ -2506,15 +2556,6 @@ public static void printEven(int n) {
   \end{langagenaturel}
 \end{frame}
 
-\begin{frame}[fragile]{Grammaire}
-  \begin{grammaire}
-      \grammarrule{DoStatement:}
-      do 
-          \grammarrule{Statement}
-      while ( \grammarrule{Expression} );
-  \end{grammaire}
-\end{frame}
-
 \begin{frame}{Organigramme}
   \begin{center}
     \begin{tikzpicture}[node distance = 1.5cm, auto]
@@ -2529,7 +2570,93 @@ public static void printEven(int n) {
         .. node[anchor=east] {yes} (pro0.east);
       \node[startstop, below of=if1, xshift=4cm] (stop) {End};
       \draw[arrow] (if1) -- node[anchor=north, yshift=-0cm] {no} (stop);
-    \end{tikzpicture}  
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Grammaire}
+  \begin{grammaire}
+\grammarrule{DoStatement:}
+    do
+        \grammarrule{Statement}
+    while ( \grammarrule{Expression} );
+  \end{grammaire}
+\end{frame}
+
+\begin{frame}[fragile]{Exemple Java}
+  \begin{java}
+public static void count5() {
+    int nb = 1;
+    do {
+        System.out.println(nb);
+        nb = nb + 1;
+    } while (nb <= 5);
+    System.out.println("nb vaut " + nb);
+}
+  \end{java}
+  \begin{center}
+  \begin{tabular}{
+      |>{\centering\arraybackslash}m{3mm}
+      |>{\centering\arraybackslash}m{.8cm}
+      >{\centering\arraybackslash}m{1.6cm}
+      >{\centering\arraybackslash}m{2cm}|}
+    \hline
+    \rowcolor{black!40} \verb_#_  & nb & condition & affichage \\
+    \hline
+    \tableonly<1-5>{2 & indéfini & {} & {} \\}
+    \tableonly<2-6>{3 & 1                    & {}   & {} \\}
+    \tableonly<3-7>{5 & {\color{gray}$\mid$} &      & 1  \\}
+    \tableonly<4-8>{6 & 2                    & {}   & {} \\}
+    \tableonly<5-9>{7 & {\color{gray}$\mid$} & vrai & {} \\}
+    \tableonly<6-10>{5 & {\color{gray}$\mid$} &      & 2  \\}
+    \tableonly<7-11>{6 & 3                    & {}   & {} \\}
+    \tableonly<8-12>{7 & {\color{gray}$\mid$} & vrai & {} \\}
+    \tableonly<9-13>{5 & {\color{gray}$\mid$} &      & 3  \\}
+    \tableonly<10-14>{6 & 4                    & {}   & {} \\}
+    \tableonly<11-15>{7 & {\color{gray}$\mid$} & vrai & {} \\}
+    \tableonly<12-16>{5 & {\color{gray}$\mid$} &      & 4  \\}
+    \tableonly<13-17>{6 & 5                    & {}   & {} \\}
+    \tableonly<14-18>{7 & {\color{gray}$\mid$} & vrai & {} \\}
+    \tableonly<15-18>{5 & {\color{gray}$\mid$} &      & 5  \\}
+    \tableonly<16-18>{6 & 6                    & {}   & {} \\}
+    \tableonly<17-18>{5 & {\color{gray}$\mid$} & faux & {} \\}
+    \tableonly<18-18>{8 & {\color{gray}$\mid$} & {}   & {nb vaut 6}\\}
+    \hline
+  \end{tabular}
+  \end{center}
+  \note{trace + exo? si nb = 10 ?}
+\end{frame}
+
+\end{hideedit}
+\subsection{Choix du type de boucle}
+\begin{frame}{Choix du type de boucle}
+  \begin{center}
+    \includegraphics[width=.8\textwidth]{\sybprffx/images/boucle-choixtype}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Choix du type de boucle}
+  \begin{center}
+  \begin{tikzpicture}
+    \node[startstop, xshift=-3cm] (start) {Choisir le type de boucle};
+    \node[decision, xshift=2cm, yshift=-1.5cm]
+      (if1) {\small Nb itérations connu ?};
+    \draw[arrow] (start) -- (if1);
+    \node[startstop, xshift=4cm, yshift=-6.5cm]
+      (for) {Utiliser \pc{\K{for}}};
+    \node[decision, xshift=-3cm, yshift=-3.75cm]
+      (if2) {\small Au moins une itération ?};
+    \draw[arrow] (if1) -| node[pos=0.25, anchor=south] {Oui} (for.45);
+    \draw[arrow] (if1) -| node[pos=0.25, anchor=south] {Non} (if2);
+    \node[startstop, xshift=-4cm, yshift=-6.5cm]
+      (dowhile) {Utiliser \pc{\K{while}} ou \pc{\K{do-while}}};
+    \node[startstop, xshift=0cm, yshift=-6.5cm]
+      (while) {Utiliser \pc{\K{while}}};
+    \draw[arrow] (if2) -| node[pos=0.25, anchor=south]
+      {Oui} (dowhile.165);
+    \draw[arrow] (if2) -| node[pos=0.25, anchor=south]
+      {Non} (while);
+  \end{tikzpicture}
   \end{center}
 \end{frame}
 
