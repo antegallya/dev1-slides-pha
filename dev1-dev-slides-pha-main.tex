@@ -84,6 +84,7 @@
   \end{actionenv}%
 }
 
+% Define \tableonly, for a \only on tables rows.
 % https://tex.stackexchange.com/a/474748
 \makeatletter
 \newcommand*\tableonly%>>>
@@ -1428,7 +1429,7 @@ System.out.println(rectangleArea(122, 3.78);
 
 \begin{frame}[fragile]{Demander des valeurs}
   \begin{langagenaturel}
-    read length \\
+    read length\\
     read width\\
     print rectangleArea(length, width)\\
 
@@ -2627,14 +2628,6 @@ public static void count5() {
   \note{trace + exo? si nb = 10 ?}
 \end{frame}
 
-\end{hideedit}
-\subsection{Choix du type de boucle}
-\begin{frame}{Choix du type de boucle}
-  \begin{center}
-    \includegraphics[width=.8\textwidth]{\sybprffx/images/boucle-choixtype}
-  \end{center}
-\end{frame}
-
 \begin{frame}{Choix du type de boucle}
   \begin{center}
   \begin{tikzpicture}
@@ -2658,6 +2651,483 @@ public static void count5() {
       {Non} (while);
   \end{tikzpicture}
   \end{center}
+\end{frame}
+
+{
+\usebackgroundtemplate{
+  \includegraphics[height=\paperheight]{stop}
+}
+\begin{frame}[fragile]{\pc{\K{break}}, \pc{\K{continue}}}
+  \pause
+  \begin{java}
+for (int i = 0; i < 0; ++i) {
+    if (skipCondition)
+        continue;
+    // WORK
+    if (stopCondition)
+        break;
+    // WORK
+}
+  \end{java}
+  \pause
+  \begin{center}
+    \colbox[center, colalert]{À utiliser parcimonieusement !}
+  \end{center}
+\end{frame}
+}
+
+\subsection{Saisie utilisateur}
+\begin{frame}
+  \begin{block}{}
+    Écrire un algorithme et un programme qui calcule et retourne
+    la somme d’une série de nombres donnés par l’utilisateur.
+  \end{block}
+
+\end{frame}
+
+\begin{frame}{Variante 1~: le nombre de valeurs est connu}
+  \begin{block}{}
+    Écrire un algorithme et un programme qui calcule et retourne
+    la somme d’une série de nombres donnés par l’utilisateur.
+  \end{block}
+
+  L'utilisateur indique le nombre de termes au départ et rentre ensuite les
+  termes.
+
+  \pause
+  On rendra l'entrée plus \og robuste \fg grâce à
+  \begin{itemize}
+    \item \pc{keyboard.hasNextInt();}\\
+      qui lit un entier et retourne vrai ou faux selon que l'entrée est
+      un entier.
+    \item \pc{keyboard.next()} qui lit l'entrée, quelle qu'elle soit.
+    \item \pc{keyboard.nextLine()} qui lit l'entièreté d'une ligne.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Variante 2~: demander à chaque fois s'il y a un suivant}
+  \begin{block}{}
+    Écrire un algorithme et un programme qui calcule et retourne
+    la somme d’une série de nombres donnés par l’utilisateur.
+  \end{block}
+
+  À chaque itération, on demande à l'utilisateur s'il veut entrer un terme.
+\end{frame}
+
+\begin{frame}{Variante 3~: valeur sentinelle}
+  \begin{block}{}
+    Écrire un algorithme et un programme qui calcule et retourne
+    la somme d’une série de nombres donnés par l’utilisateur.
+  \end{block}
+
+  On lit les nombres jusqu'à obtenir une valeur spéciale (par exemple -1)
+  \pause ou (stop).
+
+\end{frame}
+
+\begin{frame}{Variante 4~: tout lire jusqu'à la fin du programme}
+  \begin{block}{}
+    Écrire un algorithme et un programme qui calcule et retourne
+    la somme d’une série de nombres donnés par l’utilisateur.
+  \end{block}
+
+  On lit tous les nombres jusqu'à ce que l'entrée standard soit
+  \structure{fermée} (avec \pc{Ctrl + D}).
+\end{frame}
+
+
+\end{hideedit}
+\section{Modules et références}
+\frame{\sectionpage}
+
+\subsection{Décomposer le problème}
+\begin{frame}{Décomposer le problème}
+  Jusqu'à maintenant, algorithmes d'un seul tenant.
+
+  Dans la réalité, pour les problèmes plus conséquents, il faut décomposer
+  en sous-problèmes. On adapte une \structure{structure modulaire}.
+
+  \pause
+  Cela permet de :
+  \begin{itemize}
+    \item libérer l'esprit;
+    \item réutiliser ce qui a été fait;
+    \item accroitre la lisibilité;
+    \item répartir le travail en équipe.
+  \end{itemize}
+
+  \pause
+  Un algorithme résolvant une partie d'un problème est appelé une
+  \structure{fonction}, \structure{procédure}, \structure{méthode} ou
+  \structure{module}.
+\end{frame}
+
+\begin{frame}[fragile]{Exemple}
+\framesubtitle{Maximum de 3 nombres}
+  \begin{center}
+    \flowalgoddd{a (réel)}{b (réel)}{c (réel)}{max3}{réel}
+  \end{center}
+
+  \pause
+  \vfill
+  \begin{java}
+public static double max3(double a, double b, double c) {
+    if (a > b && a > c)
+        return a;
+    else if (b > c)
+        return b;
+    else
+        return c;
+}
+  \end{java}
+\end{frame}
+
+\begin{frame}[fragile]{Exemple}
+\framesubtitle{Maximum de 2 nombres}
+  \begin{center}
+    \flowalgodd{a (réel)}{b (réel)}{max2}{réel}
+  \end{center}
+
+  \pause
+  \vfill
+  \begin{java}
+public static double max2(double a, double b) {
+    if (a > b)
+        return a;
+    else
+        return b;
+}
+  \end{java}
+\end{frame}
+
+\begin{frame}[fragile]{Exemple}
+\framesubtitle{Maximum de 3 nombres --- modulaire}
+  \begin{center}
+  \begin{tikzpicture}[auto]
+    \sffamily
+    \node (a) at (0,4) {a (réel)};
+    \node (b) at (0,2) {b (réel)};
+    \node (c) at (0,0) {c (réel)};
+    \node[draw,rounded corners] (max2a) at (2,3) {max2};
+    \node[draw,rounded corners] (max2b) at (4,2) {max2};
+    \node (r) at (6,2) {réel};
+    \draw[rounded corners] (1,0) rectangle (5,4) node[above] {max3};
+    \draw[->,thick] (a) to (max2a);
+    \draw[->,thick] (b) to (max2a);
+    \draw[->,thick] (c) to (max2b);
+    \draw[->,thick] (max2a) to (max2b);
+    \draw[->,thick] (max2b) to (r);
+  \end{tikzpicture}
+  \end{center}
+
+  \pause
+  \vfill
+  \begin{java}
+public static double max3(double a, double b, double c) {
+    return max2(max2(a, b), c);
+}
+  \end{java}
+\end{frame}
+
+\subsection{Paramètres et valeur de retour}
+\begin{frame}{Paramètres et valeur de retour}
+  Jusqu'ici,
+  \begin{itemize}
+    \item paramètres d'un algorithme \(\sim\) données de l'algorithme;
+    \item valeur unique de retour (\pc{\K{return}} de l'algorithme \(\sim\)
+      résultat de l'algorithme.
+  \end{itemize}
+
+  \pause
+  Mais il existe aussi :
+  \begin{itemize}
+    \item paramètres d'entrée;
+    \item paramètres en entrée-sortie.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Valeur de retour}
+  La \structure{valeur de retour} correspond au résultat de l'algorithme.
+
+  \begin{minipage}{4.5cm}
+    \begin{pseudocode}
+      \LComment {Code appelant}
+      \Decl{var}{integer}
+      \Stmt var \Gets myAlgo()
+      \Stmt myAlgo()
+    \end{pseudocode}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{6.5cm}
+    \begin{pseudocode}
+      \LComment {Code appelé}
+      \Algo{myAlgo}{}{integer}
+      \Stmt \dots
+      \EndAlgo 
+    \end{pseudocode}
+  \end{minipage}
+
+  \pause
+  Un algorithme peut ne rien retourner.
+
+  \pause
+  S'il n'a pas de \Gives, il n'a pas de valeur et ne peut pas apparaitre dans
+  une expression ou être assigné à une variable.
+
+  \pause
+  Nous contournerons le problème de valeur de retour unique plus tard
+  (types composés, structures et objets).
+\end{frame}
+
+\begin{frame}[fragile]{Paramètre d'entrée}
+  Le \structure{paramètre d'entrée} est une donnée de l'algorithme. Il ne peut
+  pas être modifié\pause (pour l'appelant).
+
+  Quand c'est nécessaire de le préciser, on le suit de \In.
+
+  Ce paramètre est une \structure{valeur}.
+
+  \vfill
+  \begin{center}
+  \begin{minipage}{4.5cm}
+    \begin{pseudocode}
+\LComment {Code appelant}
+\Stmt myAlgo(expr)
+\Empty
+    \end{pseudocode}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{7cm}
+    \begin{pseudocode}
+\LComment {Code appelé}
+\Algo{myAlgo}{\Par{par\In}{integer}}{}
+\Stmt \dots
+\EndAlgo 
+    \end{pseudocode}
+  \end{minipage}
+  \end{center}
+
+  C’est comme si l’algorithme \pc{myAlgo} commençait par l’affectation
+  \pc{par \Gets expr}.
+\end{frame}
+
+\begin{frame}[fragile]{Exemple}
+  \begin{pseudocode}[1]
+    \Algo{test}{}{} \RComment {Code appelant}
+      \Decl {max}{real}
+      \Let max \Gets max3(3, 2, 5)
+      \Write max
+    \EndAlgo
+    \Algo{max3}{\Par{a\In, b\In, c\In}{reals}}{real}
+      \RComment {Code appelé}
+      \Decl{maxab, max}{reals}
+      \Let maxab \Gets max2(a,b)
+      \Let max \Gets max2(maxab,c)
+      \Return max
+    \EndAlgo
+  \end{pseudocode}
+\end{frame}
+
+\begin{frame}{Exemple}
+  \framesubtitle{trace}
+  \begin{tabular}{|>{\centering\arraybackslash}m{1.1cm}
+          |>{\centering\arraybackslash}m{13mm}
+          |*{5}{>{\centering\arraybackslash}m{13mm}}|}
+    \hline
+    \rowcolor{black!50}
+      & \pc{test} & \multicolumn{5}{c|}{\pc{max3}} \\
+    \hline
+    \rowcolor{black!30}
+    \# & max  & {a} & {b} & {c} & {maxab} & {max}\\
+    \hline
+    2    & indéfini             &                      &                      &                      &                      &          \\
+    3,6  & {\color{gray}$\mid$} & 3                    & 2                    & 5                    &                      &          \\
+    7    & {\color{gray}$\mid$} & {\color{gray}$\mid$} & {\color{gray}$\mid$} & {\color{gray}$\mid$} & indéfini             & indéfini \\
+    8    & {\color{gray}$\mid$} & {\color{gray}$\mid$} & {\color{gray}$\mid$} & {\color{gray}$\mid$} & 3                    & indéfini \\
+    9   & {\color{gray}$\mid$} & {\color{gray}$\mid$} & {\color{gray}$\mid$} & {\color{gray}$\mid$} & {\color{gray}$\mid$} & 5        \\
+    10,3 & 5                    &                      &                      &                      &                      &          \\
+    \hline
+  \end{tabular}
+  \note{Deux fois var \pc{max}, mais c'est variables différentes !}
+\end{frame}
+
+\begin{frame}[fragile]{Paramètre en entrée-sortie}
+  Le paramètre en \structure{entrée-sortie} est un paramètre tel que
+  l'algorithme reçoit une valeur en entrée et il peut être modifié \pause
+  (pour l'appelant).
+
+  Quand c'est nécessaire de le préciser, on le suit de \InOut.
+
+  \pause
+  La modification de cette variable doit être visible par l'appelant. Ce
+  paramètre, ou variable, doit être une \structure{référence} (passage
+  par valeur vs par référence).
+
+  \pause
+  \begin{minipage}{4.5cm}
+    \begin{pseudocode}
+\LComment {Code appelant}
+\Stmt myAlgo(variable)
+\Empty
+    \end{pseudocode}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{7cm}
+    \begin{pseudocode}
+\LComment {Code appelé}
+\Algo{myAlgo}{\Par{par\In\Out}{entier}}{}
+\Stmt \dots
+\EndAlgo
+    \end{pseudocode}
+  \end{minipage}
+
+  \pause
+  Pas de \pc{\K{return}} nécessaire ici.
+\end{frame}
+
+\begin{frame}{Exemple}
+  \begin{center}
+    \flowalgov{nb (réel)}{valAbsolue}
+  \end{center}
+
+  \pause
+  \begin{pseudocode}[1]
+    \Algo{valAbsolue}{\Par{nb\In\Out}{réel}}{}
+      \pause
+      \If{nb < 0}
+        \pause
+        \Let nb \Gets -nb
+        \pause
+      \EndIf
+    \EndAlgo
+    \Algo{test}{}{}
+    \Decl{température}{réel}
+    \Let température \Gets -12.5
+    \Stmt valAbsolue(température)
+    \Write température
+    \EndAlgo
+  \end{pseudocode}
+\end{frame}
+
+\begin{frame}{Exemple}
+  \framesubtitle{trace}
+  \begin{center}
+  \begin{tabular}{|>{\centering\arraybackslash}m{1cm}
+          |>{\centering\arraybackslash}m{20mm}
+          |*{2}{>{\centering\arraybackslash}m{20mm}}|}
+    \hline
+    \rowcolor{black!50}
+      & \pc{test} & \multicolumn{2}{c|}{\pc{valAbsolue}} \\
+    \hline
+    \rowcolor{black!30}
+    \# & température  & nb & test \\
+    \hline
+    8     & indéfini &  & \\
+    9     & -12.5    &  & \\
+    10, 1 & {\color{gray}$\mid$} & -12.5 & \\
+    2     & {\color{gray}$\mid$} & {\color{gray}$\mid$} & vrai \\
+    3     & {\color{gray}$\mid$} & 12.5 & \\
+    5, 10 & 12.5 &  & \\
+    \hline
+  \end{tabular}
+  \end{center}
+\end{frame}
+
+\subsection{Type primitif et type référence}
+\begin{frame}{Type primitif et type référence}
+  Paramètres en entrée et entrée-sortie, algorithmes vs programmation ? Dans
+  les langages de programmation (supportant le concept de fonction) :
+  \begin{itemize}
+    \item tous acceptent d'avoir une valeur de retour unique;
+    \item tous acceptent des paramètres en entrée;
+    \item certains et sous certaines conditions acceptent des paramètres en 
+      entrée/sortie.
+  \end{itemize}
+
+  \pause
+  Une histoire de \structure{type primitif} et \structure{type référence}.
+\end{frame}
+
+\begin{frame}{Type primitif}
+  \begin{definition}
+    Une variable de \structure{type primitif} est une variable qui contient
+    directement la valeur qui lui est assignée.  Cette variable a une taille
+    fixe qui dépend de son type. L'emplacement mémoire qui lui est attribué
+    se trouve sur la \structure{pile} (\structure{\textit{stack}} en anglais).
+  \end{definition}
+  \note{
+  Lorsqu'un programme s'exécute, le système lui attribue plusieurs
+  emplacements mémoire~:un contenant les instructions et deux qui
+  contiendront les variables du programme. La pile (\textit{stack}) et le
+  tas (\textit{heap}).}
+
+  \pause
+  Par exemple, une variable de type \pc{int} a une taille de
+  4~\textit{bytes} (32~bits).
+
+  \begin{center}
+  \begin{tikzpicture}
+    \draw (0,0) rectangle (.7,.7);
+    \draw (0,.7) node[above left]{\Large \texttt{i}};
+    \draw (.35,.35) node{\Large 7};
+  \end{tikzpicture}
+  \end{center}
+
+  Les types primitifs en Java sont \pc{\K{byte}}, \pc{\K{short}}
+  \pc{\K{int}}, \pc{\K{long}}, \pc{\K{char}}, \dots
+\end{frame}
+
+\begin{frame}{Type référence}
+  \begin{definition}[Type référence]
+  Une variable de \structure{type référence} est une variable qui ne contient
+  pas directement la valeur qui lui est assignée. Elle contient une adresse
+  mémoire désignant l'endroit où est --- ou sera --- stockée la valeur.
+
+  L'emplacement mémoire attribué à la variable se trouve sur la pile et
+  a la même taille pour toutes les variables de type référence tandis
+  que l'emplacement mémoire qui contiendra effectivement la valeur sera
+  attribué sur le \structure{tas} (\structure{\textit{heap}} en anglais).
+  \end{definition}
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \pc{String} est un type référence. 
+
+  \begin{java}
+String s = "Hello";
+s = "I would just like to say hello";
+  \end{java}
+
+  \only<1-2> {
+  \hspace{3cm}
+  \begin{tikzpicture}
+    \node[draw, minimum width=.5cm, 
+      minimum height=.5cm,label={above:\texttt{s}}] (ref) {};
+      \only<1>{\node[draw, below of=ref, right] (string) at (0,0) {Hello};}
+      \only<1>{\draw[->] (ref.center) -- (string);}
+      \only<2>{\node[draw, below of=ref, right] (string2) at (2,0) {I would
+      just like to say hello};}
+      \only<2>{\draw[->] (ref.center) -- (string2);}
+  \end{tikzpicture}
+  }
+
+  \pause
+  Il y a d'autres types référence en Java (vous connaissez déjà \pc{Scanner}).
+\end{frame}
+
+\begin{frame}{Paramètres en Java}
+  En Java, les méthodes retournent avec \pc{\K{return} expression}. Une
+  méthode peut ne rien retourner.
+
+  En Java, les paramètres se passent \structure{par valeur}.
+  \begin{itemize}
+    \item Les types \structure{primitifs} en paramètre agissent comme des
+      paramètres \structure{d'entrée}.
+    \item Les types \structure{référence} en paramètre agissent comme des
+      paramètres \structure{d'entrée-sortie} (sauf s'ils sont \pc{\K{final}}
+      --- vu plus tard).
+  \end{itemize}
 \end{frame}
 
 \end{document}
