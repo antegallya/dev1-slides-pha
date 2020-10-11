@@ -84,6 +84,8 @@
   \end{actionenv}%
 }
 
+\renewcommand{\pc}{\texttt}
+
 % Define \tableonly, for a \only on tables rows.
 % https://tex.stackexchange.com/a/474748
 \makeatletter
@@ -110,8 +112,6 @@
     \beamer@donow
   }%<<<
 \makeatother
-
-\renewcommand{\pc}{\texttt}
 
 \newcommand{\developmentsteps}{
   {\sffamily
@@ -141,6 +141,13 @@
   }
   \hfill \raisebox{-4cm}{\developmentsteps}
 }
+
+% Enumerate continuation
+\newcounter{saveenumi}
+\newcommand{\seti}{\setcounter{saveenumi}{\value{enumi}}}
+\newcommand{\conti}{\setcounter{enumi}{\value{saveenumi}}}
+
+\resetcounteronoverlays{saveenumi}
 
 % The colors defined in style-esi/links are invisible on the output beamer.
 \hypersetup{colorlinks=false}
@@ -2736,7 +2743,6 @@ for (int i = 0; i < 0; ++i) {
 \end{frame}
 
 
-\end{hideedit}
 \section{Modules et références}
 \frame{\sectionpage}
 
@@ -3125,9 +3131,570 @@ s = "I would just like to say hello";
     \item Les types \structure{primitifs} en paramètre agissent comme des
       paramètres \structure{d'entrée}.
     \item Les types \structure{référence} en paramètre agissent comme des
-      paramètres \structure{d'entrée-sortie} (sauf s'ils sont \pc{\K{final}}
-      --- vu plus tard).
+      paramètres \structure{d'entrée-sortie} (sauf s'ils sont \pc{\K{final}}).
   \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \begin{definition}
+    Les paramètres déclarés dans \structure{l'entête} d'un algorithme sont
+    appelés les \structure{paramètres formels}.\\
+    Les paramètres \structure{donnés à l'appel} de l'algorithme sont appelés
+    \structure{paramètres effectifs}.
+  \end{definition}
+\end{frame}
+
+\section[Documentation]{Documentation, Javadoc}
+\frame{\sectionpage}
+
+\begin{frame}{Plusieurs documentations}
+\begin{description}
+  \item[destinée à l'utilisateur] \(\sim\) manuel de l'utilisateur. Copies
+    d'écrans, explications du fonctionnement du programme. Informations
+    nécessaires à l'utilisation du programme.
+  \item[destinée au développeur] explication des méthodes que le
+    développeur peut être amené à utiliser.
+    \pause
+    \begin{itemize}[<+->]
+      \item interne (fonctionnement du code)
+      \item interface (API, \textit{Application Programming Interface})
+    \end{itemize}
+\end{description}
+\end{frame}
+
+\begin{frame}{Documentation développeur}
+  Décomposer, factoriser, réutiliser du code\\
+  \qquad \(\rightarrow\) beaucoup de méthodes à connaître.
+
+  \pause
+  Un développeur doit tout connaître ? \pause Non, il doit juste savoir
+  chercher.
+
+  \pause
+  La documentation développeur doit être :
+  \begin{itemize}[<+->]
+    \item accessible/navigable rapidement;
+    \item dans un format uniforme;
+    \item maintenue.
+  \end{itemize}
+
+  \pause
+  Malheureusement, souvent laissée de côté (par flemme ?).
+
+  \pause
+  Documentation API Java :\\
+  \url{https://docs.oracle.com/en/java/javase/11/docs/api}
+
+  \note{Montrer doc java.lang.Math, description de classe puis descriptions
+  courtes puis descriptions longues.}
+
+\end{frame}
+
+\begin{frame}{Documentation dans le code}
+  \framesubtitle{\textit{litterate programming}}
+  \begin{itemize}[<+->]
+    \item accompagne le code;
+    \item écrite et mise à jour en même temps;
+    \item suit une syntaxe particulière (c'est presque du code);
+    \item extraite automatiquement par un outil pour en faire un document
+      facile à lire;
+    \item ce document --- quelle que soit la personne qui écrit la
+      documentation --- suit la même structure, le même format, le même style
+      et est donc facile à lire.
+  \end{itemize}
+\end{frame}
+
+\subsection{Javadoc}
+\begin{frame}[fragile]{\pc{Javadoc}}
+  \begin{java}
+    // Commentaire simple
+    /* Commentaire
+     * Multi-lignes */
+    /**
+     * Commentaire Javadoc
+     */
+  \end{java}
+
+  \pause
+  \structure{Commentaire Javadoc} placé \alert{au dessus} de la déclaration
+  de classe/méthode qu'il documente.
+\end{frame}
+
+\begin{frame}[fragile]{\pc{Javadoc}}
+  \begin{java}
+/**
+ * Description courte de la méthode terminée par un point.
+ *
+ * Un peu plus en détail ce que fait la méthode.
+ * La description longue peut contenir des balises html
+ * comme <strong>écrire en gras</strong> par exemple.
+ *
+ * @param par1 rôle du paramètre (son type est déduit)
+ * @return valeur de retour
+ */
+public static <type> <nom>(<params>) {
+    // Statement
+}
+  \end{java}
+\end{frame}
+
+\begin{frame}[fragile]{\pc{Javadoc}}
+  \begin{itemize}
+    \item Générée ``à la main''
+      \begin{verbatim}
+$ cd ~/NetBeansProjects/JavaApplication1/dev1-cours
+$ javadoc -sourcepath src/main/java \
+    -subpackages pha.dev1 -d doc/
+      \end{verbatim}
+    \item Via l'IDE (NetBeans) : Run \(\rightarrow\) Generate Javadoc\\
+      (éventuellement, il faut Clean and Build Projet avant)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Tags}
+  \structure{Tag} = mot commençant par un arobase @.\\
+  Sert à spécifier une information formattée automatiquement.
+
+  \pause
+  Certains requis (par convention), certains optionnels.
+
+  Documentation style Oracle:\\
+  \url{https://www.oracle.com/technical-resources/articles/java/javadoc-tool.html}
+
+  Documentation syntaxe :\\
+  \url{https://docs.oracle.com/en/java/javase/11/docs/specs/doc-comment-spec.html}
+\end{frame}
+\begin{frame}{Tags}
+  \begin{description}
+    \item[@author] le ou les auteurs. Un \textit{tag} 
+      par auteur (peut-être un groupe/société). Ne génère pas
+      de \textit{javadoc}, visible que dans la classe.
+      (\textit{classes}, \textit{requis});
+    \item[@version] date de modification et numéro de version
+      commençant à 1.1.  (\textit{classes}, \textit{requis});
+
+      \par Par exemple \textit{1.39, 1996-01-23}
+    \item[@param] un par paramètre de méthode;
+      (\textit{méthodes}, \textit{requis});
+    \item[@return] ce que retourne la méthode;
+      (\textit{méthodes}, \textit{requis} excepté si la méthode ne retourne rien);
+    \item[@throws] listes les exceptions éventuellement lancées par la méthode;
+      (\textit{méthodes});
+    \item[@see] référence à une autre classe/méthode relative
+      à ce qui est documenté.
+  \end{description}
+\end{frame}
+
+\begin{frame}[fragile]{Style}
+  \begin{enumerate}[<+->]
+    \item Commenter seulement classes et méthodes \structure{publiques}.
+    \item Dans la mesure du possible la \textit{javadoc} s'écrit en
+      \structure{anglais}.
+    \item Mots clés (\textit{keywords}), noms de classes, de méthodes :
+      écrit dans un \structure{inline tag} \pc{\{@code foo bar\}}
+    \item On préfèrera la $3^e$ personne à la $2^e$ personne.
+    \seti
+  \end{enumerate}
+\end{frame}
+\begin{frame}[fragile]{Style}
+  \begin{enumerate}
+    \conti
+    \item Description de méthode commence par un verbe, parce qu'elle
+      implémente habituellement une opération, une action.\\
+      \medskip 
+      \quad\textit{Gets the label of this button.} \\
+      sera préféré à \\
+      \quad\textit{This method gets the label of this button.}
+    \seti
+  \end{enumerate}
+\end{frame}
+\begin{frame}[fragile]{Style}
+  \begin{enumerate}
+    \conti
+    \item Ajouter le commentaire au nom de la méthode sans répéter le nom de la
+      méthode. Inutile de répéter. \(\rightarrow\) Apporter une plus-value
+      au nom de la méthode.\\
+      \begin{wrong}
+      \begin{java}
+/**
+  * Sets the tool tip text.
+  *
+  * @param text the text of the tool tip
+  */
+  public void setToolTipText(String text)
+      \end{java}
+      \end{wrong}
+  \end{enumerate}
+\end{frame}
+\begin{frame}[fragile]{Style}
+  \begin{enumerate}
+    \conti
+    \item Ajouter le commentaire au nom de la méthode sans répéter le nom de la
+      méthode. Inutile de répéter. \(\rightarrow\) Apporter une plus-value
+      au nom de la méthode.\\
+      \begin{java}
+/**
+  * Registers the text to display in a tool tip.
+  *
+  * The text displays when the cursor lingers over
+  * the component.
+  *
+  * @param text the string to display. If the text
+  * is null, the tool tip is turned off for
+  * this component.
+  */
+  public void setToolTipText(String text)
+      \end{java}
+    \seti
+  \end{enumerate}
+\end{frame}
+\begin{frame}[fragile]{Style}
+  \begin{enumerate}[<+->]
+    \conti
+    \item Le tag \texttt{@link} peut être utilisé… avec parcimonie car un lien
+      attire l'attention. Il ne faut pas en abuser. Ce tag s'écrit dans le
+      texte et fait référence vers l'API.
+
+    \item Lorsqu'une référence à une autre méthode est faite, on omet les
+      parenthèses \texttt{add} ou on écrit le type des paramètres
+      \texttt{add(int, Object)} sans nom pour les paramètres. 
+
+    \item Lors de la description éventuelle d'une variable, omettre le sujet
+      dans un souci de brièveté.\\
+      \medskip
+      \quad\textit{Counter of vowels}\\
+      sera préféré à\\
+      \quad\textit{This is a counter of vowels}.
+
+    \item Éviter les abréviations non universelles.
+
+  \end{enumerate}
+\end{frame}
+
+\section{Les types}
+\begin{frame}{Tout est données (binaires)}
+  En mémoire, tout n'est que séquence de 0 et 1.
+  \begin{itemize}
+    \item \pc{\K{True}} : \pc{1}
+    \item \pc{\K{False}} : 0
+    \item \pc{42} : 101010
+    \item \pc{-1} : 11111111111111111111111111111111
+    \item \pc{2.5} : {\small
+      100000000000100000000000000000000000000000000000000000000000000}
+    \item \(\pi\) : {\small
+      100000000001001001000011111101101010100010001000010110100011000}
+    \item \og Hello \fg : 10010001100101110110011011001101111
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Tout a un type}
+  Les opérations sur les données dépendent de leur \structure{type}.
+
+  \pause
+  \begin{itemize}
+    \item Types primitifs (basiques)
+    \item Types composés (complexes)
+  \end{itemize}
+
+  \pause
+  \begin{definition}
+    Une valeur écrite dans un programme est appelée un
+    \structure{littéral}. Il a une \structure{valeur} et un \structure{type}.
+  \end{definition}
+\end{frame}
+
+\subsection{Types primitifs}
+\begin{frame}{Types primitifs}
+  Ils sont manipulés \emph{directement} par l'ordinateur. Il y en a 8 en Java :
+  \begin{itemize}
+    \item \pc{boolean}
+    \item \pc{byte} \pc{short} \pc{int} \pc{long} \pc{char}
+    \item \pc{float} \pc{double}
+  \end{itemize}
+
+  \begin{center}
+    \includegraphics[width=.7\linewidth]{\sybprffx/images/primitifs.pdf}
+  \end{center}
+\end{frame}
+
+
+\begin{frame}{Types numériques entiers}
+  Stockés en notation \structure{complément à deux}.
+
+  Diffèrent par leur taille (en bits) en mémoire.
+
+  \begin{tabular}[h]{|l|l|p{8cm}|}
+    \hline
+    \rowcolor{black!20}
+    \textbf{Type}  &  \textbf{Taille}  &  \textbf{Intervalle}  \\
+    \hline
+    \pc{byte}  &  8 bits  &  [-128, 127]\\
+        &      &  [$-2^7$, $2^7-1$]\\
+    \pc{short}  &  16 bits  &  [-32\,768, 32\,767]\\
+        &      &  [$-2^{15}$, $2^{15}-1$]\\
+    \pc{int}    &  32 bits  &  [-2\,147\,483\,648, 2\,147\,483\,647]\\
+        &      &  [$-2^{31}$, $2^{31}-1$]\\
+    \pc{long}  &  64 bits  
+      &  \small{[-9\,223\,372\,036\,854\,775\,808,
+      9\,223\,372\,036\,854\,775\,807]}\\
+        &      &  [$-2^{63}$, $2^{63}-1$]\\
+    \hline
+  \end{tabular}
+  \note{Parler de gangnam style qui a dépassé \(2^32\) vues et forcé Google a
+    adapter le type de compteur de vues en long.}
+\end{frame}
+
+\begin{frame}[fragile]{Littéraux numérique entiers}
+  \framesubtitle{décimal}
+  \begin{itemize}[<+->]
+    \item formé des chiffres \texttt{0123456789} et \texttt{\_};
+    \item un littéral est de type \pc{int} ou \pc{long}, jamais de type
+      \pc{byte} ou \pc{short};
+    \item pour distinguer un littéral \pc{long}
+      du type par défaut \pc{int}, suffixer d'un \texttt{l} ou \texttt{L};
+  \end{itemize}
+
+  \pause
+  \begin{java}
+int myInt = 42;
+int myOtherIntSomeValue = 1_00;
+long myLong = 42L;
+  \end{java}
+  \note{Ceci ne nous empêchera pas d'écrire \pc{byte b = 5} par exemple. Nous
+    verrons les conversions en Développement II}
+
+\end{frame}
+
+\begin{frame}[fragile]{Littéraux numérique entiers}
+  \framesubtitle{octal}
+  \begin{itemize}
+    \item les chiffres \texttt{01234567} et \texttt{\_};
+    \item commence par un \texttt{0};
+    \item un littéral est de type \pc{int} ou \pc{long}, jamais de type 
+      \pc{byte} ou \pc{short};
+    \item pour distinguer un littéral \pc{long} du type par défaut \pc{int}, suffixer 
+      d'un \texttt{l} ou \texttt{L};
+  \end{itemize}
+
+  \pause
+  \begin{java}
+int myOctalInt = 052;
+int anoherOctalInt = 01_44;
+long myOctalLong = 0144L;
+  \end{java}
+  \note{Attention à \pc{010 + 1} = \dots \(9_{10}\)}
+\end{frame}
+
+\begin{frame}[fragile]{Littéraux numérique entiers}
+  \framesubtitle{hexadécimal}
+  \begin{itemize}
+    \item les chiffres \texttt{0123456789ABCDEFabcdef} et \texttt{\_};
+    \item commence par un \texttt{0x} ou \texttt{0X};
+    \item un littéral est de type \pc{int} ou \pc{long}, jamais de type 
+      \pc{byte} ou \pc{short};
+    \item pour distinguer un littéral \pc{long} du type par défaut \pc{int}, suffixer 
+      d'un \texttt{l} ou \texttt{L};
+  \end{itemize}
+
+  \pause
+  \begin{java}
+int myHexadecimalInt = 0x64;
+int anotherHexadecimalInt = 0x2A;
+long myHexadecimalLong = 0X64l;
+  \end{java}
+\end{frame}
+
+\begin{frame}[fragile]{Littéraux numérique entiers}
+  \framesubtitle{binaire}
+  \begin{itemize}
+    \item les chiffres \texttt{01} et \texttt{\_};
+    \item commence par un \texttt{0b} ou \texttt{0B};
+    \item un littéral est de type \pc{int} ou \pc{long}, jamais de type 
+      \pc{byte} ou \pc{short};
+    \item pour distinguer un littéral \pc{long} du type par défaut \pc{int}, suffixer 
+      d'un \texttt{l} ou \texttt{L};
+  \end{itemize}
+
+  \pause
+  \begin{java}
+int myBinaryInt = 0b101010;
+int anotherBinaryInt = 0b01100100;
+int yetAnotherBinaryInt = 0B0110_0100;
+  \end{java}
+  \note{Dire que toujours même valeur dans les variables.
+
+  Print ne dépend pas de la représentation utilisée pour le litéral.}
+\end{frame}
+
+\begin{frame}{Littéraux numériques entier \pc{\K{char}}}
+  Représente un \structure{caractère} (\textit{character}).
+  Litéral '\pc{a}'.
+
+  Entier non signé de 16~bits représentant le code Unicode codé en UTF-16
+  du caractère.
+
+  \begin{center}
+  \begin{tabular}[h]{|l|l|p{9cm}|}
+    \hline
+    \rowcolor{black!20}
+    \textbf{Type}  &  \textbf{Taille}  &  \textbf{Intervalle}  \\
+    \hline
+    \pc{char}  &  16 bits  &  [0, 65\,535]\\
+    &      &  [$0$, $2^{16}-1$]\\
+    \hline
+  \end{tabular}
+  \end{center}
+
+  \pause
+  Les caractères peuvent être \structure{échappés} (\structure{échappement de
+  caractères}) :
+  \begin{multicols}{2}
+    \begin{itemize}
+      \item '\pc{\textbackslash n}' : retour à la ligne
+      \item '\pc{\textbackslash r}' : retour chariot
+      \item '\pc{\textbackslash t}' : tabulation
+      \item '\pc{\textbackslash}'\,' : déspécialisation du '
+      \item '\pc{\textbackslash "}' : déspécialisation du "
+    \end{itemize}
+  \end{multicols}
+\end{frame}
+
+\begin{frame}{Les types primitifs numériques à virgule flottante}
+  Nombres \structure{pseudo-réels} ou à \structure{virgule flottante}.
+  \[nombre = (\pm 1) \cdot mantisse \cdot 2^{exposant}\]
+  \begin{center}
+  \begin{tabular}[t]{|l|c|c|c|c|}
+    \hline
+    \rowcolor{black!40}
+    \textbf{Type}   & \textbf{Taille (\textit{bit})}  
+    & \textbf{Exposant} & \textbf{Mantisse} & \textbf{Intervalle}\\
+    \hline
+    float  & 32 bits          & 8    & 23 &
+    [\(1.4 \cdot 10^{-45}, 3.4 \cdot 10^{38}\)]\\
+    \hline
+    double  & 64 bits          & 11  & 52 &
+    [\(4.9 \cdot 10^{-324}, 1.8 \cdot 10^{308}\)]\\
+    \hline
+  \end{tabular}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Littéraux numériques à virgule flottante}
+  Écrit en base 10.
+  \begin{center}
+    \bf \pc{| entier | . | décimales | exposant | suffixe
+    |}
+  \end{center}
+  \begin{itemize}
+    \item \pc{entier} : chiffres avant la virgule (\pc{\_} autorisé);
+    \item \pc{.} : séparateur décimales;
+    \item \pc{décimales} : chiffres après la virgule;
+    \item \pc{exposant} : \pc{e} ou \pc{E} suivi d'un entier,
+      l'exposant (puissance de 10);
+    \item \pc{suffixe} : \pc{f}, \pc{F}, \pc{d} ou \pc{D}, spécifie si c'est un
+      \pc{float} ou un \pc{double} (par défaut \pc{double}).
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Littéraux numériques à virgule flottante}
+  \framesubtitle{en base 10}
+\begin{java}
+double myDouble;
+myDouble = 1.;       // 1.0
+myDouble = .1;       // 0.1
+myDouble = 1e1;      // 10.0
+myDouble = 1d;       // 1.0
+myDouble = 1.e0;     // 1.0
+myDouble = 1_000.45; // 1000.45
+myDouble = 1.45e3;   // 1450.0
+myDouble = .45e3d;   // 450.0
+
+float myFloat;
+myFloat = 1f;      // 1.0
+myFloat = 1.f      // 1.0  
+\end{java}
+\end{frame}
+
+\begin{frame}{Littéraux numériques à virgule flottante}
+  Écrit en base 16.
+  \begin{center}
+    \bf \pc{| entier | . | décimales | exposant | suffixe
+    |}
+  \end{center}
+  \begin{itemize}
+    \item débute par \pc{0x} ou \pc{0X};
+    \item \pc{entier} : chiffres avant la virgule (\pc{\_} autorisé);
+    \item \pc{.} : séparateur décimales;
+    \item \pc{décimales} : chiffres après la virgule;
+    \item \pc{exposant} : \pc{p} ou \pc{P} suivi d'un entier,
+      l'exposant (puissance de 2);
+    \item \pc{suffixe} : \pc{f}, \pc{F}, \pc{d} ou \pc{D}, spécifie si c'est un
+      \pc{float} ou un \pc{double} (par défaut \pc{double}).
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Littéraux numériques à virgule flottante}
+  \framesubtitle{en base 16}
+\begin{java}
+  double myDouble;
+  myDouble = 0x1p0;    // 1.0 = 1 * 2^0
+  myDouble = 0x1.1p0;  // 1.0625 = 1 + (1/16)
+  myDouble = 0x1p1;    // 2.0 = 1 * 2^1
+  myDouble = 0xA.Bp0;  // 10.6875= 10 + 11*1/16
+  myDouble = 0x1E2p2;  // 1928 = (1*16^2 + 14*16^1 + 2*16^0) * 2^2
+
+  float myFloat;
+  myFloat = 0X.1p4f;   // 1.0 = (1*16^-1) * 2^4
+\end{java}
+\end{frame}
+
+\begin{frame}[fragile]{Primitif booléen}
+  Un \structure{booléen} est \structure{vrai} ou \structure{faux}.
+
+  Ses littéraux \pc{true} et \pc{false}.
+
+\begin{java}
+boolean myBoolean = true;
+boolean anotherBoolean = false;
+\end{java}
+\end{frame}
+
+\end{hideedit}
+\subsection{Types référénce}
+\begin{frame}{Types référence}
+  En java, \structure{type composés/complexes} = \structure{types référence}.
+
+  Exemples : \pc{String}, \pc{Scanner}, \pc{Random}, les \textit{tableaux}.
+  \note{Reparler de référence, allocation stack, heap, avec dessin boite};
+\end{frame}
+
+\begin{frame}[fragile]{Littéraux de type \pc{String}}
+  Chaîne de caractères (\pc{String}) : texte entouré de guillemets doubles
+  (\textit{double quote}).
+  \begin{java}
+String myString = "Hello";
+String anotherString = "Hello \n World";
+  \end{java}
+\end{frame}
+
+\begin{frame}[fragile]{Littéraux de type \pc{String}}
+  Deux littéraux identiques sont alloués \alert{une seule} fois.
+  \begin{java}
+String s1 = "Hello";
+String s2 = "Hello";
+  \end{java}
+
+  \begin{center}
+    \begin{tikzpicture}
+      \node[draw, minimum width=.5cm, 
+        minimum height=.5cm,label={above:\texttt{s1}}] (ref1) {};
+      \node[draw, minimum width=.5cm, 
+        minimum height=.5cm,label={above:\texttt{s2}}] (ref2) at (1,0) {};
+      \node[draw, below of=ref2, right] (string) at (2,-0.5) {Hello};
+      \draw[->] (ref1.center) -- (string);
+      \draw[->] (ref2.center) -- (string);
+    \end{tikzpicture}
+  \end{center}
 \end{frame}
 
 \end{document}
