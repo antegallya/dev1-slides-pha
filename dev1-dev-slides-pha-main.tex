@@ -186,18 +186,18 @@
 \frame{\sectionpage}
 \begin{frame}
   \begin{definition}[Algorithme]
-    Procédure de résolution d’un problème 
-    contenant des opérations bien définies 
-    portant sur des informations, 
-    s’exprimant dans une séquence définie sans ambigüité, 
+    Procédure de résolution d’un problème
+    contenant des opérations bien définies
+    portant sur des informations,
+    s’exprimant dans une séquence définie sans ambigüité,
     destinée à être traduite dans un langage de programmation.
   \end{definition}
   \begin{definition}[Programme]
-    Un \textbf{programme} n’est rien d’autre 
-    que la représentation d’un algorithme 
-    dans un langage plus technique compris par un ordinateur 
-    (par exemple~:~Assembleur, Cobol, Java, C++\dots). 
-    Ce type de langage est appelé 
+    Un \textbf{programme} n’est rien d’autre
+    que la représentation d’un algorithme
+    dans un langage plus technique compris par un ordinateur
+    (par exemple~:~Assembleur, Cobol, Java, C++\dots).
+    Ce type de langage est appelé
     \textbf{langage de programmation}.
   \end{definition}
 \end{frame}
@@ -210,7 +210,7 @@
 \begin{frame}{Données et résultat}
   \begin{block}{}
   \begin{center}
-    {\textbf{étant donné} [les données] 
+    {\textbf{étant donné} [les données]
     \textbf{on demande} [résultat]}
   \end{center}
   \end{block}
@@ -218,7 +218,7 @@
   \begin{example}
     Soit l’énoncé suivant~:
     \og
-      Calculer la surface d’un rectangle 
+      Calculer la surface d’un rectangle
       à partir de sa longueur et sa largeur
     \fg.
 
@@ -268,8 +268,8 @@
 \end{frame}
 
 \begin{frame}{Variables}
-  Les noms donnés à chaque donnée seront directement associés à une 
-  \textbf{variable} lorsque l'algorithme sera traduit en un programme dans 
+  Les noms donnés à chaque donnée seront directement associés à une
+  \textbf{variable} lorsque l'algorithme sera traduit en un programme dans
   un langage de programmation.
 
   \pause
@@ -318,12 +318,12 @@
   \end{tabular}
   \note{
     \begin{itemize}
-    \item Pour la longueur, la largeur et la surface d’un rectangle, 
+    \item Pour la longueur, la largeur et la surface d’un rectangle,
             on prendra un réel (le type \pc{double}).
     \item Pour le nom d’une personne, on choisira une chaine de caractère
             (le type \pc{String}).
     \item Pour l’âge d’une personne, un entier est indiqué (\pc{int}).
-    \item Pour décrire si un étudiant est doubleur ou pas, un booléen 
+    \item Pour décrire si un étudiant est doubleur ou pas, un booléen
             (\pc{boolean}) est adapté.
     \item Pour représenter un mois, on préférera souvent un entier
             donnant le numéro du mois (par ex: 3 pour le mois de mars)
@@ -386,7 +386,7 @@
 \end{frame}
 
 \begin{frame}{Types complexes/composés}
-    Quel type choisir 
+    Quel type choisir
     pour la date de naissance d’une personne~?
 
     \pause
@@ -395,7 +395,7 @@
     (déterminer le numéro du mois).
 
     \pause
-    Décomposer en trois parties~: 
+    Décomposer en trois parties~:
     le jour, le mois et l’année, tous des entiers.
 
     On définira de nouveaux types grâce à des \structure{structures} ou à des
@@ -417,7 +417,7 @@
 
 \subsection{Représentation}
 \begin{frame}{Résumés}
-    Pour le problème, de la surface du rectangle, 
+    Pour le problème, de la surface du rectangle,
     on fera le schéma suivant~:
 
     \center\flowalgodd{longueur (réel positif)}
@@ -437,8 +437,8 @@
 
 \begin{frame}{Exemples numériques}
   \begin{itemize}
-    \item En français~: 
-      si la longueur du rectangle vaut 3 et sa largeur vaut 2, 
+    \item En français~:
+      si la longueur du rectangle vaut 3 et sa largeur vaut 2,
       alors sa surface vaut 6.
     \item Via un schéma~:
       \begin{center}
@@ -461,16 +461,16 @@
   pouvons représenter un algorithme de plusieurs manières; en langage naturel
   (en français ou en   anglais), en pseudocode ou avec un organigramme\ldots
   Dans ce chapitre, nous présenterons les algorithmes en langage naturel, en
-  pseudocode, avec un organigramme et en langage Java. 
+  pseudocode, avec un organigramme et en langage Java.
 
-  Dans la suite du cours, nous nous contenterons de les écrire en langage Java. 
+  Dans la suite du cours, nous nous contenterons de les écrire en langage Java.
   }
 }
 
 \subsection{Exercice simple}
 \begin{frame}
   \begin{block}{Problème}
-  Calculer la surface d’un rectangle 
+  Calculer la surface d’un rectangle
   à partir de sa longueur et sa largeur.
   \end{block}
   \pause
@@ -497,9 +497,9 @@
 
 \begin{frame}{Exemples}
   La surface du rectangle 3, 2 vaut 6. La surface du rectangle 3.5,
-  1 vaut 3.5. 
+  1 vaut 3.5.
 
-  \pause ou 
+  \pause ou
 
   \begin{itemize}
   \item \pc{rectangleArea(3,2)} donne \(6\)~;
@@ -523,7 +523,7 @@
 
   \pause
   Les exemples sont essentiels. Ce sont eux qui vont nous permettre de
-  tester notre algorithme. Notre programme. 
+  tester notre algorithme. Notre programme.
 \end{frame}
 
 \begin{frame}{Comment résoudre ce problème~?}
@@ -541,7 +541,7 @@
 
   \note{
     Trouver la bonne formule n’est pas toujours facile.
-    Dans votre vie professionnelle, 
+    Dans votre vie professionnelle,
     vous devrez parfois écrire un algorithme
     pour un domaine que vous connaissez peu,
     voire pas du tout.
@@ -553,7 +553,7 @@
 \end{frame}
 
 \begin{frame}{Vérifier l'algorithme}
-  Vérifions notre solution 
+  Vérifions notre solution
   pour le calcul de la surface du rectangle
   en reprenant les exemples choisis.
 
@@ -561,9 +561,9 @@
     \begin{tabular}{|c|cccc|c|}
     \hline
     \rowcolor{black!40}
-    test \no & longueur & largeur & réponse attendue 
+    test \no & longueur & largeur & réponse attendue
             & réponse fournie & {} \\
-    \hline 
+    \hline
     1 & 3   & 2 & 6   & 6   & {\color{green}$\checkmark$} \\\hline
     2 & 3.5 & 1 & 3.5 & 3.5 & {\color{green}$\checkmark$} \\\hline
     \end{tabular}
@@ -571,7 +571,7 @@
 \note{
   Une étape importante, après l'écriture d'un algorithme est la
   vérification de sa validité. Il est important d'exécuter
-  l’algorithme avec des exemples numériques et vérifier que chaque 
+  l’algorithme avec des exemples numériques et vérifier que chaque
   réponse fournie est correcte.
 
   Pour tester un algorithme il faut --- même si ça parait étrange
@@ -585,7 +585,7 @@
 \begin{frame}{Écrire l'algorithme}
   \framesubtitle{Langage naturel}
 
-  En \textbf{langage naturel}, une solution aurait simplement cette 
+  En \textbf{langage naturel}, une solution aurait simplement cette
   allure~:
 
   \begin{langagenaturel}
@@ -608,7 +608,7 @@
       \node (in1) [io, below of=start] {
         \pc{length}\\
         \pc{width}
-      }; 
+      };
       \draw [arrow] (start) -- (in1);
       \node (pro1) [process, below of=in1] {
         \pc{rectangleArea = length * width}
@@ -646,13 +646,13 @@
   de délimiter l’algorithme.  La première ligne est appelée
   \textbf{l’entête} de l’algorithme.  On y retrouve :
       le nom de l’algorithme,
-      une déclaration des données, 
-      qu’on appellera ici les \textbf{paramètres}, 
+      une déclaration des données,
+      qu’on appellera ici les \textbf{paramètres},
       le type du résultat.
   La params recevront des valeurs concrètes au début de l'exécutino de l'algo.
 
   Pour indiquer le calcul à faire, écrivez-le, naturellement comme
-  vous le feriez en mathématique.  
+  vous le feriez en mathématique.
   }
 \end{frame}
 
@@ -668,8 +668,8 @@ public class RectangleArea {
 }
 \end{java}
 \note{
-  Telle quelle la solution n'est pas fonctionnelle en ce sens que 
-  l'éxécution du programme ne montrera aucun résultat à l'écran. 
+  Telle quelle la solution n'est pas fonctionnelle en ce sens que
+  l'éxécution du programme ne montrera aucun résultat à l'écran.
 }
 \end{frame}
 
@@ -691,7 +691,7 @@ public class RectangleArea {
   Le \textbf{point d'entrée}\index{point d'entrée} d'un programme en
   Java est la méthode \textbf{\texttt{main}}. Cette méthode est la
   première qui sera exécutée. Elle est obligatoire si l'on veut pouvoir
-  exécuter le programme. 
+  exécuter le programme.
 }
 \end{frame}
 
@@ -701,7 +701,7 @@ public class RectangleArea {
     \item spécifier le problème~;
     \item fournir des exemples, les tests~;
     \item construire son algorithme~;
-    \item tester le programme et constater qu'il fournit bien les 
+    \item tester le programme et constater qu'il fournit bien les
       résultats attendus
   \end{itemize}
 
@@ -765,10 +765,10 @@ public class RectangleArea {
   On pourrait écrire~:
 
   \begin{langagenaturel}
-    Longueur et largeur seront les noms de deux 
+    Longueur et largeur seront les noms de deux
     objets destinés à recevoir
 
-    Les longueur et largeur du rectangle, 
+    Les longueur et largeur du rectangle,
     c’est-à-dire des nombres à valeurs réelles.
 
   \end{langagenaturel}
@@ -802,12 +802,12 @@ double width;
   \begin{definition}[Assignation]
     L’\structure{assignation}
     (on dit aussi \emph{affectation interne})
-    est une instruction qui donne une valeur 
+    est une instruction qui donne une valeur
     à une variable ou la modifie.
   \end{definition}
 
   \note{Cette instruction est probablement la plus importante
-    car c’est ce qui permet de retenir les résultats 
+    car c’est ce qui permet de retenir les résultats
     de calculs intermédiaires.}
 
   Peut être noté
@@ -835,7 +835,7 @@ lhs = rhs
   \note{Égalité math définit l'égalité dans l'absolu. L'assignation assigne une
   valeur, le membre droite au membre de gauche au moment où l'instruction est
   exécutée.
- 
+
   Toutes les variables d'une expression doivent avoir été déclarées
   et affectées.
 
@@ -855,7 +855,7 @@ lhs = rhs
      denRes = den1 * den2\\
      count = count + 1\\
      average = (number1 + number2) / 2\\
-     isALowerthanB = a < b 
+     isALowerthanB = a < b
   \end{langagenaturel}
 
   \begin{java}
@@ -901,7 +901,7 @@ b = a;
         Une expression indique un calcul à effectuer
         (par exemple~: (a + b) * c).
         Une fois le calcul effectué
-        (on dit qu’on \emph{évalue} l’expression), 
+        (on dit qu’on \emph{évalue} l’expression),
         on obtient une valeur, d’un certain type.
         Une expression est composée d’opérandes et d’opérateurs,
         elle a une valeur et un type.
@@ -914,27 +914,27 @@ b = a;
   \pause
   \begin{block}{opérande}
         Un opérande est ce sur quoi porte l’opération.
-        Exemple~: dans l’expression \Verb_a+b_, 
+        Exemple~: dans l’expression \Verb_a+b_,
         \Verb_a_ et \Verb_b_ sont les opérandes.
         Un opérande peut être une sous-expression.
-        Exemple~: dans l’expression \Verb_(a+b) * c_, 
-        \Verb_(a+b)_ est l’opérande 
-        de gauche de l’opérateur \Verb_*_ et \Verb_c_ l'opérande de 
+        Exemple~: dans l’expression \Verb_(a+b) * c_,
+        \Verb_(a+b)_ est l’opérande
+        de gauche de l’opérateur \Verb_*_ et \Verb_c_ l'opérande de
         droite.
   \end{block}
 \end{frame}
 \begin{frame}[fragile]{Vocabulaire}
   \begin{block}{unaire, binaire, ternaire}
         Un opérateur qui agit sur deux opérandes (le plus fréquent)
-        est qualifié de binaire. 
-        On rencontre aussi des opérateurs unaires (ex: le \Verb_-_ 
+        est qualifié de binaire.
+        On rencontre aussi des opérateurs unaires (ex: le \Verb_-_
         dans l’expression \Verb_-a_).
         En Java, vous rencontrerez aussi un opérateur ternaire (3 opérandes)
         mais ils sont plus rares.
   \end{block}
   \pause
   \begin{block}{littéral}
-        Un littéral est une valeur notée explicitement 
+        Un littéral est une valeur notée explicitement
         (comme \Verb_12_, \Verb_34.4_, \Verb_"bonjour"_)
   \end{block}
   \pause
@@ -942,10 +942,10 @@ b = a;
         Les opérateurs sont classés par priorité.  Cela permet de savoir
         dans quel ordre les exécuter.  Par exemple, la multiplication
         est prioritaire par rapport à l'addition.  C’est pourquoi
-        l'expression \Verb_a + b * c_ est équivalente à 
-        \Verb_a + (b * c)_ et pas à \Verb_(a + b) * c_.  
+        l'expression \Verb_a + b * c_ est équivalente à
+        \Verb_a + (b * c)_ et pas à \Verb_(a + b) * c_.
         Les parenthèses permettent
-        de modifier ou de souligner la priorité.  
+        de modifier ou de souligner la priorité.
   \end{block}
 \end{frame}
 
@@ -983,7 +983,7 @@ perfect = errors == 0;
   Pour chacune des phrases suivantes,
   écrivez l’assignation qui lui correspond.
   \begin{itemize}
-  \item 
+  \item
     La variable booléenne \pc{négatif}
     doit indiquer si le nombre \pc{montant} est négatif.
   \item
@@ -991,15 +991,15 @@ perfect = errors == 0;
   \item
     Un algorithme est considéré comme long si le nombre de lignes
     dépasse 20.
-  \item 
+  \item
     Un étudiant a \emph{la plus grande distinction} si sa cote est
     de 18/20 ou plus.
   \end{itemize}
 \end{frame}
 
 \begin{frame}{Opérateurs logiques}
-  Les opérateurs logiques agissent sur des expressions booléennes 
-  (variables ou expressions à valeurs booléennes) 
+  Les opérateurs logiques agissent sur des expressions booléennes
+  (variables ou expressions à valeurs booléennes)
   pour donner un résultat du même type.
 
   \begin{tabular}[t]{cccc}
@@ -1054,11 +1054,11 @@ ok = b != 0 && 1/b < 0.1;
   Pour chacune des phrases suivantes,
   écrivez l’assignation qui lui correspond.
   \begin{itemize}[<+->]
-    \item J’irai au cinéma si le film me plait et que 
+    \item J’irai au cinéma si le film me plait et que
       j’ai 20\texteuro{} en poche.
-    \item Je n’irai pas au cinéma si je n’ai pas 
+    \item Je n’irai pas au cinéma si je n’ai pas
       20\texteuro{} en poche.
-    \item Je brosserai le premier cours de la journée 
+    \item Je brosserai le premier cours de la journée
       s’il commence à 8h et aussi si je n’ai pas dormi mes 8h.
   \end{itemize}
 \end{frame}
@@ -1068,7 +1068,7 @@ ok = b != 0 && 1/b < 0.1;
   en ne gardant que la partie entière du résultat.
 
   Le \structure{reste} de la division entière de a par b
-  est ce qui n’a pas été repris dans la division\dots ce qu'il reste. 
+  est ce qui n’a pas été repris dans la division\dots ce qu'il reste.
 
   \[ a = b * q + r\]
   \[ a = b * (a ~\pc{DIV}~ b) + (a ~\pc{MOD}~ b)\]
@@ -1112,7 +1112,7 @@ isOdd = nb % 2 == 1;
     65536 MOD 100 & 36 \\
     65536 MOD 1000 & 536 \\
     65536 MOD 10000 & 5536 \\
-    \hline 
+    \hline
   \end{tabular}
   \qquad
   \begin{tabular}{|l|l|}\hline
@@ -1154,7 +1154,7 @@ isOdd = nb % 2 == 1;
   À partir d’un nombre donné
   \note{
     Ce nombre peut être fixé ou généré à partir
-    de l’environnement 
+    de l’environnement
     (par exemple, l’horloge interne).
   }
   (appelé \emph{graine} ou \emph{seed} en anglais)
@@ -1170,10 +1170,10 @@ isOdd = nb % 2 == 1;
 double number = Math.random();
   \end{java}
 
-  pour obtenir un nombre (pseudo-)aléatoire compris entre 0 et 1 
-  strictement. C'est-à-dire strictement plus petit que 1. 
+  pour obtenir un nombre (pseudo-)aléatoire compris entre 0 et 1
+  strictement. C'est-à-dire strictement plus petit que 1.
 
-  \note{Nous verrons plus tard qu'il existe une autre manière 
+  \note{Nous verrons plus tard qu'il existe une autre manière
   de faire en utilisant la classe \pc{Random}}
 
   Dans nos algorithmes, nous pouvons toujours supposer qu'il existe un
@@ -1334,10 +1334,10 @@ public static boolean iDoNothing(
 \begin{frame}[fragile]{Lisibilité}
   \framesubtitle{commentaires}
   \begin{java}
-/* 
+/*
  * Calcule la surface d'un rectangle dont on donne la
  * largeur et la longueur.
- * 
+ *
  * Les données ne sont pas négatives.
  */
 public static double rectangleArea(
@@ -1381,7 +1381,7 @@ public static final String ESI =
   d’arriver plus ou moins vite au résultat.
 
   \pause
-  C’est un critère qui est souvent sur-évalué, 
+  C’est un critère qui est souvent sur-évalué,
   essentiellement pour deux raisons.
   \begin{itemize}[<+->]
     \item Il est trompeur. On peut croire qu'une décomposition en plusieurs
@@ -1422,7 +1422,7 @@ afficher 3
   \pause
   \begin{center}
     \begin{tikzpicture}[node distance=2cm]
-    \node (io) [io, text width=6cm] 
+    \node (io) [io, text width=6cm]
       {Afficher rectangleArea(122, 3.78)};
     \end{tikzpicture}
   \end{center}
@@ -1552,7 +1552,7 @@ int $0x80
     traite. Un nouveau fichier contenant le code exécutable est créé.
   \end{definition}
 
-  Ces langages nécessitent un \textbf{compilateur}. 
+  Ces langages nécessitent un \textbf{compilateur}.
 
   \begin{figure}[h]
   \begin{center}
@@ -1607,7 +1607,7 @@ int $0x80
       \textit{Netbeans, Eclipse, IntelliJ, \dots};
     \item compilateur :
       \begin{itemize}
-        \item 
+        \item
           \href{http://www.oracle.com/technetwork/java/javase/downloads}
           {JDK Oracle} \og officiel \fg, JavaSE, JavaEE;
         \item \href{http://openjdk.java.net/}{OpenJDK}, alternative libre
@@ -1642,10 +1642,10 @@ int $0x80
   instructions que si une certaine \alert{condition} est vérifiée.
 
   Par exemple, si le filtre à café est vide, le remplir.
-  
+
   Dans la vie, nous testons notre environnement, dans nos algorithmes et
   dans nos programmes, nous allons tester les données.
-  
+
   \note{
   Les algorithmes et les programmes vus jusqu’à présent ne proposent qu’un
   seul \og{}chemin\fg{}, une seule \og{}histoire\fg{}.  À chaque exécution de
@@ -1690,7 +1690,7 @@ int $0x80
       \node (proc1) [process, right of=dec1, xshift=4cm] {nb = -nb};
       \node (stop) [startstop, below of=proc1] {End};
       \draw [arrow] (dec1) -- node[anchor=south, xshift=-5mm] {true} (proc1);
-      \draw [arrow] (dec1) .. controls (3,-4) 
+      \draw [arrow] (dec1) .. controls (3,-4)
         .. node[anchor=north east] {false} (stop);
       \draw [arrow] (proc1) -- (stop);
     \end{tikzpicture}
@@ -1705,12 +1705,12 @@ int $0x80
 \end{grammaire}
 
   \begin{enumerate}
-    \item \grammarrule{Expression} représente une expression booléenne. 
+    \item \grammarrule{Expression} représente une expression booléenne.
       c'est-à-dire ayant comme valeur \pc{true} ou \pc{false}.
-    \item \grammarrule{Statement} représente une instruction ou un 
-      \textbf{bloc} d'instructions. En langage Java, un bloc 
-      \index{bloc} d'instructions est toujours délimités par une paire 
-      d'accolades. 
+    \item \grammarrule{Statement} représente une instruction ou un
+      \textbf{bloc} d'instructions. En langage Java, un bloc
+      \index{bloc} d'instructions est toujours délimités par une paire
+      d'accolades.
   \end{enumerate}
   \note{Parler de syntaxes différentes et variées dans d'autres langages}
 \end{frame}
@@ -1882,21 +1882,21 @@ public static int exercice(int x1, int x2) {
   \begin{center}
     \begin{tikzpicture}[node distance = 1.5cm, auto]
       \node (start) [startstop] {Start};
-      \node (dec1) [decision, below of=start, yshift=-.5cm, 
+      \node (dec1) [decision, below of=start, yshift=-.5cm,
         text width=.5cm] {};
       \draw [arrow] (start) -- (dec1);
-      \node (proc1) [process, below of=dec1, yshift=-1cm, xshift=-4cm] 
+      \node (proc1) [process, below of=dec1, yshift=-1cm, xshift=-4cm]
         {s = "positif"};
-      \node (proc2) [process, below of=dec1, yshift=-1cm] 
+      \node (proc2) [process, below of=dec1, yshift=-1cm]
         {s = "nul"};
-      \node (proc3) [process, below of=dec1, yshift=-1cm, xshift=4cm] 
+      \node (proc3) [process, below of=dec1, yshift=-1cm, xshift=4cm]
         {s = "négatif"};
       \node (stop) [startstop, below of=dec1, yshift=-3cm] {End};
-      \draw [arrow] (dec1) -- 
+      \draw [arrow] (dec1) --
         node[anchor=south east] {nb > 0} (proc1);
-      \draw [arrow] (dec1) -- 
+      \draw [arrow] (dec1) --
         node[anchor=east] {nb == 0} (proc2);
-      \draw [arrow] (dec1) -- 
+      \draw [arrow] (dec1) --
         node[anchor=south west] {nb < 0} (proc3);
       \draw [arrow] (proc1) -- (stop);
       \draw [arrow] (proc2) -- (stop);
@@ -1951,7 +1951,7 @@ if (nb > 0){
 \end{frame}
 \begin{frame}[fragile]
 \begin{itemize}
-  \item Opérateurs relationnels (\textit{relational operator} ou 
+  \item Opérateurs relationnels (\textit{relational operator} ou
     \textit{comparators});
     \vspace{-1em}
 \begin{grammaire}
@@ -1968,13 +1968,13 @@ if (nb > 0){
 \begin{grammaire}
 \grammarrule{EqualityOperator:}
     \grammarrule{(one of)}
-    == != 
+    == !=
 \end{grammaire}
     \vspace{-1em}
     \note{\par Un opérateur d'égalité est un opérateur dont la valeur
     est booléenne et les opérandes de même type (à conversion près).}
 
-  \item Complément logique (\textit{logical complement operator}) et 
+  \item Complément logique (\textit{logical complement operator}) et
     opérateurs conditionnels
     (\textit{conditionals operators});
 
@@ -2063,7 +2063,7 @@ if (dateFormat.equals("EU") || dateFormat.equals("FR")
 
   \begin{itemize}
     \item l'expression ne peut pas être de n'importe quel type (\pc{byte,
-      short, char, int, String, Enum type} et wrapper classes). 
+      short, char, int, String, Enum type} et wrapper classes).
     \item \textit{switch} en java \(\approx\) \og \textit{saut}
       au bon label \fg. Dès que l'on a sauté au bon
       \textit{case}, l'éxécution continue. Utiliser explicitement un
@@ -2072,7 +2072,7 @@ if (dateFormat.equals("EU") || dateFormat.equals("FR")
   \note{
     \textit{Statement} peut être une instuction ou plusieurs~;
 
-    \textit{SwitchLabels} (avec un \textit{s}) ce sont plusieurs 
+    \textit{SwitchLabels} (avec un \textit{s}) ce sont plusieurs
       \og \texttt{case} \fg;
   }
 \end{frame}
@@ -2144,7 +2144,7 @@ if (!isAdult) {
 \end{frame}
 
 \begin{frame}[fragile]{Bonnes pratiques conditionnelles}
-  
+
   \begin{wrong}
   \begin{java}
 if (nb == 0){
@@ -2188,7 +2188,7 @@ price = isDiscount ? 8 : 12;
   Pour effectuer un travail répétitif, il faut indiquer deux choses~:
   \begin{itemize}
     \item le travail à répéter~;
-    \item quand s’arrêter ou quand continuer ou encore,  combien de fois faire 
+    \item quand s’arrêter ou quand continuer ou encore,  combien de fois faire
       le travail.
   \end{itemize}
 \end{frame}
@@ -2198,7 +2198,7 @@ price = isDiscount ? 8 : 12;
   \og tant qu’il reste un dossier à traiter, le traiter \fg \\
   \pause
   ou encore\\
-  \og traiter un dossier puis passer au suivant jusqu’à ce qu’il n’en 
+  \og traiter un dossier puis passer au suivant jusqu’à ce qu’il n’en
   reste plus à traiter \fg.
   \pause
   \begin{itemize}
@@ -2215,10 +2215,10 @@ price = isDiscount ? 8 : 12;
 
 \begin{frame}{Exemple 2}
   Pour calculer la cote finale de tous les étudiants et toutes les étudiantes,
-  nous dirions quelque chose du genre 
+  nous dirions quelque chose du genre
   \og Pour tout étudiant, calculer sa cote \fg.
   \begin{itemize}
-  \item 
+  \item
     La tâche à répéter est~: \og calculer la cote d’un·e étudiant·e \fg.
   \item
     Combien de fois faire le travail~: \og autant qu'il y a d'étudiant·es \fg.
@@ -2237,7 +2237,7 @@ price = isDiscount ? 8 : 12;
   \begin{itemize}
   \item
     La tâche à répéter est~: «~afficher un nombre~».
-  \item 
+  \item
     Nous indiquons qu'il faut le faire pour tous les nombres de 1 à 100. Il
     faut commencer à 1, passer au suivant et s'arrêter après avoir afficher
     100.
@@ -2313,7 +2313,7 @@ price = isDiscount ? 8 : 12;
     tant que une certaine condition est vraie, répeter\\
       \tab une ou plusieurs actions\\
     fin tant que\\
-    continuer l'algorithme 
+    continuer l'algorithme
   \end{langagenaturel}
 \end{frame}
 
@@ -2325,11 +2325,11 @@ price = isDiscount ? 8 : 12;
     \draw[arrow] (start) -- (if1);
     \node[process, below of=if1, yshift=-1.3cm] (pro1) {Instructions};
     \draw[arrow] (if1) -- node[anchor=south, left] {yes} (pro1);
-    \draw[arrow] (pro1.west) 
-      .. controls(-3,-3) 
+    \draw[arrow] (pro1.west)
+      .. controls(-3,-3)
       .. (if1);
     \node[startstop, right of=if1, xshift=4cm] (stop) {End};
-    \draw[arrow] (if1.east) 
+    \draw[arrow] (if1.east)
       -- node[anchor=south] {no} (stop);
   \end{tikzpicture}
 
@@ -2387,7 +2387,7 @@ public static void count(int n) {
     pour une variable allant d'une valeur de départ à une valeur finale\\
     \tab exécuter une ou plusieurs actions\\
     fin pour \\
-    continuer l'algorithme 
+    continuer l'algorithme
   \end{langagenaturel}
 
   \pause
@@ -2416,12 +2416,12 @@ public static void count(int n) {
     \node[process, below of=if1, yshift=-1.3cm,xshift=4cm] (pro1) {Instructions};
     \draw[arrow] (if1) -- node[anchor=north east] {yes} (pro1);
     \node[process, left of=pro1, xshift=-4cm] (pro2) {variable = variable + pas};
-    \draw[arrow] (pro2.west) 
-      .. controls(-5,-5) 
+    \draw[arrow] (pro2.west)
+      .. controls(-5,-5)
       .. (if1);
     \draw[arrow] (pro1) -- (pro2);
     \node[startstop, right of=if1, xshift=4cm] (stop) {End};
-    \draw[arrow] (if1.east) 
+    \draw[arrow] (if1.east)
       -- node[anchor=south] {no} (stop);
   \end{tikzpicture}
   \end{center}
@@ -2552,7 +2552,7 @@ public static void printEven(int n) {
     faire\\
       \tab une ou plusieurs actions\\
     jusqu'à ce qu'une certaine condition soit vraie\\
-    continuer l'algorithme 
+    continuer l'algorithme
   \end{langagenaturel}
 
   «~faire~-~tant~que~».
@@ -2560,7 +2560,7 @@ public static void printEven(int n) {
     faire\\
       \tab une ou plusieurs actions\\
     tant que une certaine condition est vraie\\
-    continuer l'algorithme 
+    continuer l'algorithme
   \end{langagenaturel}
 \end{frame}
 
@@ -2573,7 +2573,7 @@ public static void printEven(int n) {
         (if1) {condition vraie ?};
       \draw[arrow] (start) -- (pro0);
       \draw[arrow] (pro0) -- (if1);
-      \draw[arrow] (if1.east) 
+      \draw[arrow] (if1.east)
         .. controls(5,-4)
         .. node[anchor=east] {yes} (pro0.east);
       \node[startstop, below of=if1, xshift=4cm] (stop) {End};
@@ -2869,7 +2869,7 @@ public static double max3(double a, double b, double c) {
       \LComment {Code appelé}
       \Algo{myAlgo}{}{integer}
       \Stmt \dots
-      \EndAlgo 
+      \EndAlgo
     \end{pseudocode}
   \end{minipage}
 
@@ -2908,7 +2908,7 @@ public static double max3(double a, double b, double c) {
 \LComment {Code appelé}
 \Algo{myAlgo}{\Par{par\In}{integer}}{}
 \Stmt \dots
-\EndAlgo 
+\EndAlgo
     \end{pseudocode}
   \end{minipage}
   \end{center}
@@ -3046,7 +3046,7 @@ public static double max3(double a, double b, double c) {
   \begin{itemize}
     \item tous acceptent d'avoir une valeur de retour unique;
     \item tous acceptent des paramètres en entrée;
-    \item certains et sous certaines conditions acceptent des paramètres en 
+    \item certains et sous certaines conditions acceptent des paramètres en
       entrée/sortie.
   \end{itemize}
 
@@ -3098,7 +3098,7 @@ public static double max3(double a, double b, double c) {
 \end{frame}
 
 \begin{frame}[fragile]
-  \pc{String} est un type référence. 
+  \pc{String} est un type référence.
 
   \begin{java}
 String s = "Hello";
@@ -3108,7 +3108,7 @@ s = "I would just like to say hello";
   \only<1-2> {
   \hspace{3cm}
   \begin{tikzpicture}
-    \node[draw, minimum width=.5cm, 
+    \node[draw, minimum width=.5cm,
       minimum height=.5cm,label={above:\texttt{s}}] (ref) {};
       \only<1>{\node[draw, below of=ref, right] (string) at (0,0) {Hello};}
       \only<1>{\draw[->] (ref.center) -- (string);}
@@ -3266,7 +3266,7 @@ $ javadoc -sourcepath src/main/java \
 \end{frame}
 \begin{frame}{Tags}
   \begin{description}
-    \item[@author] le ou les auteurs. Un \textit{tag} 
+    \item[@author] le ou les auteurs. Un \textit{tag}
       par auteur (peut-être un groupe/société). Ne génère pas
       de \textit{javadoc}, visible que dans la classe.
       (\textit{classes}, \textit{requis});
@@ -3301,7 +3301,7 @@ $ javadoc -sourcepath src/main/java \
     \conti
     \item Description de méthode commence par un verbe, parce qu'elle
       implémente habituellement une opération, une action.\\
-      \medskip 
+      \medskip
       \quad\textit{Gets the label of this button.} \\
       sera préféré à \\
       \quad\textit{This method gets the label of this button.}
@@ -3357,7 +3357,7 @@ $ javadoc -sourcepath src/main/java \
 
     \item Lorsqu'une référence à une autre méthode est faite, on omet les
       parenthèses \texttt{add} ou on écrit le type des paramètres
-      \texttt{add(int, Object)} sans nom pour les paramètres. 
+      \texttt{add(int, Object)} sans nom pour les paramètres.
 
     \item Lors de la description éventuelle d'une variable, omettre le sujet
       dans un souci de brièveté.\\
@@ -3434,7 +3434,7 @@ $ javadoc -sourcepath src/main/java \
         &      &  [$-2^{15}$, $2^{15}-1$]\\
     \pc{int}    &  32 bits  &  [-2\,147\,483\,648, 2\,147\,483\,647]\\
         &      &  [$-2^{31}$, $2^{31}-1$]\\
-    \pc{long}  &  64 bits  
+    \pc{long}  &  64 bits
       &  \small{[-9\,223\,372\,036\,854\,775\,808,
       9\,223\,372\,036\,854\,775\,807]}\\
         &      &  [$-2^{63}$, $2^{63}-1$]\\
@@ -3470,9 +3470,9 @@ long myLong = 42L;
   \begin{itemize}
     \item les chiffres \texttt{01234567} et \texttt{\_};
     \item commence par un \texttt{0};
-    \item un littéral est de type \pc{int} ou \pc{long}, jamais de type 
+    \item un littéral est de type \pc{int} ou \pc{long}, jamais de type
       \pc{byte} ou \pc{short};
-    \item pour distinguer un littéral \pc{long} du type par défaut \pc{int}, suffixer 
+    \item pour distinguer un littéral \pc{long} du type par défaut \pc{int}, suffixer
       d'un \texttt{l} ou \texttt{L};
   \end{itemize}
 
@@ -3490,9 +3490,9 @@ long myOctalLong = 0144L;
   \begin{itemize}
     \item les chiffres \texttt{0123456789ABCDEFabcdef} et \texttt{\_};
     \item commence par un \texttt{0x} ou \texttt{0X};
-    \item un littéral est de type \pc{int} ou \pc{long}, jamais de type 
+    \item un littéral est de type \pc{int} ou \pc{long}, jamais de type
       \pc{byte} ou \pc{short};
-    \item pour distinguer un littéral \pc{long} du type par défaut \pc{int}, suffixer 
+    \item pour distinguer un littéral \pc{long} du type par défaut \pc{int}, suffixer
       d'un \texttt{l} ou \texttt{L};
   \end{itemize}
 
@@ -3509,9 +3509,9 @@ long myHexadecimalLong = 0X64l;
   \begin{itemize}
     \item les chiffres \texttt{01} et \texttt{\_};
     \item commence par un \texttt{0b} ou \texttt{0B};
-    \item un littéral est de type \pc{int} ou \pc{long}, jamais de type 
+    \item un littéral est de type \pc{int} ou \pc{long}, jamais de type
       \pc{byte} ou \pc{short};
-    \item pour distinguer un littéral \pc{long} du type par défaut \pc{int}, suffixer 
+    \item pour distinguer un littéral \pc{long} du type par défaut \pc{int}, suffixer
       d'un \texttt{l} ou \texttt{L};
   \end{itemize}
 
@@ -3566,7 +3566,7 @@ int yetAnotherBinaryInt = 0B0110_0100;
   \begin{tabular}[t]{|l|c|c|c|c|}
     \hline
     \rowcolor{black!40}
-    \textbf{Type}   & \textbf{Taille (\textit{bit})}  
+    \textbf{Type}   & \textbf{Taille (\textit{bit})}
     & \textbf{Exposant} & \textbf{Mantisse} & \textbf{Intervalle}\\
     \hline
     float  & 32 bits          & 8    & 23 &
@@ -3611,7 +3611,7 @@ myDouble = .45e3d;   // 450.0
 
 float myFloat;
 myFloat = 1f;      // 1.0
-myFloat = 1.f      // 1.0  
+myFloat = 1.f      // 1.0
 \end{java}
 \end{frame}
 
@@ -3659,8 +3659,7 @@ boolean anotherBoolean = false;
 \end{java}
 \end{frame}
 
-\end{hideedit}
-\subsection{Types référénce}
+\subsection{Types référence}
 \begin{frame}{Types référence}
   En java, \structure{type composés/complexes} = \structure{types référence}.
 
@@ -3686,15 +3685,410 @@ String s2 = "Hello";
 
   \begin{center}
     \begin{tikzpicture}
-      \node[draw, minimum width=.5cm, 
+      \node[draw, minimum width=.5cm,
         minimum height=.5cm,label={above:\texttt{s1}}] (ref1) {};
-      \node[draw, minimum width=.5cm, 
+      \node[draw, minimum width=.5cm,
         minimum height=.5cm,label={above:\texttt{s2}}] (ref2) at (1,0) {};
       \node[draw, below of=ref2, right] (string) at (2,-0.5) {Hello};
       \draw[->] (ref1.center) -- (string);
       \draw[->] (ref2.center) -- (string);
     \end{tikzpicture}
   \end{center}
+  \note{Exemple compute str -> pas égales, avec equals.}
+\end{frame}
+
+\begin{frame}{Durée de vie}
+  \begin{definition}
+    La \structure{durée de vie} (\textit{\structure{lifetime}}) d'une variable
+    est la période de temps pendant laquelle les données de la variable
+    sont dans un état valide / accessible.
+  \end{definition}
+
+  Pour les variables locales (non statiques), le \structure{lifetime} est
+  généralement limité au \structure{scope} (portée).
+
+  Dans d'autres cas (p.ex : lecture d'un \pc{String} au clavier), cela
+  dépend du langage :
+  \begin{itemize}
+    \item il faut explicitement gérer (et libérer) la mémoire allouée;
+    \item le langage (Java) se charge de la gestion mémoire. Un
+      \structure{ramasse-miette} (\textit{\structure{garbage collector}})
+      parcourt \og régulièrement \fg la mémoire afin de libérer les espaces
+      mémoire non référencés.
+  \end{itemize}
+\end{frame}
+
+\end{hideedit}
+\section{String}
+\frame{\sectionpage}
+
+\begin{frame}{\pc{String}}
+  Chaine de caractères (\pc{String}) = séquence de caractères (\pc{char}).
+
+  \vfill
+  \begin{center}
+  \begin{tabular}[c]{*{5}{|c}|}
+    \hline
+    \pc{H} & \pc{e} & \pc{l} & \pc{l} & \pc{o}\\
+    \hline
+    \multicolumn{1}{c}{0} & \multicolumn{1}{c}{1} & \multicolumn{1}{c}{2} &
+    \multicolumn{1}{c}{3} & \multicolumn{1}{c}{4}
+  \end{tabular}
+  \end{center}
+
+  \vfill
+  \begin{center}
+    '\pc{A}' \(\neq\) \pc{"A"}
+  \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Longueur}
+  \begin{java}
+"Bonjour".length();  // -> 7.
+"Une chaine".length();  // -> 10 (l'espace compte pour 1).
+"A".length();  // -> 1.
+"".length(); // -> 0.
+String someString = "Hello there !";
+someString.length(); // -> 13
+  \end{java}
+\end{frame}
+
+\begin{frame}[fragile]{Contenu d'une chaine}
+  \begin{center}
+  \begin{tabular}[c]{*{7}{|c}|}
+    \hline
+    \pc{B} & \pc{o} & \pc{n} & \pc{j} & \pc{o} & \pc{u} & \pc{r}\\
+    \hline
+    \multicolumn{1}{c}{0} & \multicolumn{1}{c}{1} & \multicolumn{1}{c}{2} &
+    \multicolumn{1}{c}{3} & \multicolumn{1}{c}{4} & \multicolumn{1}{c}{5} &
+    \multicolumn{1}{c}{6}
+  \end{tabular}
+  \end{center}
+
+  \vfill
+  \begin{java}
+char c = "Bonjour".charAt(2);  // le caractère 'n'
+  \end{java}
+
+  \vfill
+  \pause
+  \begin{block}{Exercice}
+    Écrire un algorithme qui vérifie si un mot contient une lettre donnée.
+  \end{block}
+\end{frame}
+
+\begin{frame}{Exercice}
+  \begin{block}{Exercice}
+    Écrire un algorithme qui retourne la position d'une lettre donnée dans
+    un mot.
+  \end{block}
+  \begin{block}{Exercice}
+    Écrire un algorithme qui vérifie si un mot en contient un autre.
+  \end{block}
+  \begin{block}{Exercice}
+    Écrire un algorithme qui retourne la position d'un sous-mot dans
+    un mot donné.
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Digression --- Surcharge de méthode}
+  La \structure{surcharge de méthode} (\textit{\structure{method
+  overloading}}) apparait quand on définit plusieurs méthodes avec le
+  même nom mais des paramètres différents (en types ou en nombre).
+
+  \begin{java}
+    int max(int a, int b) { ... }
+    int max(int a, int b, int c) { ... }
+    double max(double a, double b) { ... }
+    double max(double a, double b, double c) { ... }
+  \end{java}
+  \note{Implémenter tout ça}
+\end{frame}
+
+\begin{frame}[fragile]{Concaténation}
+  Rassembler plusieurs chaines en une = \structure{concaténation}.
+
+  En java, l'opérateur de concaténation est \pc{+} quand les opérandes
+  sont des \pc{String}.
+
+  \begin{java}
+String text;
+text = "al" + "go" + "rithmique";
+  \end{java}
+\end{frame}
+
+\begin{frame}[fragile]{Concaténation}
+  \begin{block}{Exercice}
+    Écrire un algorithme qui inverse toutes les lettres d'un mot.
+    Ainsi, "algo" deviendra "ogla".
+  \end{block}
+
+  \pause
+  \begin{java}
+public static String mirror(String word) {
+    String mirror = "";
+    for (int i = 0; i < word.length(); ++i) {
+        mirror = word.charAt(i) + mirror;
+    }
+    return mirror;
+}
+  \end{java}
+\end{frame}
+
+\begin{frame}[fragile]{Concaténation}
+  Concaténations succéssives inefficace.
+
+  \pause
+  Ici, il vaut mieux utiliser un \pc{StringBuilder}
+  \begin{java}
+public static String mirror(String word) {
+    StringBuilder sb = new StringBuilder(word);
+    for (int i = 0; i < word.length(); ++i) {
+        int c = word.charAt(i);
+        sb.setCharAt(word.length() - i - 1, c);
+    }
+    return sb.toString();
+}
+  \end{java}
+\end{frame}
+
+\begin{frame}{Manipuler les caractères --- API}
+  L'API définit un tas de méthodes dans \pc{Character} et \pc{String} pour
+  manipuler les caractères.
+  \begin{description}
+    \item \structure{\pc{isLetter}}
+    \item \structure{\pc{isLowerCase}}
+    \item \structure{\pc{isUpperCase}}
+    \item \structure{\pc{isDigit}}
+    \item \structure{\pc{toUpperCase}}
+    \item \structure{\pc{toLowerCase}}
+  \end{description}
+\end{frame}
+
+\begin{frame}[fragile]{Alphabet}
+  \framesubtitle{lettre vers indice}
+  \begin{block}{Problème}
+    Écrire une méthode \pc{letterIndex} qui retourne un entier entre 1 et 26
+    représentant l'indice d'une lettre (indépendament de sa casse).\\
+    Par exemple, \pc{letterIndex('e')} \(\rightarrow\) 5,\\
+    mais aussi \pc{letterIndex('E')} \(\rightarrow\) 5.
+  \end{block}
+
+  \pause Le code de la lettre '\pc{A}' dans le charset UTF-16 est 65 (0x0041),
+  et celui de '\pc{a}' est 97 (0x0061).
+
+  \pause
+  \begin{java}
+public static int letterIndex(char c) {
+    return Character.toLowerCase(c) - 'a' + 1;
+}
+  \end{java}
+\end{frame}
+
+\begin{frame}[fragile]{Alphabet}
+  \framesubtitle{lettre vers indice}
+  Et si on veut gérer les caractères accentués ?
+  \pause
+  \begin{java}
+public static int letterIndex(char c){
+    c = Normalizer
+            .normalize(""+c, Normalizer.Form.NFD)
+            .replaceAll("[\u0300-\u036F]", "")
+            .charAt(0);
+    return Character.toLowerCase(c) - 'a' + 1;
+}
+  \end{java}
+\end{frame}
+
+\begin{frame}[fragile]{Alphabet}
+  \framesubtitle{indice vers lettre}
+  \begin{block}{Problème}
+    Écrire une méthode \pc{indexToUpperChar} qui retourne le charactère
+    (majuscule) correspondant au numéro d'une lettre.\\
+    Par exemple, \pc{indexToUpperChar(5)} \(\rightarrow\) 'e',
+  \end{block}
+  \pause
+  \begin{java}
+public static char indexToUpperChar(int i) {
+    return 'A' + n - 1;
+}
+  \end{java}
+  \begin{java}
+public static char indexToLowerChar(int i) {
+    return 'a' + n - 1;
+}
+  \end{java}
+\end{frame}
+
+\begin{frame}[fragile]{Chaine et nombre}
+  \framesubtitle{Nombre vers chaine}
+  Conversions de nombres en chaine implicites :
+  \begin{java}
+String s = 42;
+  \end{java}
+
+  \pause Attention à l'ordre d'évaluation des opérandes.
+  \begin{itemize}
+    \item \pc{String s1 = 1 + "2"} \pause \(\rightarrow\) "12"
+    \pause
+    \item \pc{String s2 = 1 + 2} \pause \(\rightarrow\) "3"
+    \pause
+    \item \pc{String s3 = 1 + "2" + "3"} \pause\(\rightarrow\) "123"
+    \pause
+    \item \pc{String s4 = 1 + 2 + "3"} \pause \(\rightarrow\) "33"
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Chaine et nombre}
+  \framesubtitle{Chaine vers nombre}
+  Pour chaque type numérique, une méthode qui transforme le nombre en chaine de
+  caractères.
+  \begin{java}
+String s = "3.14";
+double d = Double.parseDouble(s);
+s = "5";
+int i = Integer.parseInt(s);
+  \end{java}
+\end{frame}
+
+\begin{frame}[fragile]{Extraction de sous-chaine}
+  Extraction d'une sous-chaine à partir d'un indice de caractère, jusqu'à un
+  autre, exclu.
+  \begin{java}
+String s = "Hello there !";
+System.out.println(s.substring(6,11));
+String s2 = "15/10/2020";
+int d = Integer.parseInt(s2.substring(0, 2));
+int m = Integer.parseInt(s2.substring(3, 5));
+int y = Integer.parseInt(s2.substring(6, 10));
+System.out.println(d + "-" + m + "-" + y);
+  \end{java}
+\end{frame}
+
+\section{Exceptions}
+\frame{\sectionpage}
+
+\begin{frame}[fragile]{Exceptions}
+  Un programme ne doit jamais planter.
+
+  \pause
+  Toutes les erreurs ne sont pas des erreurs de programmation. Elles peuvent
+  être liées à une situation \structure{exceptionnelle} dans l'environnement
+  du programme.
+
+\begin{java}
+import java.util.Scanner;
+public class Affiche {
+    public static void main(String[] args) {
+        Scanner clavier = new Scanner(System.in);
+        int nb = clavier.nextInt();
+        System.out.println(nb);
+    }
+}
+\end{java}
+\end{frame}
+
+\begin{frame}{Exemples d'exceptions}
+\begin{description}
+  \item[InputMismatchException] par exemple lorsque l'utilisateur ou
+    l'utilisatrice entre une valeur qui n'est pas du type attendu\,;
+  \item[ArrayIndexOutOfBoundException] par exemple lorsque le programme
+    essaie d'accéder à un élément d'un tableau hors de celui-ci\,;
+  \item[IllegalArgumentException] par exemple lorsque l'argument passé à
+    une méthode n'est pas dans la plage des valeurs attendues\,;
+  \item[NullPointerException] par exemple lorsque l'on essaie d'accéder à
+    un tableau qui n'a pas été créé.
+\end{description}
+\end{frame}
+
+\subsection{\pc{try-catch}}
+\begin{frame}[fragile]{Attraper une exception}
+  Une exception non gérée arrête l'exécution du programme.
+  \pause Il faut gérer les exceptions. On parle de les \structure{intercepter}
+  ou des les \structure{attraper} (\textit{\structure{catch}}). Pour cela, on
+  utilise une instruction \pc{\K{try-catch}}.
+
+  \begin{itemize}
+    \item \pc{\K{try}} : contient les instructions qui \emph{peuvent mal se
+      passer}\,;
+    \item \pc{\K{catch}} : contient le code qui est \emph{en charge} de gérer
+      le problème.
+  \end{itemize}
+
+  \begin{grammaire}
+\grammarrule{TryStatement :}
+    try \grammarrule{Block} \grammarrule{CatcheClauses}
+
+\grammarrule{CatchClause :}
+    catch ( \grammarrule{Type Identifier} ) \grammarrule{Block}
+  \end{grammaire}
+\end{frame}
+
+\begin{frame}[fragile]{Attraper une exception}
+  Quand une exception est levée dans un \pc{try}~:
+  \begin{itemize}
+    \item le code du \pc{\K{try}} est interrompu\,;
+    \item le code du \pc{\K{catch}} est exécuté\,;
+    \item l'exécution reprend après le bloc \pc{\K{try-catch}}.
+  \end{itemize}
+  \begin{java}
+Scanner clavier = new Scanner(System.in);
+try {
+    int nb = clavier.nextInt();
+    System.out.println(nb);
+}
+catch(InputMismatchException e) {
+    System.out.println("Ce n'est pas un entier!");
+}
+  \end{java}
+\end{frame}
+
+\subsection{\pc{throw}}
+\begin{frame}[fragile]{Lancer une exception}
+  \framesubtitle{Fail early, fail loudly}
+
+  Vos algorithmes peuvent \structure{lancer} des exceptions.
+
+  \pause
+  On utilise l'instruction \structure{\pc{\K{throw}}}.
+
+  \pause
+  \begin{grammaire}
+\grammarrule{ThrowStatement :}
+    throw \grammarrule{Expression};
+  \end{grammaire}
+\end{frame}
+
+\begin{frame}[fragile]{Exemple}
+  \framesubtitle{vérifier les arguments reçus}
+
+\begin{java}
+/**
+ * Calcule la racine carrée d'un nombre.
+ * @param nb le nombre dont on veut la racine carée.
+ * @return la racine carrée de <code>nb<\code>.
+ * @throws IllegalArgumentException si <code>nb</code> est négatif.
+ */
+public static double racineCarrée(double nb) {
+    if (nb < 0) {
+        throw new IllegalArgumentException(
+            "nb doit être positif!");
+    }
+    // Traitement normal.
+    // On est sûr que le paramètre est OK.
+}
+\end{java}
+\end{frame}
+
+\begin{frame}[fragile]{Exemple}
+  \framesubtitle{vérifier les arguments reçus}
+\begin{java}
+try {
+    System.out.println(racineCarrée(val));
+} catch (IllegalArgumentException ex) {
+    System.out.println("Calcul impossible !");
+}
+\end{java}
 \end{frame}
 
 \end{document}
