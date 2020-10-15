@@ -31,6 +31,6 @@ public class Types {
         System.out.println(42.);
         System.out.println(42e-10);
         System.out.println(42.21e-10);
-        System.out.println(0x2A.);
+        System.out.println(0x2A);
     }
 }

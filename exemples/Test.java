@@ -43,5 +43,12 @@ public class Test {
         int i = 1;
         System.out.println(++i);
         System.out.println(i);*/
+        String s = "Hello there !";
+        System.out.println(s.substring(6,11));
+        String s2 = "15/10/2020";
+        int d = Integer.parseInt(s2.substring(0, 2));
+        int m = Integer.parseInt(s2.substring(3, 5));
+        int y = Integer.parseInt(s2.substring(6, 10));
+        System.out.println(d + "-" + m + "-" + y);
     }
 }
