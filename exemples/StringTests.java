@@ -1,3 +1,5 @@
+import java.text.Normalizer;
+
 public class StringTests {
     /**
      * Find the position of the given character c
@@ -122,6 +124,20 @@ public class StringTests {
             sb.setCharAt(src.length() - 1 - i, src.charAt(i));
         }
         return sb.toString();
+    }
+
+    public static int letterIndex(char c) {
+        c = Normalizer
+                .normalize(""+c, Normalizer.Form.NFD)
+                .replaceAll("[\u0300-\u036F]", "")
+                .charAt(0);
+        return Character.toLowerCase(c) - 'a' + 1;
+    }
+
+    public static char indexToUpperChar(int idx) {
+        if (idx <= 0 || idx > 26)
+            return '?';
+        return (char) ('A' + idx - 1);
     }
 
     public static void main(String[] args) {
