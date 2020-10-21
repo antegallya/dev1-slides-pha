@@ -140,7 +140,18 @@ public class StringTests {
         return (char) ('A' + idx - 1);
     }
 
+    public static String caesarCipher(String input, int k) {
+        StringBuilder sb = new StringBuilder(input.toUpperCase());
+        for (int i = 0; i < input.length(); ++i) {
+            char ic = input.charAt(i);
+            char c = indexToUpperChar(1 + (letterIndex(ic) + kZR 1) % 26);
+            sb.setCharAt(i, c);
+        }
+        return sb.toString();
+    }
+
     public static void main(String[] args) {
+        /*
         String str = TUIUtils.promptString(
                 "Entrez une chaine de caractères : ");
         System.out.println(indexOf(str, 'a'));
@@ -154,5 +165,7 @@ public class StringTests {
         int i = 42;
         System.out.println(" truc : " + i);
         System.out.println(reverse(str));
+        */
+        System.out.println(caesarCipher("HelloXYZ", 2));
     }
 }

@@ -12,6 +12,7 @@
 \usepackage{tikz}
 \usepackage{colortbl}
 \usepackage{array}
+\usepackage{hhline}
 \usepackage{xspace}
 \usepackage{bclogo}
 \usepackage{makecell}
@@ -4098,7 +4099,6 @@ try {
 \end{java}
 \end{frame}
 
-\end{hideedit}
 \section{Tests}
 \frame{\sectionpage}
 
@@ -4126,7 +4126,7 @@ try {
     \item les cas particuliers;
     \item lors d'une défaillance de l'environnement;
 
-      Par exemple, si un capteur de distance est défectueux, il faut que la 
+      Par exemple, si un capteur de distance est défectueux, il faut que la
       chaine de production s'arrête.
 
     \item lors d'une utilisation non conforme du programme.
@@ -4236,9 +4236,9 @@ java org.junit.runner.JUnitCore \textbackslash
 \end{frame}
 
 \begin{frame}[fragile]{JUnit}
-  
+
   La classe \texttt{MyClassTest} contient plusieurs méthodes. Une méthode de test
-  par cas. Une méthode de test~: 
+  par cas. Une méthode de test~:
   \begin{itemize}
     \item est autonome. Elle ne reçoit pas de paramètre et ne retourne rien;
     \item est précédée de l'annotation \pc{@Test} permettant de la faire
@@ -4265,5 +4265,290 @@ import static org.junit.Assert.*;
 \end{java}
   \end{itemize}
 \end{frame}
+
+\end{hideedit}
+\section{Tableaux}
+\frame{\sectionpage}
+
+\begin{frame}{Exemple préliminaire}
+  \framesubtitle{Statistiques de ventes}
+    \begin{quote}
+      Un gérant d’une entreprise commerciale souhaite connaitre l’impact
+      d’une journée de promotion publicitaire sur la vente de dix de ses
+      produits.
+
+      Pour ce faire, les numéros de ces produits (numérotés de
+      0 à 9 pour simplifier) ainsi que les quantités vendues pendant cette
+      journée de promotion sont encodés au fur et à mesure de leurs
+      ventes.  En fin de journée, le vendeur entrera la valeur -1 pour
+      signaler la fin de l’introduction des données.  Ensuite, les
+      statistiques des ventes seront affichées.
+    \end{quote}
+    Voir implémentation \pc{exemples/SalesStatsSwitch.java}
+\end{frame}
+
+\begin{frame}{Statistiques de ventes}
+  Et s'il y a 1000 produits différents ?
+
+  \pause
+  On utilise des \structure{tableaux} (\textit{\structure{arrays}}) comme des sortes \structure{variables
+  indicées}.
+
+  \pause
+  Pas 10 compteurs, mais \textbf{une} variable \pc{cpt} compartimentée en 10
+  \structure{éléments}.
+
+  \begin{center}
+    \setlength{\tabcolsep}{0pt}
+    \begin{tabular}{*{7}{>{\centering\arraybackslash}m{4em}}}
+      {} &
+      \pc{cpt[0]} &
+      \pc{cpt[1]} &
+      \pc{cpt[2]} &
+      \dots &
+      \pc{cpt[8]} &
+      \pc{cpt[9]}\\
+      \hhline{~*{6}{-}}
+      \multicolumn{1}{c|}{\pc{cpt}~} &
+      \multicolumn{1}{c|}{~} &
+      \multicolumn{1}{c|}{~} &
+      \multicolumn{1}{c|}{~} &
+      \multicolumn{1}{c|}{\dots} &
+      \multicolumn{1}{c|}{~} &
+      \multicolumn{1}{c|}{~}\\
+      \hhline{~*{6}{-}}
+    \end{tabular}
+  \end{center}
+
+  \pause Voir implémentation \pc{exemples/SalesStatsArray.java}
+\end{frame}
+
+\begin{frame}{Tableaux}
+  \begin{block}{Définitions}
+    \begin{description}[<+->]
+      \item[Tableau]
+        Suite d’éléments de même type portant tous le même nom mais se
+        distinguant les uns des autres par un indice.
+      \item[Indice]
+        Entier
+        donnant la position d’un élément dans la suite.\\
+        Cet indice varie entre la position du premier élément
+        et la position du dernier élément (bornes de l’indice).\\
+        Notons qu’il n’y a pas de \og trou \fg:
+        tous les éléments existent entre le premier et le dernier indice.
+      \item[Taille]
+        Nombre d'éléments d'un tableau.\\
+        Attention, la taille est déterminée à la création du
+        tableau et ne peut être modifiée pendant l'exécution.
+    \end{description}
+  \end{block}
+
+  Un tableau est de type \structure{référence}.
+\end{frame}
+
+\begin{frame}{Création de tableau}
+  Afin de pouvoir utiliser un tableau, il sera nécessaire de distinguer :
+  \begin{itemize}
+    \item la \structure{déclaration} qui consiste à signaler qu'une
+      variable est un tableau. Dans un programme, cette déclaration
+      a pour effet de réserver un emplacement mémoire qui contiendra
+      une référence vers les cases du tableau\,;
+
+    \item la \structure{création} du tableau consiste a réserver
+      l'emplacement mémoire qui contiendra les différentes valeurs.
+      Pour le créer, il faut connaitre sa taille\,;
+
+    \item l'\structure{initialisation} du tableau consiste à donner ses
+      premières valeurs aux différents éléments du tableau.
+
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Déclaration}
+  Pour \structure{déclarer} un tableau :
+
+\begin{grammaire}
+\grammarrule{ArrayDeclarationStatement:}
+    \grammarrule{Type}[] \grammarrule{Identifier}
+\end{grammaire}
+
+\begin{java}
+int[] myArray;
+String[] strings;
+\end{java}
+
+  \pause
+  C'est juste une déclaration. Pas de mémoire allouée pour \textbf{contenir} les
+  éléments du tableau.
+
+\end{frame}
+
+\begin{frame}[fragile]{Création}
+  Pour \structure{créer} un tableau, préalablement déclaré, nous écrirons :
+\begin{grammaire}
+\grammarrule{ArrayCreationExpression:}
+    new \grammarrule{Type}[\grammarrule{Expression}]
+\end{grammaire}
+
+\begin{java}
+myArray = new int[10];
+strings = new String[3];
+\end{java}
+
+  \pause
+  L'emplacement mémoire nécessaire pour stocker la valeur de chaque élément
+  du tableau est \structure{réservé} (\structure{alloué}).
+\end{frame}
+
+\begin{frame}[fragile]{Initialisation}
+  Pour \structure{initialiser} les éléments du tableau, nous pouvons le faire en
+  accédant à chaque élément du tableau. Un par un.
+
+  L'accès aux éléments d'un tableau se fait grâce aux crochets
+  \pc{myArray[i]} :
+\begin{java}
+myArray[0] = 5;
+strings[1] = "Hello";
+\end{java}
+\end{frame}
+
+\begin{frame}[fragile]{Array initializer}
+  On peut également utiliser des \structure{array initializers}.
+\begin{grammaire}
+\grammarrule{ArrayInitializer:}
+    \{ \grammarrule{[VariableInitializerList]} \}
+
+\grammarrule{VariableInitializerList:}
+    \grammarrule{Expression} \grammarrule{[}, \grammarrule{Expression ]}
+\end{grammaire}
+
+\begin{java}
+int[] myArray = {3, 14, 15, 92};
+int[] myArray2 = new int[3];
+myArray2[0] = 2;
+myArray2[1] = 3;
+myArray2[2] = 7;
+myArray2 = new int[] {-1, 3, 12, 5};
+\end{java}
+\end{frame}
+
+\begin{frame}[fragile]{Précautions d'initialisation}
+  Comme pour les variables, les tableaux et leurs valeurs doivent être
+  déclarés, créés et initialisés avant d'être utilisés.
+\begin{java}
+int array[];
+System.out.println(array[2]);
+// variable array not initialized
+String strings[] = new String[5];
+System.out.println(strings[2].toUpperCase());
+// NullPointerException
+\end{java}
+\end{frame}
+
+\begin{frame}[fragile]{Précautions d'initialisation}
+  Initialisations implicites à \og 0 \fg pour les types primitifs :
+\begin{java}
+int ints[] = new int[5];
+double doubles[] = new double[5];
+boolean bools[] = new boolean[42];
+System.out.println(ints[2], doubles[1], bools[3]);
+// 0 0.0 false
+\end{java}
+\end{frame}
+
+\begin{frame}[fragile]{Tableaux mutables}
+  Les tableaux sont \structure{mutables} (contrairement aux chaînes de
+  caractères) :
+\begin{java}
+int array[] = {1, 2, 3};
+System.out.println(array[0], array[1], array[2]);
+array[1] = 84;
+array[1] = 42;
+System.out.println(array[0], array[1], array[2]);
+\end{java}
+\end{frame}
+
+\begin{frame}[fragile]{Longueur de tableau}
+  Un tableau initialisé possède une longueur :
+\begin{java}
+  int a[] = new int[10];
+  System.out.println(a.length);
+\end{java}
+
+\pause
+\begin{wrong}
+\begin{java}
+  int a[];
+  System.out.println(a.length);
+  // Not initialized
+\end{java}
+\end{wrong}
+\note{Attention, pas \pc{length()} comme les String}
+\end{frame}
+
+\begin{frame}{Tableau en paramètre d'entrée}
+\begin{pseudocode}
+\LComment{Affiche les éléments d’un tableau}
+\Algo{display}{\Par{myArray\In}{\Array{10}{integers}}}{}
+  \For{i}{0}{9}
+    \Write myArray[i]
+  \EndFor
+\EndAlgo
+
+\LComment{Utilisations possible}
+\Decl{anArray}{\Array{10}{integers}}
+\Let anArray \Gets \{2, 3, 5, 7, 11, 13, 17, 19, 23, 29\}
+\Stmt display(anArray)
+\end{pseudocode}
+\end{frame}
+
+\begin{frame}[fragile]{Tableau en paramètre d'entrée-sortie}
+\begin{java}
+public static void reverseSign(int[] a) {
+    for (int i = 0; i < a.length; ++i) {
+        a[i] = -a[i];
+    }
+}
+
+// Utilisation
+int[] myArray = {2, -3, 5, -7, 11, 13, 17, -19, 23, 29};
+reverseSign(myArray);
+\end{java}
+\end{frame}
+
+\begin{frame}[fragile]{Piège}
+\begin{wrong}
+\begin{java}
+public static void fail(double[] ds){
+    ds = new double[] {2, 2.61};
+}
+
+// Utilisation
+double[] myArray = {1, 3.14};
+fail(myArray);
+// 3.14 et pas 2.61
+System.out.println("Value: " + myArray[1]);
+\end{java}
+\end{wrong}
+\note{Montrer des print des adresses.}
+\end{frame}
+
+\begin{frame}[fragile]{Tableau comme type de retour}
+\begin{java}
+public static int[] create(){
+    int[] a = new int[10];
+    for (int i = 0; i < a.length; ++i){
+        a[i] = i;
+    }
+    return a;
+}
+
+
+// Utilisation possible
+int[] anArray = create();
+System.out.println(anArray[3]);
+\end{java}
+\end{frame}
+
 
 \end{document}

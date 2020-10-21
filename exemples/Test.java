@@ -37,18 +37,63 @@ public class Test {
         }
     }
 
+    public static void display(int[] a) {
+        for(int i = 0; i < a.length; ++i) {
+            System.out.print(a[i] + " ");
+        }
+        System.out.println();
+    }
+
+    public static void reverseSign(int[] a) {
+        for(int i = 0; i < a.length; ++i) {
+            a[i] = -a[i];
+        }
+    }
+
+    public static void testC(String s) {
+        s = "Hello";
+    }
+
     public static void main(String[] args) {
-        countEvenFor();
-        /*
-        int i = 1;
-        System.out.println(++i);
-        System.out.println(i);*/
-        String s = "Hello there !";
-        System.out.println(s.substring(6,11));
-        String s2 = "15/10/2020";
-        int d = Integer.parseInt(s2.substring(0, 2));
-        int m = Integer.parseInt(s2.substring(3, 5));
-        int y = Integer.parseInt(s2.substring(6, 10));
-        System.out.println(d + "-" + m + "-" + y);
+        int[] a = new int[3];
+        int[] b = a;
+        System.out.println(a);
+        System.out.println(b);
+        System.out.println(a == b);
+        a[0] = 4;
+        a[1] = 21;
+        a[2] = 42;
+        display(a);
+        display(b);
+        a = new int[] {1, 2, 3};
+        display(a);
+        display(b);
+
+        a[1] = 84;
+        a[1]++;
+        display(a);
+        reverseSign(a);
+        display(a);
+        System.out.println(a.length);
+        System.out.println("Hello".length());
+        String myString = "Truc";
+        testC(myString);
+        System.out.println(myString);
+
+        String[] strings = new String[3];
+        String s = "Hello";
+        String s2 = "Truc";
+        strings[0] = s;
+        strings[1] = s2;
+        strings[2] = s;
+
+        //System.out.println(strings[0] == strings[2]);
+        //int array[];
+        //System.out.println(array[2]);
+        //String strings2[] = new String[5];
+        //System.out.println(strings2[2].toUpperCase());
+        //
+        //int[] c;
+        //System.out.println(c.length);
     }
 }
