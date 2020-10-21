@@ -22,6 +22,7 @@
 \usepackage{dev1/cours-developpement/syllabus/styles/esi-flowchart}
 \usepackage{dev1/cours-developpement/syllabus/styles/flow}
 \usepackage{dev1/cours-developpement/syllabus/styles/java}
+\usepackage{dev1/cours-developpement/syllabus/styles/terminal}
 \usepackage{dev1/cours-developpement/syllabus/styles/langagenaturel}
 \usepackage{dev1/cours-developpement/syllabus/styles/pseudocode}
 \usepackage{comment}
@@ -3725,7 +3726,6 @@ String s2 = "Hello";
   \end{itemize}
 \end{frame}
 
-\end{hideedit}
 \section{String}
 \frame{\sectionpage}
 
@@ -4096,6 +4096,174 @@ try {
     System.out.println("Calcul impossible !");
 }
 \end{java}
+\end{frame}
+
+\end{hideedit}
+\section{Tests}
+\frame{\sectionpage}
+
+\begin{frame}{Différents types d'erreurs}
+  Un programme qui \textbf{tourne} n'est \textbf{pas} un programme
+  \textbf{correct}.
+
+  \pause
+  Plusieurs types d'erreur :
+  \begin{itemize}[<+->]
+    \item erreurs de compilation;
+    \item erreurs d'exécution
+      \begin{itemize}
+        \item qui arrête le programme;
+        \item comportement anormal du programme;
+      \end{itemize}
+    \item erreur de programmation résultant en une inefficience (CPU/mémoire).
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Garantir un niveau de qualité}
+  Il faut que le programme fournisse un bon résultat dans tous les cas :
+  \begin{itemize}[<+->]
+    \item les cas généraux;
+    \item les cas particuliers;
+    \item lors d'une défaillance de l'environnement;
+
+      Par exemple, si un capteur de distance est défectueux, il faut que la 
+      chaine de production s'arrête.
+
+    \item lors d'une utilisation non conforme du programme.
+  \end{itemize}
+
+  \pause
+  En plus d'une bonne analyse et d'un bon design, on implémente des
+  \structure{tests unitaires}, d'intégration, fonctionnels, de
+  non-régression, etc.
+\end{frame}
+
+\begin{frame}{Tests unitaires}
+  \begin{definition}[Test unitaire]
+    Procédure permettant de tester le bon fonctionnement d'une unité de
+    code, une méthode \bsc{Java} dans notre cas.
+  \end{definition}
+
+  En fonction des paramètres qu'elle reçoit en entrée, la méthode
+  fournit elle les bons résultats~?
+
+  \pause
+  Pour tester régulièrement --- très régulièrement --- notre programme nous avons
+  besoin d'outils qui vont automatiser ces tests.
+\end{frame}
+
+\subsection{Planifier les tests}
+\begin{frame}{Planifier les tests}
+  Rappel :
+  \begin{enumerate}
+    \item spécifier le problème;
+    \item fournir des exemples;
+    \item écrire un algorithme;
+    \item vérifier les exemples (en traçant l'algorithme);
+    \item écrire un programme exécutable correspondant à l'algorithme;
+    \item tester le programme et constater qu'il fournit bien les résultats attendus.
+  \end{enumerate}
+
+  Exemples = \structure{plan de tests}.
+\end{frame}
+
+\begin{frame}
+  \begin{definition}[Plan de test]
+    Liste ou un tableau d'exemples mettant en œuvre la méthode testée sur
+    des cas variés et permettant de faire apparaitre des problèmes lors
+    de l'exécution automatique.
+
+    Chacun des tests sera défini par une méthode qui porte un nom
+    qui explique l'objectif du test.
+  \end{definition}
+
+  \pause
+  Les cas sont des cas généraux, mais aussi des cas testant des erreurs
+  de programmation fréquentes :
+  \begin{itemize}
+    \item commencer ou arrêter trop tôt ou trop tard une boucle;
+    \item ne pas initialiser ou mal initialiser une variable;
+    \item confondre < et $\le$ ou > et $\ge$\dots voire < et >;
+    \item confondre ET et OU;
+    \item mal écrire la négation d'une proposition;
+  \end{itemize}
+
+  \note{
+    Autant que possible, ce nom décrit
+    aussi la portée ou le contexte de ce qui est vérifié.
+
+    Parler de test driven development.
+
+    Question d'expérience.
+  }
+\end{frame}
+
+\subsection{Framework de test}
+\begin{frame}{Tester automatiquement}
+  Un changement dans une méthode pourrait amener une erreur dans une autre.
+
+  \pause
+  Tester \structure{tout} et \structure{souvent} (tout le temps).
+
+  \pause
+  Vous risquez d'oublier, d'avoir la flemme \(\rightarrow\) automatiser.
+
+  \pause
+  Utilisation d'un \structure{Framework de test}.
+
+\end{frame}
+
+\begin{frame}[fragile]{JUnit}
+  Nous utiliserons \structure{JUnit}, un \textit{\structure{framework}} pour
+  l'écriture de tests répétables.
+
+  \pause
+  N'est pas fourni avec le JDK, il faut l'installer
+  (\href{http://junit.org}{junit.org}). Mais est fourni avec NetBeans.
+
+  \pause
+  Pour tester \texttt{MyClass.foo},
+  il faut écrire une classe \texttt{MyClassTest}.
+  Le nom de la classe de test porte le nom de la classe qu'elle teste,
+  suffixé par \texttt{Test}.
+
+  Ensuite, demander à JUnit d'exécuter
+  cette classe. Clic dans IDE ou commande :
+  \begin{term}
+java org.junit.runner.JUnitCore \textbackslash
+    my.package.MyClassTest
+\end{term}
+\end{frame}
+
+\begin{frame}[fragile]{JUnit}
+  
+  La classe \texttt{MyClassTest} contient plusieurs méthodes. Une méthode de test
+  par cas. Une méthode de test~: 
+  \begin{itemize}
+    \item est autonome. Elle ne reçoit pas de paramètre et ne retourne rien;
+    \item est précédée de l'annotation \pc{@Test} permettant de la faire
+          reconnaitre comme un test unitaire;
+
+    \item n'a pas de mot clé \pc{static}.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{JUnit}
+  \begin{itemize}
+    \item contient des affirmations qui seront évaluées;
+
+      \textit{La méthode doit me retourner «~vrai~».}~: \pc{assertTrue()}\\
+      \textit{La méthode doit me retourner «~faux~».}~: \pc{assertFalse()}\\
+      \textit{La méthode doit me donner cette valeur si ses paramètres sont
+      ceux-ci.}~:\\
+      \pc{assertEquals(<valeur attendue>, <valeur>)}
+
+                Ces trois méthodes \pc{assertTrue}, \pc{assertFalse}, \pc{assertEquals} sont définies dans la classe \pc{org.junit.Assert}.
+                On peut les utiliser directement après les avoir préalablement importées :
+\begin{java}
+import static org.junit.Assert.*;
+\end{java}
+  \end{itemize}
 \end{frame}
 
 \end{document}
