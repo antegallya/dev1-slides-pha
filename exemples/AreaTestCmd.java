@@ -10,18 +10,21 @@ public class AreaTestCmd {
     }
 
     public static void main(String[] args) {
+        if (args.length != 2) {
+            System.exit(1);
+        }
         // Lecture des données à partir des
         // arguments de la ligne de commande.
         double length = Double.parseDouble(args[0]);
         double width = Double.parseDouble(args[1]);
 
+        if (length < 0 || width < 0) {
+            System.exit(1);
+        }
+
         double area = rectangleArea(length, width);
 
         System.out.println("Surface: " + area);
-
-        /* Code de retour du programme. Doit être un entier.
-         * En général, on l'utilise pour signaler le status d'exécution (0 si
-         * tout va bien, une autre valeur pour signaler un problème). */
-        System.exit((int) area);
+        //System.exit(0);
     }
 }
