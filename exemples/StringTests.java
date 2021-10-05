@@ -7,7 +7,7 @@ public class StringTests {
      *
      * Gives -1 if c is not in s.
      * @param s the string in which we want to look for c
-     * @parma c the character to look for in s
+     * @param c the character to look for in s
      * @return the index (starting from 0) of the first
      *         occurence of c in s.
      */
@@ -144,7 +144,7 @@ public class StringTests {
         StringBuilder sb = new StringBuilder(input.toUpperCase());
         for (int i = 0; i < input.length(); ++i) {
             char ic = input.charAt(i);
-            char c = indexToUpperChar(1 + (letterIndex(ic) + kZR 1) % 26);
+            char c = indexToUpperChar(1 + (letterIndex(ic) + 1) % 26);
             sb.setCharAt(i, c);
         }
         return sb.toString();

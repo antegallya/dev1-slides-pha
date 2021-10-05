@@ -157,7 +157,8 @@
 \title[DEV1-dev]{DEV1}
 \subtitle{Développement}
 \author[P. Hauweele (PHA)]{Pierre \textsc{Hauweele}}
-\date[2020--2021]{Année académique 2020--2021}
+\def\acayear{2021--2022}
+\date[\acayear]{Année académique \acayear}
 
 \begin{document}
 \begin{frame}[plain]
@@ -1144,7 +1145,7 @@ isOdd = nb % 2 == 1;
   \pause
   \begin{example}[Chiffre des milliers]
     \pause
-    (65536 DIV 1000) MOD 100 = 5  \end{example}
+    (65536 DIV 1000) MOD 10 = 5  \end{example}
 \end{frame}
 
 \begin{frame}{Hasard et nombres aléatoires}
@@ -1438,7 +1439,7 @@ afficher 3
 
   \pause
   \begin{java}
-System.out.println(rectangleArea(122, 3.78);
+System.out.println(rectangleArea(122, 3.78));
   \end{java}
   \note{Expliquer le ln de println}
 \end{frame}
@@ -1612,7 +1613,7 @@ _start:
 
   \begin{itemize}
     \item le système d'exploitation\note{manipuler fichier, terminal};
-    \item l'éditeur de txte, ou IDE (Integrated Development Environment)\\
+    \item l'éditeur de texte, ou IDE (Integrated Development Environment)\\
       \textit{Netbeans, Eclipse, IntelliJ, \dots};
     \item compilateur :
       \begin{itemize}
@@ -1828,6 +1829,7 @@ public static int exercice(int a, int b) {
     } else {
         c = b % a;
     }
+    return c;
 }
   \end{java}
 
