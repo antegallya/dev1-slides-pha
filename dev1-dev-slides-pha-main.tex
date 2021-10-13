@@ -3818,8 +3818,8 @@ char c = "Bonjour".charAt(2);  // le caractère 'n'
 \begin{frame}[fragile]{Concaténation}
   Rassembler plusieurs chaines en une = \structure{concaténation}.
 
-  En java, l'opérateur de concaténation est \pc{+} quand les opérandes
-  sont des \pc{String}.
+  En java, l'opérateur de concaténation est \pc{+} quand au moins l'un des deux
+  opérandes est un \pc{String}.
 
   \begin{java}
 String text;
@@ -3920,12 +3920,12 @@ public static int letterIndex(char c){
   \pause
   \begin{java}
 public static char indexToUpperChar(int i) {
-    return 'A' + n - 1;
+    return 'A' + i - 1;
 }
   \end{java}
   \begin{java}
 public static char indexToLowerChar(int i) {
-    return 'a' + n - 1;
+    return 'a' + i - 1;
 }
   \end{java}
 \end{frame}
@@ -4552,5 +4552,55 @@ System.out.println(anArray[3]);
 \end{java}
 \end{frame}
 
+\begin{frame}[fragile]{Parcours de tableau}
+\framesubtitle{\emph{classique}}
+\begin{java}
+int[] someArray = /* ... */;
+for (int index = 0; index < someArray.length; ++index) {
+  // do smth with someArray[index]
+}
+\end{java}
+\end{frame}
+
+\begin{frame}[fragile]{Parcours de tableau}
+\framesubtitle{\emph{foreach} -- \emph{enhanced for}}
+\begin{java}
+int[] someArray = /* ... */;
+for (int value: someArray)
+  // do smth with value
+}
+\end{java}
+\end{frame}
+
+\begin{frame}[fragile]{Parcours partiel}
+\framesubtitle{Est-ce que le tableau contient un zero ?}
+\pause
+\begin{java}
+public static boolean containsZero(int[] array) {
+  for (int value: someArray)
+    if (value == 0) {
+      return true;
+    }
+  }
+  return false;
+}
+\end{java}
+\end{frame}
+
+\begin{frame}{Taille physique vs taille logique de tableau}
+  \begin{block}{Problème}
+    \structure{Problème} : lire des entrées sur \emph{stdin} (entrée standard) et les stocker dans un tableau (pour traitement ultérieur).
+  \end{block}
+  
+  \pause
+
+  Voir \texttt{exemples/InputArray.java}
+
+  \begin{definition}[Taille physique/logique d'un tableau]
+    La taille \structure{physique} d'un tableau est le nombre de cases qu'il
+    contient (qui ont été \emph{allouées}). La taille \structure{logique} est le
+    nombre de cases actuellement \emph{utilisées}.
+  \end{definition}
+\end{frame}
 
 \end{document}
