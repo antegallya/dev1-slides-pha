@@ -5,14 +5,18 @@ public class TUIUtils {
 
     public static int promptInt(String prompt, int min, int max) {
         Scanner kbd = new Scanner(System.in);
-        int ret;
+        // init à 0 pour éviter "ret might not have been initialized".
+        int ret = 0;
         boolean ok = false;
-        while (!ok) {
+
+        do {
+            // NetBeans bug: utiliser println au lieu de print.
             System.out.print(prompt);
             try {
                 ret = kbd.nextInt();
                 if (min <= ret && ret <= max) {
-                    return ret;
+                    ok = true;
+                    //return ret;
                 } else {
                     System.out.println(
                             "Entrée invalide (" + min + " < " + max + ")");
@@ -20,7 +24,8 @@ public class TUIUtils {
             } catch (InputMismatchException e) {
                 System.out.println("Entrée invalide.");
             }
-        }
+        } while (!ok);
+
         return ret;
     }
 
