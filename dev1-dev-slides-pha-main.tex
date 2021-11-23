@@ -4268,7 +4268,6 @@ import static org.junit.Assert.*;
   \end{itemize}
 \end{frame}
 
-\end{hideedit}
 \section{Tableaux}
 \frame{\sectionpage}
 
@@ -4566,7 +4565,7 @@ for (int index = 0; index < someArray.length; ++index) {
 \framesubtitle{\emph{foreach} -- \emph{enhanced for}}
 \begin{java}
 int[] someArray = /* ... */;
-for (int value: someArray)
+for (int value: someArray) {
   // do smth with value
 }
 \end{java}
@@ -4577,7 +4576,7 @@ for (int value: someArray)
 \pause
 \begin{java}
 public static boolean containsZero(int[] array) {
-  for (int value: someArray)
+  for (int value: someArray) {
     if (value == 0) {
       return true;
     }
@@ -4601,6 +4600,163 @@ public static boolean containsZero(int[] array) {
     contient (qui ont été \emph{allouées}). La taille \structure{logique} est le
     nombre de cases actuellement \emph{utilisées}.
   \end{definition}
+\end{frame}
+
+\end{hideedit}
+
+\section{Algorithmes d'insertion et de recherche}
+\begin{frame}{Situation d'exemple}
+  Une école organise un événement libre et gratuit pour les étudiant·e·s, \structure{sous réserve d'inscription}.
+
+  Il faut pouvoir :
+  \begin{itemize}
+    \item inscrire un ou une étudiant·e ;
+    \item vérifier l’inscription ;
+    \item désinscrire ;
+    \item afficher la liste des personnes inscrites.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{\pc{Registration}}
+  Nous allons stocker les matricules dans un tableau. Introduisons deux variables :
+  \begin{itemize}
+    \item \pc{registered} : le tableau des matricules
+    \item \pc{nRegistered} : le nombre d’étudiant·es actuellement inscrit·es (la taille logique du tableau)
+  \end{itemize}
+
+  Nous allons envisager deux cas :
+  \begin{enumerate}
+    \item les numéros seront placés dans le tableau sans ordre imposé ;
+    \item les numéros seront placés dans l’ordre.
+  \end{enumerate}
+\end{frame}
+
+\subsection{Insertion dans un tableau non trié}
+\begin{frame}{Tableau non trié}
+  Les valeurs sont stockées dans le tableau  dans un ordre quelconque.
+
+  Par exemple~:
+  \begin{center}
+    \pc{registered} = 
+    \smallskip
+    \begin{tabular}{*{10}{|>{\centering\arraybackslash}m{8mm}}|}
+      \hline
+      42010 & 41390 & 43342 & 42424 & ? & ? & ? & ? & \dots \\
+      \hline
+    \end{tabular}
+    \smallskip
+    \pc{nRegistered = 4}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Insertion dans un tableau non trié}
+  \framesubtitle{\pc{Subscribe}}
+  Pour inscrire un étudiant ou une étudiante, il suffit de l’ajouter
+  à la suite dans le tableau.
+
+  \begin{center}
+    \pc{registered} = 
+    \smallskip
+    \begin{tabular}{*{10}{|>{\centering\arraybackslash}m{8mm}}|}
+      \hline
+      42010 & 41390 & 43342 & 42424 & ? & ? & ? & ? & \dots \\
+      \hline
+    \end{tabular}
+    \smallskip
+    \pc{nRegistered = 4}
+  \end{center}
+
+  Ajout de l'étudiant 42123 :
+  \begin{center}
+    \pc{registered} = 
+    \smallskip
+    \begin{tabular}{*{10}{|>{\centering\arraybackslash}m{8mm}}|}
+      \hline
+      42010 & 41390 & 43342 & 42424 & 42123 & ? & ? & ? & \dots \\
+      \hline
+    \end{tabular}
+    \smallskip
+    \pc{nRegistered = 5}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Subscribe --- algorithme}
+  \begin{langagenaturel}
+    algorithm register(registered, nRegistered, number)\\
+    \tab registered[nRegistered] = number\\
+    \tab incrémenter nRegistered
+  \end{langagenaturel}
+\end{frame}
+
+\begin{frame}[fragile]{Subscribe --- java}
+  En Java, passer \pc{nRegistered} en paramètre d'entrée-sortie est
+  impossible \(\rightarrow\) en valeur de retour.
+
+  \pause
+  \begin{java}
+public static int register(
+        int[] registered, int nRegistered, int number){
+    registered[nRegistered] = number;
+    return nRegistered + 1;
+}
+  \end{java}
+
+  Dans ce cas, c'est bien le code appelant qui devra maintenir la 
+  valeur de la taille logique à jour.
+\end{frame}
+
+\begin{frame}[fragile]{Chercher une valeur dans un tableau non trié}
+  \framesubtitle{\pc{check} --- while}
+  \begin{java}
+public static int check(
+        int[] registered, int nRegistered, int number){
+    int i = 0;
+    while (i < nRegistered && registered[i] != number){
+        i++;
+    }
+    if (i < nRegistered){
+        return i;
+    } else {
+        return -1;
+    }
+}
+  \end{java}
+\end{frame}
+
+\begin{frame}[fragile]{Chercher une valeur dans un tableau non trié}
+  \framesubtitle{\pc{check} --- for}
+  \begin{java}
+public static int check(
+        int[] registered, int nRegistered, int number){
+    for(int i = 0; i < nRegistered, ++i) {
+        if (registered[i] == number) {
+            return i
+        }
+    }
+    return -1;
+}
+  \end{java}
+\end{frame}
+
+\begin{frame}{Supprimer une valeur dans un tableau non trié}
+  \framesubtitle{\pc{Unsubscribe}}
+
+\end{frame}
+
+\begin{frame}{Tableaux triés}
+  \framesubtitle{Insertion, recherche, suppression}
+  
+  Pour la dichotomie : introduction avec \pc{NumberHuntGame}.
+
+  Discussions et production de la classe \pc{RegistrationSorted}.
+
+  Voir les fichiers \pc{NumberHuntGame.java} et \pc{RegistrationSorted.java} du dépôt \url{https://git.esi-bru.be/phauweele/dev1-pha-netbeans}
+\end{frame}
+
+\begin{frame}{Introduction à la complexité}
+  Discutée pendant la production du code de la dichotomie.
+
+  On a vu que la dichotomie est en \(O(\log_2(n))\) avec \(n\) la taille de \emph{l'espace de recherche}.
 \end{frame}
 
 \end{document}
